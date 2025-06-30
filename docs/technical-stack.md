@@ -17,6 +17,10 @@ This is required but feel free to extend:
 5. Tailwind v4+
 6. Progressive web app (PWA)
 
+## CI/CD
+
+Set up GitHub Action to publish this on GitHub Pages
+
 ## Security
 
 Don't worry about encryption, data sensitivity because it's all done on client side.
