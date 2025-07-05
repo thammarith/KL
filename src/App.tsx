@@ -4,7 +4,7 @@ import reactLogo from './assets/react.svg';
 import viteLogo from '/vite.svg';
 import InstallPrompt from './components/pwa/InstallPrompt';
 import UpdateNotification from './components/pwa/UpdateNotification';
-import Header from '@components/Header';
+import Header from '@/components/Header';
 
 function App() {
 	const { t } = useTranslation();

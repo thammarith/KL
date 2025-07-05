@@ -26,12 +26,7 @@
 		/* Path Aliases */
 		"baseUrl": "src",
 		"paths": {
-			"@constants/*": ["constant/*"],
-			"@components/*": ["components/*"],
-			"@utils/*": ["utils/*"],
-			"@locales/*": ["locales/*"],
-			"@routes/*": ["routes/*"]
-			// '@utils/time': ['utils/time'] // removed, covered by '@utils/*'
+			"@/*": ["./*"],
 		}
 	},
 	"include": ["src"]

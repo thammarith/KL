@@ -3,8 +3,8 @@ import { useState } from 'react';
 import { useTranslation, Trans } from 'react-i18next';
 import reactLogo from '../assets/react.svg';
 import viteLogo from '/vite.svg';
-import InstallPrompt from '@components/pwa/InstallPrompt';
-import UpdateNotification from '@components/pwa/UpdateNotification';
+import InstallPrompt from '@/components/pwa/InstallPrompt';
+import UpdateNotification from '@/components/pwa/UpdateNotification';
 
 const Index = () => {
 	const { t } = useTranslation();

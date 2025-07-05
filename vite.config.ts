@@ -86,11 +86,7 @@ export default defineConfig({
 	],
 	resolve: {
 		alias: {
-			'@constants': path.resolve(__dirname, 'src/constant'),
-			'@components': path.resolve(__dirname, 'src/components'),
-			'@utils': path.resolve(__dirname, 'src/utils'),
-			'@locales': path.resolve(__dirname, 'src/locales'),
-			'@routes': path.resolve(__dirname, 'src/routes'),
+			'@': path.resolve(__dirname, 'src'),
 		},
 	},
 });
