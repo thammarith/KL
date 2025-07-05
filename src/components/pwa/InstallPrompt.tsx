@@ -7,19 +7,19 @@ const DISMISS_KEY = 'pwa.install.prompt.dismissed';
 const DISMISS_TTL = toMs({ days: 7 });
 
 const InstallPrompt: React.FC = () => {
-	const [dismissed, setDismissed] = useState(false);
+	const [shouldShow, setShouldShow] = useState<boolean>();
 
 	useEffect(() => {
 		const dismissedFlag = getItemWithExpiry<boolean>(DISMISS_KEY);
-		if (dismissedFlag) setDismissed(true);
+		setShouldShow(!dismissedFlag);
 	}, []);
 
 	const handleDismiss = () => {
-		setDismissed(true);
+		setShouldShow(false);
 		setItemWithExpiry(DISMISS_KEY, true, DISMISS_TTL);
 	};
 
-	if (dismissed) return null;
+	if (!shouldShow) return null;
 
 	return (
 		<div className="fixed right-4 bottom-4 left-4 z-50 mx-auto max-w-sm rounded-[22px] border bg-white p-4 shadow-lg">
