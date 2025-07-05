@@ -13,7 +13,6 @@ const hashHistory = createHashHistory()
 // Create a new router instance
 const router = createRouter({
 	routeTree,
-	basepath: import.meta.env.MODE === 'production' ? '/KL' : undefined,
 	history: hashHistory
 });
 
