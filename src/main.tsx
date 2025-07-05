@@ -1,17 +1,20 @@
 import './utils/i18n';
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import { RouterProvider, createRouter } from '@tanstack/react-router';
+import { RouterProvider, createRouter, createHashHistory } from '@tanstack/react-router';
 
 // Import the generated route tree
 import { routeTree } from './routeTree.gen';
 
 import './index.css';
 
+const hashHistory = createHashHistory()
+
 // Create a new router instance
 const router = createRouter({
 	routeTree,
 	basepath: import.meta.env.MODE === 'production' ? '/KL' : undefined,
+	history: hashHistory
 });
 
 // Register the router instance for type safety
