@@ -22,7 +22,7 @@ const InstallPrompt: React.FC = () => {
 	if (dismissed) return null;
 
 	return (
-		<div className="fixed right-4 bottom-4 left-4 z-50 mx-auto max-w-sm rounded-lg border bg-white p-4 shadow-lg">
+		<div className="pb-safe fixed right-4 bottom-4 left-4 z-50 mx-auto max-w-sm rounded-[22px] border bg-white p-4 shadow-lg">
 			<div className="flex items-start space-x-3">
 				<div className="flex-shrink-0">
 					<div className="flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br from-blue-500 to-purple-600">
