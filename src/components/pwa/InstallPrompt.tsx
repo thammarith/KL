@@ -1,8 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { APP_NAME } from '@constants/meta';
+import { getItemWithExpiry, setItemWithExpiry } from '@utils/localStorage';
+import { toMs } from '@utils/time';
+
+const DISMISS_KEY = 'pwa.install.prompt.dismissed';
+const DISMISS_TTL = toMs({ days: 7 });
 
 const InstallPrompt: React.FC = () => {
 	const [dismissed, setDismissed] = useState(false);
+
+	useEffect(() => {
+		const dismissedFlag = getItemWithExpiry<boolean>(DISMISS_KEY);
+		if (dismissedFlag) setDismissed(true);
+	}, []);
+
+	const handleDismiss = () => {
+		setDismissed(true);
+		setItemWithExpiry(DISMISS_KEY, true, DISMISS_TTL);
+	};
 
 	if (dismissed) return null;
 
@@ -22,7 +37,7 @@ const InstallPrompt: React.FC = () => {
 					</p>
 				</div>
 				<button
-					onClick={() => setDismissed(true)}
+					onClick={handleDismiss}
 					className="flex-shrink-0 text-gray-400 transition-colors hover:text-gray-600"
 					aria-label="Dismiss"
 				>
@@ -37,7 +52,7 @@ const InstallPrompt: React.FC = () => {
 			</div>
 			<div className="mt-4 flex space-x-2">
 				<button
-					onClick={() => setDismissed(true)}
+					onClick={handleDismiss}
 					className="flex-1 rounded-md bg-gray-200 px-4 py-2 text-sm font-medium text-gray-800 transition-colors hover:bg-gray-300"
 				>
 					Dismiss
