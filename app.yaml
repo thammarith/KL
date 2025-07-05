@@ -1,0 +1,29 @@
+runtime: nodejs18
+
+handlers:
+  # Serve all static files with cache headers
+  - url: /static
+    static_dir: dist/assets
+    secure: always
+    http_headers:
+      Cache-Control: "public, max-age=31536000"
+
+  # Serve the favicon and PWA icons
+  - url: /(.*\.(ico|png|svg|webmanifest))$
+    static_files: dist/\1
+    upload: dist/(.*\.(ico|png|svg|webmanifest))$
+    secure: always
+    http_headers:
+      Cache-Control: "public, max-age=86400"
+
+  # Serve the main HTML file for all routes (SPA routing)
+  - url: /.*
+    static_files: dist/index.html
+    upload: dist/index.html
+    secure: always
+    http_headers:
+      Cache-Control: "no-cache"
+
+# Environment variables for the app
+env_variables:
+  NODE_ENV: production
