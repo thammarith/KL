@@ -8,3 +8,7 @@
 	/* --font-title: Poppins, var(--base-sans-serif); */
 	--font-heading: 'Figtree', 'Anuphan', var(--base-sans-serif);
 }
+
+@utility pb-safe {
+	padding-bottom: env(safe-area-inset-bottom);
+}
