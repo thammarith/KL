@@ -92,80 +92,27 @@ jobs:
               id: deployment
               uses: actions/deploy-pages@v4
 
-    # Deploy to Surge.sh (PR Preview)
+    # Deploy PR Preview to GitHub Pages
     deploy-preview:
         if: github.event_name == 'pull_request'
         needs: build
         runs-on: ubuntu-latest
 
         permissions:
-            contents: read
+            contents: write
             pull-requests: write
 
         steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+
             - name: Download build artifacts
               uses: actions/download-artifact@v4
               with:
                   name: dist-files
                   path: ./dist
 
-            - name: Deploy to Surge.sh
-              run: |
-                  npm install -g surge
-                  echo "Deploying to: https://kl-pr-${{ github.event.number }}.surge.sh"
-                  surge ./dist https://kl-pr-${{ github.event.number }}.surge.sh --token ${{ secrets.SURGE_TOKEN }}
-              env:
-                  SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }}
-
-            - name: Comment PR with preview URL
-              uses: actions/github-script@v7
+            - name: Deploy PR Preview
+              uses: rossjrw/pr-preview-action@v1
               with:
-                  script: |
-                      const prNumber = context.issue.number;
-                      const previewUrl = `https://kl-pr-${prNumber}.surge.sh`;
-
-                      const comment = `## 🚀 Preview Deployment
-
-                      Your PR has been deployed to a preview environment:
-
-                      **Preview URL:** ${previewUrl}
-
-                      This preview will be available until the PR is closed or merged.
-
-                      ### PWA Features Available:
-                      - ✅ Offline functionality
-                      - ✅ Install prompt
-                      - ✅ Service worker caching
-
-                      ---
-                      *This comment will be updated on each new commit.*`;
-
-                      // Check if we already commented
-                      const { data: comments } = await github.rest.issues.listComments({
-                        owner: context.repo.owner,
-                        repo: context.repo.repo,
-                        issue_number: prNumber,
-                      });
-
-                      const existingComment = comments.find(comment =>
-                        comment.user.login === 'github-actions[bot]' &&
-                        comment.body.includes('Preview Deployment')
-                      );
-
-                      if (existingComment) {
-                        // Update existing comment
-                        await github.rest.issues.updateComment({
-                          owner: context.repo.owner,
-                          repo: context.repo.repo,
-                          comment_id: existingComment.id,
-                          body: comment
-                        });
-                      } else {
-                        // Create new comment
-                        await github.rest.issues.createComment({
-                          owner: context.repo.owner,
-                          repo: context.repo.repo,
-                          issue_number: prNumber,
-                          body: comment
-                        });
-                      }
+                  source-dir: ./dist
