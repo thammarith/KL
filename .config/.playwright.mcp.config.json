@@ -16,5 +16,9 @@
         "testing"
     ],
     "vision": true,
-    "outputDir": "./output"
+    "outputDir": "./output",
+    "server": {
+        "port": 5173,
+        "host": "localhost"
+    }
 }
