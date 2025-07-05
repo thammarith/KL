@@ -1,0 +1,13 @@
+---
+alwaysApply: true
+---
+Coding styles:
+
+- Use TypeScript
+- Use semicolons
+- Use tabs for indentation
+- Use single quotes
+- Always use tailwindcss
+- Always format & lint the code
+- Avoid repeating the same code
+- Extract functions to separate files if they are/can be reused

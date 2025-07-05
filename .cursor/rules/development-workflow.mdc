@@ -1,0 +1,6 @@
+---
+alwaysApply: true
+---
+- To start the development server, run `pnpm dev`
+- After making changes, run `pnpm format` to format the code
+- Do not add Playwright tests unless asked

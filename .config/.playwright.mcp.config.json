@@ -1,0 +1,10 @@
+{
+	"browser": {
+		"browserName": "webkit",
+		"launchOptions": {
+			"headless": false
+		}
+	},
+	"vision": true,
+	"outputDir": "./output"
+}
