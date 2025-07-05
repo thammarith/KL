@@ -1,0 +1,20 @@
+{
+    "browser": {
+        "browserName": "webkit",
+        "launchOptions": {
+            "headless": false
+        }
+    },
+    "capabilities": [
+        "core",
+        "tabs",
+        "pdf",
+        "history",
+        "wait",
+        "files",
+        "install",
+        "testing"
+    ],
+    "vision": true,
+    "outputDir": "./output"
+}
