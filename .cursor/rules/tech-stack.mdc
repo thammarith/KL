@@ -2,7 +2,12 @@
 alwaysApply: true
 ---
 
+- always use pnpm
+- always use TypeScript whenever possible
+- always check package.json before installing a new package
+
 This project is built with the following tech stack:
+- pnpm
 - React
 - TypeScript
 - TailwindCSS

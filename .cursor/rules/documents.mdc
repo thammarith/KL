@@ -3,6 +3,8 @@ globs: *.tsx
 alwaysApply: false
 ---
 
+## TailwindCSS
+
 For TailwindCSS, consult the following documents before implementing to make sure you're using the v4 features and do not use the v3 features:
 
 - https://tailwindcss.com/docs/upgrade-guide
