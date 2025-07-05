@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { APP_NAME } from 'constants/meta';
+import { APP_NAME } from '@constants/meta';
 
 const InstallPrompt: React.FC = () => {
 	const [dismissed, setDismissed] = useState(false);

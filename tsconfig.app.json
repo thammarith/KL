@@ -26,8 +26,8 @@
 		/* Path Aliases */
 		"baseUrl": "src",
 		"paths": {
-			"constants/*": ["constant/*"],
-			"components/*": ["components/*"]
+			"@constants/*": ["constant/*"],
+			"@components/*": ["components/*"]
 		}
 	},
 	"include": ["src"]
