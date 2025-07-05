@@ -1,0 +1,5 @@
+---
+description: This is a development workflow guide for the project.
+alwaysApply: false
+---
+To start the development server, run `pnpm dev`
