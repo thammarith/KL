@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useTranslation, Trans } from 'react-i18next';
 import { APP_NAME } from '@constants/meta';
 import { getItemWithExpiry, setItemWithExpiry } from '@utils/localStorage';
 import { toMs } from '@utils/time';
@@ -7,6 +8,7 @@ const DISMISS_KEY = 'pwa.install.prompt.dismissed';
 const DISMISS_TTL = toMs({ days: 7 });
 
 const InstallPrompt: React.FC = () => {
+	const { t } = useTranslation();
 	const [shouldShow, setShouldShow] = useState<boolean>();
 
 	useEffect(() => {
@@ -30,16 +32,18 @@ const InstallPrompt: React.FC = () => {
 					</div>
 				</div>
 				<div className="min-w-0 flex-1">
-					<h3 className="text-sm font-medium text-gray-900">Install {APP_NAME} App</h3>
+					<h3 className="text-sm font-medium text-gray-900">{t('installAppTitle', { appName: APP_NAME })}</h3>
 					<p className="mt-1 text-sm text-gray-500">
-						You can install this app for a better experience. Look for <b>Install</b> or{' '}
-						<b>Add to Home Screen</b> in your browser menu.
+						<Trans i18nKey="installAppDesc">
+							You can install this app for a better experience. Look for <b>Install</b> or{' '}
+							<b>Add to Home Screen</b> in your browser menu.
+						</Trans>
 					</p>
 				</div>
 				<button
 					onClick={handleDismiss}
 					className="flex-shrink-0 text-gray-400 transition-colors hover:text-gray-600"
-					aria-label="Dismiss"
+					aria-label={t('dismiss')}
 				>
 					<svg className="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
 						<path
@@ -55,7 +59,7 @@ const InstallPrompt: React.FC = () => {
 					onClick={handleDismiss}
 					className="flex-1 rounded-md bg-gray-200 px-4 py-2 text-sm font-medium text-gray-800 transition-colors hover:bg-gray-300"
 				>
-					Dismiss
+					{t('installLater')}
 				</button>
 			</div>
 		</div>

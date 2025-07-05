@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 const UpdateNotification: React.FC = () => {
+	const { t } = useTranslation();
 	const [showUpdateNotification, setShowUpdateNotification] = useState(false);
 
 	useEffect(() => {
@@ -60,15 +62,13 @@ const UpdateNotification: React.FC = () => {
 					</div>
 				</div>
 				<div className="min-w-0 flex-1">
-					<h3 className="text-sm font-medium">Update Available</h3>
-					<p className="mt-1 text-sm opacity-90">
-						A new version of the app is available. Refresh to get the latest features!
-					</p>
+					<h3 className="text-sm font-medium">{t('updateAvailable')}</h3>
+					<p className="mt-1 text-sm opacity-90">{t('updateDesc')}</p>
 				</div>
 				<button
 					onClick={handleDismiss}
 					className="flex-shrink-0 text-white/70 transition-colors hover:text-white"
-					aria-label="Dismiss"
+					aria-label={t('dismiss')}
 				>
 					<svg className="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
 						<path
@@ -84,13 +84,13 @@ const UpdateNotification: React.FC = () => {
 					onClick={handleUpdateClick}
 					className="flex-1 rounded-md bg-white px-4 py-2 text-sm font-medium text-blue-600 transition-colors hover:bg-gray-100"
 				>
-					Update Now
+					{t('updateNow')}
 				</button>
 				<button
 					onClick={handleDismiss}
 					className="flex-1 rounded-md bg-white/20 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-white/30"
 				>
-					Later
+					{t('installLater')}
 				</button>
 			</div>
 		</div>

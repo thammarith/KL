@@ -1,0 +1,14 @@
+{
+	"appTitle": "KL",
+	"testThai": "Test Thai",
+	"editAndSave": "Edit <1>src/App.tsx</1> and save to test HMR",
+	"countIs": "count is {{count}}",
+	"clickLearnMore": "Click on the Vite and React logos to learn more",
+	"installAppTitle": "Install {{appName}} App",
+	"installAppDesc": "You can install this app for a better experience. Look for <1>Install</1> or <3>Add to Home Screen</3> in your browser menu.",
+	"installLater": "Later",
+	"updateAvailable": "Update Available",
+	"updateDesc": "A new version of the app is available. Refresh to get the latest features!",
+	"updateNow": "Update Now",
+	"dismiss": "Dismiss"
+}
