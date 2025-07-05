@@ -59,9 +59,6 @@ importers:
             eslint-config-prettier:
                 specifier: ^10.1.5
                 version: 10.1.5(eslint@9.30.1(jiti@2.4.2))
-            eslint-plugin-better-tailwindcss:
-                specifier: ^3.4.4
-                version: 3.4.4(eslint@9.30.1(jiti@2.4.2))(tailwindcss@4.1.11)
             eslint-plugin-react:
                 specifier: ^7.37.5
                 version: 7.37.5(eslint@9.30.1(jiti@2.4.2))
@@ -1340,13 +1337,6 @@ packages:
             }
         engines: { node: '>= 8' }
 
-    '@pkgr/core@0.2.7':
-        resolution:
-            {
-                integrity: sha512-YLT9Zo3oNPJoBjBc4q8G2mjU4tqIbf5CEOORbUUr48dCD9q3umJ3IPlVqOqDakPfd2HuwccBaqlGhN4Gmr5OWg==,
-            }
-        engines: { node: ^12.20.0 || ^14.18.0 || >=16.0.0 }
-
     '@playwright/test@1.53.2':
         resolution:
             {
@@ -2449,16 +2439,6 @@ packages:
         hasBin: true
         peerDependencies:
             eslint: '>=7.0.0'
-
-    eslint-plugin-better-tailwindcss@3.4.4:
-        resolution:
-            {
-                integrity: sha512-Zi3B0sKOm8o6R7ezytjdubpDmF9RmSEej8ikteuCY/eUKECc/FFP/ldPuceuEWmYZzX9KiEaJwKt9kmzSR2B0w==,
-            }
-        engines: { node: ^20.11.0 || >=21.2.0 }
-        peerDependencies:
-            eslint: ^7.0.0 || ^8.0.0 || ^9.0.0
-            tailwindcss: ^3.3.0 || ^4.0.0
 
     eslint-plugin-react-hooks@5.2.0:
         resolution:
@@ -3916,13 +3896,6 @@ packages:
             }
         engines: { node: '>=12' }
 
-    pify@2.3.0:
-        resolution:
-            {
-                integrity: sha512-udgsAY+fTnvv7kI7aaxbqwWNb0AHiB0qBO89PZKPkoTmGOgdbrHDKD+0B2X4uTfJ/FT1R09r9gTsjUjNJotuog==,
-            }
-        engines: { node: '>=0.10.0' }
-
     playwright-core@1.53.2:
         resolution:
             {
@@ -3945,21 +3918,6 @@ packages:
                 integrity: sha512-/+5VFTchJDoVj3bhoqi6UeymcD00DAwb1nJwamzPvHEszJ4FpF6SNNbUbOS8yI56qHzdV8eK0qEfOSiodkTdxg==,
             }
         engines: { node: '>= 0.4' }
-
-    postcss-import@16.1.1:
-        resolution:
-            {
-                integrity: sha512-2xVS1NCZAfjtVdvXiyegxzJ447GyqCeEI5V7ApgQVOWnros1p5lGNovJNapwPpMombyFBfqDwt7AD3n2l0KOfQ==,
-            }
-        engines: { node: '>=18.0.0' }
-        peerDependencies:
-            postcss: ^8.0.0
-
-    postcss-value-parser@4.2.0:
-        resolution:
-            {
-                integrity: sha512-1NNCs6uurfkVbeXG4S8JFT9t19m45ICnif8zWLd5oPSZ50QnwMfK+H3jv408d4jw/7Bttv5axS5IiHoLaVNHeQ==,
-            }
 
     postcss@8.5.6:
         resolution:
@@ -4129,12 +4087,6 @@ packages:
                 integrity: sha512-FS+XFBNvn3GTAWq26joslQgWNoFu08F4kl0J4CgdNKADkdSGXQyTCnKteIAJy96Br6YbpEU1LSzV5dYtjMkMDg==,
             }
         engines: { node: '>=0.10.0' }
-
-    read-cache@1.0.0:
-        resolution:
-            {
-                integrity: sha512-Owdv/Ft7IjOgm/i0xvNDZ1LrRANRfew4b2prF3OWMQLxLfu3bS8FVhCsrSCMK4lR56Y9ya+AThoTpDCTxCmpRA==,
-            }
 
     reflect.getprototypeof@1.0.10:
         resolution:
@@ -4473,20 +4425,6 @@ packages:
                 integrity: sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==,
             }
         engines: { node: '>= 0.4' }
-
-    synckit@0.11.8:
-        resolution:
-            {
-                integrity: sha512-+XZ+r1XGIJGeQk3VvXhT6xx/VpbHsRzsTkGgF6E5RX9TTXD0118l87puaEBZ566FhqblC6U0d4XnubznJDm30A==,
-            }
-        engines: { node: ^14.18.0 || >=16.0.0 }
-
-    tailwind-csstree@0.1.1:
-        resolution:
-            {
-                integrity: sha512-Tv5IXRHtlb7LanNXjmGg0vu84Iu+/sKDqTLJBO0kP/rggfjJDKnS/HV+e0qn8yIrRByhGg+908rSOxT/7o1diw==,
-            }
-        engines: { node: '>=18.18' }
 
     tailwindcss@4.1.11:
         resolution:
@@ -5856,8 +5794,6 @@ snapshots:
             '@nodelib/fs.scandir': 2.1.5
             fastq: 1.19.1
 
-    '@pkgr/core@0.2.7': {}
-
     '@playwright/test@1.53.2':
         dependencies:
             playwright: 1.53.2
@@ -6625,18 +6561,6 @@ snapshots:
     eslint-config-prettier@10.1.5(eslint@9.30.1(jiti@2.4.2)):
         dependencies:
             eslint: 9.30.1(jiti@2.4.2)
-
-    eslint-plugin-better-tailwindcss@3.4.4(eslint@9.30.1(jiti@2.4.2))(tailwindcss@4.1.11):
-        dependencies:
-            '@eslint/css-tree': 3.6.1
-            enhanced-resolve: 5.18.2
-            eslint: 9.30.1(jiti@2.4.2)
-            jiti: 2.4.2
-            postcss: 8.5.6
-            postcss-import: 16.1.1(postcss@8.5.6)
-            synckit: 0.11.8
-            tailwind-csstree: 0.1.1
-            tailwindcss: 4.1.11
 
     eslint-plugin-react-hooks@5.2.0(eslint@9.30.1(jiti@2.4.2)):
         dependencies:
@@ -7630,8 +7554,6 @@ snapshots:
 
     picomatch@4.0.2: {}
 
-    pify@2.3.0: {}
-
     playwright-core@1.53.2: {}
 
     playwright@1.53.2:
@@ -7641,15 +7563,6 @@ snapshots:
             fsevents: 2.3.2
 
     possible-typed-array-names@1.1.0: {}
-
-    postcss-import@16.1.1(postcss@8.5.6):
-        dependencies:
-            postcss: 8.5.6
-            postcss-value-parser: 4.2.0
-            read-cache: 1.0.0
-            resolve: 1.22.10
-
-    postcss-value-parser@4.2.0: {}
 
     postcss@8.5.6:
         dependencies:
@@ -7707,10 +7620,6 @@ snapshots:
             react: 19.1.0
 
     react@19.1.0: {}
-
-    read-cache@1.0.0:
-        dependencies:
-            pify: 2.3.0
 
     reflect.getprototypeof@1.0.10:
         dependencies:
@@ -7973,12 +7882,6 @@ snapshots:
             has-flag: 4.0.0
 
     supports-preserve-symlinks-flag@1.0.0: {}
-
-    synckit@0.11.8:
-        dependencies:
-            '@pkgr/core': 0.2.7
-
-    tailwind-csstree@0.1.1: {}
 
     tailwindcss@4.1.11: {}
 

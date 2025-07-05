@@ -1,171 +1,171 @@
 name: Deploy to GitHub Pages
 
 on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+    push:
+        branches: [main]
+    pull_request:
+        branches: [main]
 
 jobs:
-  # Shared build job
-  build:
-    runs-on: ubuntu-latest
+    # Shared build job
+    build:
+        runs-on: ubuntu-latest
 
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '22'
+            - name: Setup Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: '22'
 
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: '10.12.4'
+            - name: Setup pnpm
+              uses: pnpm/action-setup@v4
+              with:
+                  version: '10.12.4'
 
-      - name: Get pnpm store directory
-        shell: bash
-        run: |
-          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+            - name: Get pnpm store directory
+              shell: bash
+              run: |
+                  echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
 
-      - name: Setup pnpm cache
-        uses: actions/cache@v4
-        with:
-          path: ${{ env.STORE_PATH }}
-          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-pnpm-store-
+            - name: Setup pnpm cache
+              uses: actions/cache@v4
+              with:
+                  path: ${{ env.STORE_PATH }}
+                  key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+                  restore-keys: |
+                      ${{ runner.os }}-pnpm-store-
 
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+            - name: Install dependencies
+              run: pnpm install --frozen-lockfile
 
-      - name: Build for production
+            - name: Build for production
+              if: github.ref == 'refs/heads/main'
+              run: pnpm build
+
+            - name: Build for preview
+              if: github.event_name == 'pull_request'
+              run: pnpm build
+              env:
+                  NODE_ENV: development
+
+            - name: Upload build artifacts
+              uses: actions/upload-artifact@v4
+              with:
+                  name: dist-files
+                  path: ./dist
+                  retention-days: 1
+
+    # Deploy to GitHub Pages (Production)
+    deploy-production:
         if: github.ref == 'refs/heads/main'
-        run: pnpm build
+        needs: build
+        runs-on: ubuntu-latest
 
-      - name: Build for preview
+        permissions:
+            contents: read
+            pages: write
+            id-token: write
+
+        environment:
+            name: github-pages
+            url: ${{ steps.deployment.outputs.page_url }}
+
+        steps:
+            - name: Download build artifacts
+              uses: actions/download-artifact@v4
+              with:
+                  name: dist-files
+                  path: ./dist
+
+            - name: Setup Pages
+              uses: actions/configure-pages@v4
+
+            - name: Upload to Pages
+              uses: actions/upload-pages-artifact@v3
+              with:
+                  path: ./dist
+
+            - name: Deploy to GitHub Pages
+              id: deployment
+              uses: actions/deploy-pages@v4
+
+    # Deploy to Surge.sh (PR Preview)
+    deploy-preview:
         if: github.event_name == 'pull_request'
-        run: pnpm build
-        env:
-          NODE_ENV: development
+        needs: build
+        runs-on: ubuntu-latest
 
-      - name: Upload build artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: dist-files
-          path: ./dist
-          retention-days: 1
+        permissions:
+            contents: read
+            pull-requests: write
 
-  # Deploy to GitHub Pages (Production)
-  deploy-production:
-    if: github.ref == 'refs/heads/main'
-    needs: build
-    runs-on: ubuntu-latest
+        steps:
+            - name: Download build artifacts
+              uses: actions/download-artifact@v4
+              with:
+                  name: dist-files
+                  path: ./dist
 
-    permissions:
-      contents: read
-      pages: write
-      id-token: write
+            - name: Deploy to Surge.sh
+              run: |
+                  npm install -g surge
+                  echo "Deploying to: https://kl-pr-${{ github.event.number }}.surge.sh"
+                  surge ./dist https://kl-pr-${{ github.event.number }}.surge.sh --token ${{ secrets.SURGE_TOKEN }}
+              env:
+                  SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }}
 
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+            - name: Comment PR with preview URL
+              uses: actions/github-script@v7
+              with:
+                  script: |
+                      const prNumber = context.issue.number;
+                      const previewUrl = `https://kl-pr-${prNumber}.surge.sh`;
 
-    steps:
-      - name: Download build artifacts
-        uses: actions/download-artifact@v4
-        with:
-          name: dist-files
-          path: ./dist
+                      const comment = `## 🚀 Preview Deployment
 
-      - name: Setup Pages
-        uses: actions/configure-pages@v4
+                      Your PR has been deployed to a preview environment:
 
-      - name: Upload to Pages
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: ./dist
+                      **Preview URL:** ${previewUrl}
 
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+                      This preview will be available until the PR is closed or merged.
 
-  # Deploy to Surge.sh (PR Preview)
-  deploy-preview:
-    if: github.event_name == 'pull_request'
-    needs: build
-    runs-on: ubuntu-latest
+                      ### PWA Features Available:
+                      - ✅ Offline functionality
+                      - ✅ Install prompt
+                      - ✅ Service worker caching
 
-    permissions:
-      contents: read
-      pull-requests: write
+                      ---
+                      *This comment will be updated on each new commit.*`;
 
-    steps:
-      - name: Download build artifacts
-        uses: actions/download-artifact@v4
-        with:
-          name: dist-files
-          path: ./dist
+                      // Check if we already commented
+                      const { data: comments } = await github.rest.issues.listComments({
+                        owner: context.repo.owner,
+                        repo: context.repo.repo,
+                        issue_number: prNumber,
+                      });
 
-      - name: Deploy to Surge.sh
-        run: |
-          npm install -g surge
-          echo "Deploying to: https://kl-pr-${{ github.event.number }}.surge.sh"
-          surge ./dist https://kl-pr-${{ github.event.number }}.surge.sh --token ${{ secrets.SURGE_TOKEN }}
-        env:
-          SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }}
+                      const existingComment = comments.find(comment =>
+                        comment.user.login === 'github-actions[bot]' &&
+                        comment.body.includes('Preview Deployment')
+                      );
 
-      - name: Comment PR with preview URL
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const prNumber = context.issue.number;
-            const previewUrl = `https://kl-pr-${prNumber}.surge.sh`;
-
-            const comment = `## 🚀 Preview Deployment
-
-            Your PR has been deployed to a preview environment:
-
-            **Preview URL:** ${previewUrl}
-
-            This preview will be available until the PR is closed or merged.
-
-            ### PWA Features Available:
-            - ✅ Offline functionality
-            - ✅ Install prompt
-            - ✅ Service worker caching
-
-            ---
-            *This comment will be updated on each new commit.*`;
-
-            // Check if we already commented
-            const { data: comments } = await github.rest.issues.listComments({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: prNumber,
-            });
-
-            const existingComment = comments.find(comment =>
-              comment.user.login === 'github-actions[bot]' &&
-              comment.body.includes('Preview Deployment')
-            );
-
-            if (existingComment) {
-              // Update existing comment
-              await github.rest.issues.updateComment({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                comment_id: existingComment.id,
-                body: comment
-              });
-            } else {
-              // Create new comment
-              await github.rest.issues.createComment({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                issue_number: prNumber,
-                body: comment
-              });
-            }
+                      if (existingComment) {
+                        // Update existing comment
+                        await github.rest.issues.updateComment({
+                          owner: context.repo.owner,
+                          repo: context.repo.repo,
+                          comment_id: existingComment.id,
+                          body: comment
+                        });
+                      } else {
+                        // Create new comment
+                        await github.rest.issues.createComment({
+                          owner: context.repo.owner,
+                          repo: context.repo.repo,
+                          issue_number: prNumber,
+                          body: comment
+                        });
+                      }
