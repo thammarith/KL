@@ -1,0 +1,10 @@
+---
+alwaysApply: false
+description: This is a coding style guide for the project.
+---
+Coding styles:
+
+- Use TypeScript
+- Use semicolons
+- Use tabs for indentation
+- Use single quotes
