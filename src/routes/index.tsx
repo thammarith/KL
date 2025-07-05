@@ -1,18 +1,17 @@
+import { createFileRoute } from '@tanstack/react-router';
 import { useState } from 'react';
 import { useTranslation, Trans } from 'react-i18next';
-import reactLogo from './assets/react.svg';
+import reactLogo from '../assets/react.svg';
 import viteLogo from '/vite.svg';
-import InstallPrompt from './components/pwa/InstallPrompt';
-import UpdateNotification from './components/pwa/UpdateNotification';
-import Header from '@components/Header';
+import InstallPrompt from '@components/pwa/InstallPrompt';
+import UpdateNotification from '@components/pwa/UpdateNotification';
 
-function App() {
+const Index = () => {
 	const { t } = useTranslation();
 	const [count, setCount] = useState(0);
 
 	return (
-		<section className="box-border flex min-h-screen w-full flex-col px-[env(safe-area-inset-left)] pt-[env(safe-area-inset-top)] pr-[env(safe-area-inset-right)] pb-[env(safe-area-inset-bottom)]">
-			<Header />
+		<>
 			<div>
 				<a href="https://vite.dev" target="_blank">
 					<img src={viteLogo} className="logo" alt="Vite logo" />
@@ -35,8 +34,10 @@ function App() {
 			{/* PWA Components */}
 			<UpdateNotification />
 			<InstallPrompt />
-		</section>
+		</>
 	);
-}
+};
 
-export default App;
+export const Route = createFileRoute('/')({
+	component: Index,
+});
