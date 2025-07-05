@@ -130,10 +130,10 @@ define(['./workbox-c6a197bf'], (function (workbox) { 'use strict';
     "revision": "8e3a10e157f75ada21ab742c022d5430"
   }, {
     "url": "manifest.webmanifest",
-    "revision": "85df29422ec0cef2c3043e5870a2fa16"
+    "revision": "2acf7d41ecbac00d1d834a4eed9fd9e6"
   }], {});
   workbox.cleanupOutdatedCaches();
-  workbox.registerRoute(new workbox.NavigationRoute(workbox.createHandlerBoundToURL("/KL/offline.html"), {
+  workbox.registerRoute(new workbox.NavigationRoute(workbox.createHandlerBoundToURL("offline.html"), {
     denylist: [/^\/_/, /\/[^/?]+\.[^/]+$/]
   }));
   workbox.registerRoute(/^https:\/\/fonts\.googleapis\.com\/.*/i, new workbox.CacheFirst({
