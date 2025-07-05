@@ -1,8 +1,10 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 @theme {
 	/* Fonts */
-	--base-sans-serif: "ui-sans-serif", "system-ui", "sans-serif", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+	--base-sans-serif:
+		'ui-sans-serif', 'system-ui', 'sans-serif', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
+		'Noto Color Emoji';
 	/* --font-title: Poppins, var(--base-sans-serif); */
-	--font-heading: "Figtree", "Anuphan", var(--base-sans-serif);
+	--font-heading: 'Figtree', 'Anuphan', var(--base-sans-serif);
 }

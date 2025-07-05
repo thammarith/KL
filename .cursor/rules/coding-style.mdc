@@ -1,6 +1,5 @@
 ---
-alwaysApply: false
-description: This is a coding style guide for the project.
+alwaysApply: true
 ---
 Coding styles:
 
