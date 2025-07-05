@@ -3,13 +3,19 @@ name: Deploy to GitHub Pages
 on:
     push:
         branches: [main]
-    pull_request:
-        branches: [main]
 
 jobs:
-    # Shared build job
-    build:
+    deploy:
         runs-on: ubuntu-latest
+
+        permissions:
+            contents: read
+            pages: write
+            id-token: write
+
+        environment:
+            name: github-pages
+            url: ${{ steps.deployment.outputs.page_url }}
 
         steps:
             - name: Checkout
@@ -41,44 +47,8 @@ jobs:
             - name: Install dependencies
               run: pnpm install --frozen-lockfile
 
-            - name: Build for production
-              if: github.ref == 'refs/heads/main'
+            - name: Build
               run: pnpm build
-
-            - name: Build for preview
-              if: github.event_name == 'pull_request'
-              run: pnpm build
-              env:
-                  NODE_ENV: development
-
-            - name: Upload build artifacts
-              uses: actions/upload-artifact@v4
-              with:
-                  name: dist-files
-                  path: ./dist
-                  retention-days: 1
-
-    # Deploy to GitHub Pages (Production)
-    deploy-production:
-        if: github.ref == 'refs/heads/main'
-        needs: build
-        runs-on: ubuntu-latest
-
-        permissions:
-            contents: read
-            pages: write
-            id-token: write
-
-        environment:
-            name: github-pages
-            url: ${{ steps.deployment.outputs.page_url }}
-
-        steps:
-            - name: Download build artifacts
-              uses: actions/download-artifact@v4
-              with:
-                  name: dist-files
-                  path: ./dist
 
             - name: Setup Pages
               uses: actions/configure-pages@v4
@@ -91,28 +61,3 @@ jobs:
             - name: Deploy to GitHub Pages
               id: deployment
               uses: actions/deploy-pages@v4
-
-    # Deploy PR Preview to GitHub Pages
-    deploy-preview:
-        if: github.event_name == 'pull_request'
-        needs: build
-        runs-on: ubuntu-latest
-
-        permissions:
-            contents: write
-            pull-requests: write
-
-        steps:
-            - name: Checkout
-              uses: actions/checkout@v4
-
-            - name: Download build artifacts
-              uses: actions/download-artifact@v4
-              with:
-                  name: dist-files
-                  path: ./dist
-
-            - name: Deploy PR Preview
-              uses: rossjrw/pr-preview-action@v1
-              with:
-                  source-dir: ./dist

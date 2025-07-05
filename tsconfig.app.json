@@ -27,7 +27,9 @@
 		"baseUrl": "src",
 		"paths": {
 			"@constants/*": ["constant/*"],
-			"@components/*": ["components/*"]
+			"@components/*": ["components/*"],
+			"@utils/*": ["utils/*"]
+			// '@utils/time': ['utils/time'] // removed, covered by '@utils/*'
 		}
 	},
 	"include": ["src"]

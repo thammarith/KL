@@ -20,8 +20,8 @@ export default defineConfig({
 				theme_color: '#ffffff',
 				background_color: '#ffffff',
 				display: 'standalone',
-				scope: '/',
-				start_url: '/',
+				scope: '/KL/',
+				start_url: '/KL/',
 				icons: [
 					{
 						src: 'pwa-192x192.png',
@@ -43,7 +43,7 @@ export default defineConfig({
 			},
 			workbox: {
 				globPatterns: ['**/*.{js,css,html,ico,png,svg}'],
-				navigateFallback: 'offline.html',
+				navigateFallback: '/KL/offline.html',
 				navigateFallbackDenylist: [/^\/_/, /\/[^/?]+\.[^/]+$/],
 				runtimeCaching: [
 					{
@@ -83,6 +83,7 @@ export default defineConfig({
 		alias: {
 			'@constants': path.resolve(__dirname, 'src/constant'),
 			'@components': path.resolve(__dirname, 'src/components'),
+			'@utils': path.resolve(__dirname, 'src/utils'),
 		},
 	},
 });
