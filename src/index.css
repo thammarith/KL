@@ -9,6 +9,16 @@
 	--font-heading: 'Figtree', 'Anuphan', var(--base-sans-serif);
 }
 
-@utility pb-safe {
+html,
+body,
+#root {
+	@apply h-full min-h-screen w-full min-w-full bg-white;
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	/* Safe area for all edges */
+	padding-top: env(safe-area-inset-top);
 	padding-bottom: env(safe-area-inset-bottom);
+	padding-left: env(safe-area-inset-left);
+	padding-right: env(safe-area-inset-right);
 }
