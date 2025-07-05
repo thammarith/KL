@@ -7,3 +7,5 @@ Coding styles:
 - Use semicolons
 - Use tabs for indentation
 - Use single quotes
+- Always use tailwindcss
+- Always format & lint the code

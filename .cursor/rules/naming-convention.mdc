@@ -1,0 +1,7 @@
+---
+alwaysApply: true
+---
+
+- use PascalCase for React file names
+- use camelCase for other TypeScript files such as libs, utils, etc.
+- use question word for boolean variables such as isLoading, isError, etc.
