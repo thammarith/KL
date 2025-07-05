@@ -1,0 +1,9 @@
+---
+alwaysApply: true
+---
+
+This project is built with the following tech stack:
+- React
+- TypeScript
+- TailwindCSS
+- TanStack Router
