@@ -20,7 +20,8 @@ const BillContext = createContext<BillContextType | undefined>(undefined);
 const sampleBills: Bill[] = [
 	{
 		id: '1',
-		date: new Date('2024-06-01'),
+		date: '2024-06-01',
+		time: '23:56',
 		merchant: {
 			id: 'm1',
 			name: { original: 'ร้านอาหาร A', english: 'Restaurant A' },
@@ -42,7 +43,7 @@ const sampleBills: Bill[] = [
 	},
 	{
 		id: '2',
-		date: new Date('2024-06-02'),
+		date: '2024-06-02',
 		merchant: {
 			id: 'm2',
 			name: { original: 'Cafe B', english: 'Cafe B' },

@@ -1,6 +1,7 @@
 export interface Bill {
 	id: string;
-	date: Date;
+	date?: string;
+	time?: string;
 	items: BillItem[];
 	merchant: Merchant;
 }
