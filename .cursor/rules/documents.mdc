@@ -3,6 +3,10 @@ globs: *.tsx
 alwaysApply: false
 ---
 
+## shadcn
+
+Use shadcn components whenever possible.
+
 ## TailwindCSS
 
 For TailwindCSS, consult the following documents before implementing to make sure you're using the v4 features and do not use the v3 features:
