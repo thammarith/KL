@@ -129,6 +129,7 @@ const BillManagementPage = () => {
 								removeItem={removeItem}
 								onEditItem={onEditItem}
 								isReadOnly={false}
+								hasBillId={!!id}
 							/>
 						</div>
 						<div className="flex gap-2">
