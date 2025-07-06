@@ -9,7 +9,7 @@ import { defineConfig, globalIgnores } from 'eslint/config';
 import eslintConfigPrettier from 'eslint-config-prettier/flat';
 
 export default defineConfig([
-	globalIgnores(['dist', 'tsconfig.*', './src/index.css']),
+	globalIgnores(['dist', 'tsconfig.*', './**/*.css']),
 	{ files: ['**/*.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'], plugins: { js }, extends: ['js/recommended'] },
 	{
 		files: ['**/*.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],

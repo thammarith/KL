@@ -1,6 +1,7 @@
 ---
 alwaysApply: true
 ---
+- Always check if the development server is running before running `pnpm dev`. It usually runs on port 5173.
 - To start the development server, run `pnpm dev`
 - After making changes, run `pnpm format` to format the code
 - Do not add Playwright tests unless asked

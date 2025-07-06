@@ -5,6 +5,7 @@ import reactLogo from '../assets/react.svg';
 import viteLogo from '/vite.svg';
 import InstallPrompt from '@/components/pwa/InstallPrompt';
 import UpdateNotification from '@/components/pwa/UpdateNotification';
+import { Button } from '@/components/ui/button';
 
 const Index = () => {
 	const { t } = useTranslation();
@@ -24,6 +25,7 @@ const Index = () => {
 			<div className="card">
 				<button onClick={() => setCount((count) => count + 1)}>{t('countIs', { count })}</button>
 				<p>
+					<Button>Click me</Button>
 					<Trans i18nKey="editAndSave">
 						Edit <code>src/App.tsx</code> and save to test HMR
 					</Trans>

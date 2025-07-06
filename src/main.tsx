@@ -6,14 +6,14 @@ import { RouterProvider, createRouter, createHashHistory } from '@tanstack/react
 // Import the generated route tree
 import { routeTree } from './routeTree.gen';
 
-import './index.css';
+import './styles/index.css';
 
-const hashHistory = createHashHistory()
+const hashHistory = createHashHistory();
 
 // Create a new router instance
 const router = createRouter({
 	routeTree,
-	history: hashHistory
+	history: hashHistory,
 });
 
 // Register the router instance for type safety
