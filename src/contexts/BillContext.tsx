@@ -17,8 +17,49 @@ interface BillContextType {
 
 const BillContext = createContext<BillContextType | undefined>(undefined);
 
+const sampleBills: Bill[] = [
+	{
+		id: '1',
+		date: new Date('2024-06-01'),
+		merchant: {
+			id: 'm1',
+			name: { original: 'ร้านอาหาร A', english: 'Restaurant A' },
+		},
+		items: [
+			{
+				id: 'i1',
+				name: { original: 'ข้าวผัด', english: 'Fried Rice' },
+				quantity: 2,
+				amount: { amount: 50, currency: 'THB' },
+			},
+			{
+				id: 'i2',
+				name: { original: 'น้ำเปล่า', english: 'Water' },
+				quantity: 1,
+				amount: { amount: 10, currency: 'THB' },
+			},
+		],
+	},
+	{
+		id: '2',
+		date: new Date('2024-06-02'),
+		merchant: {
+			id: 'm2',
+			name: { original: 'Cafe B', english: 'Cafe B' },
+		},
+		items: [
+			{
+				id: 'i3',
+				name: { original: 'กาแฟ', english: 'Coffee' },
+				quantity: 1,
+				amount: { amount: 60, currency: 'THB' },
+			},
+		],
+	},
+];
+
 export const BillProvider = ({ children, id }: { children: ReactNode; id?: string }) => {
-	const [bills, setBills] = useState<Bill[]>([]);
+	const [bills, setBills] = useState<Bill[]>(sampleBills);
 	const mode: BillMode = id ? CrudMode.View : CrudMode.Create;
 	const currentId = id;
 
