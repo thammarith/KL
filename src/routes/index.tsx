@@ -5,6 +5,7 @@ import UpdateNotification from '@/components/pwa/UpdateNotification';
 import { billsMemory } from './bill';
 import { format } from 'date-fns';
 import type { Bill } from '@/interfaces/Bill';
+import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 
 const Index = () => {
 	const { t } = useTranslation();
@@ -18,19 +19,22 @@ const Index = () => {
 				) : (
 					<div className="flex flex-col gap-2">
 						{billsMemory.map((bill: Bill) => (
-							<div key={bill.id} className="flex items-center justify-between rounded border p-3 bg-white shadow-sm">
-								<div>
-									<div className="font-medium">{bill.merchant?.name?.original || t('untitled')}</div>
-									<div className="text-xs text-gray-500">{bill.date ? format(new Date(bill.date), 'yyyy-MM-dd') : ''}</div>
-								</div>
-								<Link
-									to="/bill"
-									search={{ id: Number(bill.id) }}
-									className="ml-2 text-blue-600 hover:underline text-sm font-semibold"
-								>
-									{t('viewBill')}
-								</Link>
-							</div>
+							<Link
+								to="/bill"
+								search={{ id: Number(bill.id) }}
+								key={bill.id}
+								className="block w-full focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-xl"
+								style={{ textDecoration: 'none' }}
+							>
+								<Card className="transition-shadow hover:shadow-lg cursor-pointer">
+									<CardHeader className="pb-2">
+										<CardTitle>{bill.merchant?.name?.original || t('untitled')}</CardTitle>
+									</CardHeader>
+									<CardContent className="pt-0 text-xs text-gray-500">
+										{bill.date ? format(new Date(bill.date), 'yyyy-MM-dd') : ''}
+									</CardContent>
+								</Card>
+							</Link>
 						))}
 					</div>
 				)}
