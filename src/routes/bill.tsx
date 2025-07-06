@@ -13,6 +13,9 @@ const BillManagementPage = () => {
 	return (
 		<BillProvider id={id}>
 			<BillHeader />
+			<BillInfo />
+			<BillContent />
+			<BillFooter />
 		</BillProvider>
 	);
 };
