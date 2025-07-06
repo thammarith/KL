@@ -3,6 +3,7 @@ alwaysApply: true
 ---
 Coding styles:
 
+- Do not import React from 'react' because we're using React 19
 - Use TypeScript
 - Use semicolons
 - Use tabs for indentation
