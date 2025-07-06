@@ -12,6 +12,7 @@ interface BillContextType {
 	updateBill: (bill: Bill) => void;
 	deleteBill: (id: string) => void;
 	getBillById: (id: string) => Bill | undefined;
+	currentId?: string;
 }
 
 const BillContext = createContext<BillContextType | undefined>(undefined);
@@ -19,6 +20,7 @@ const BillContext = createContext<BillContextType | undefined>(undefined);
 export const BillProvider = ({ children, id }: { children: ReactNode; id?: string }) => {
 	const [bills, setBills] = useState<Bill[]>([]);
 	const mode: BillMode = id ? CrudMode.View : CrudMode.Create;
+	const currentId = id;
 
 	const addBill = useCallback((bill: Bill) => {
 		setBills((prev) => [...prev, bill]);
@@ -32,12 +34,15 @@ export const BillProvider = ({ children, id }: { children: ReactNode; id?: strin
 		setBills((prev) => prev.filter((b) => b.id !== billId));
 	}, []);
 
-	const getBillById = useCallback((billId: string) => {
-		return bills.find((b) => b.id === billId);
-	}, [bills]);
+	const getBillById = useCallback(
+		(billId: string) => {
+			return bills.find((b) => b.id === billId);
+		},
+		[bills]
+	);
 
 	return (
-		<BillContext.Provider value={{ mode, bills, addBill, updateBill, deleteBill, getBillById }}>
+		<BillContext.Provider value={{ mode, bills, addBill, updateBill, deleteBill, getBillById, currentId }}>
 			{children}
 		</BillContext.Provider>
 	);
