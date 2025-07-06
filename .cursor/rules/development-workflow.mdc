@@ -7,3 +7,4 @@ alwaysApply: true
 - Do not add Playwright tests unless asked
 - Refer to `src/interfaces` to see the interfaces for the data—if more fields are needed, ask me first to add them there
 - Always use shadcn components. If it's not possible, ask me first how to proceed.
+- Never use hardcoded strings. Always use i18n. Always update the translation files when adding new strings.
