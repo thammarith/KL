@@ -3,6 +3,7 @@ alwaysApply: true
 ---
 Coding styles:
 
+- Do not import React from 'react' because we're using React 19
 - Use TypeScript
 - Use semicolons
 - Use tabs for indentation
@@ -12,3 +13,7 @@ Coding styles:
 - Avoid repeating the same code
 - Extract functions to separate files if they are/can be reused
 - Always use `const` instead of `function` for the component function
+- Use currency.js when dealing with money
+- Use React Context for state management if needed
+- Use IndexedDB via `idb` for storing data
+- If localStorage are to be used, ask me first

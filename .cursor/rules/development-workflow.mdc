@@ -5,3 +5,6 @@ alwaysApply: true
 - To start the development server, run `pnpm dev`
 - After making changes, run `pnpm format` to format the code
 - Do not add Playwright tests unless asked
+- Refer to `src/interfaces` to see the interfaces for the data—if more fields are needed, ask me first to add them there
+- Always use shadcn components. If it's not possible, ask me first how to proceed.
+- Never use hardcoded strings. Always use i18n. Always update the translation files when adding new strings.

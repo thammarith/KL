@@ -1,0 +1,6 @@
+# Note
+
+Names: squid split / octo split / splitopus
+
+- [ ] Text input with icon/prefix like `[£|   ]`
+- [ ] Handle number/decimal input

@@ -1,37 +1,44 @@
-import { createFileRoute } from '@tanstack/react-router';
-import { useState } from 'react';
-import { useTranslation, Trans } from 'react-i18next';
-import reactLogo from '../assets/react.svg';
-import viteLogo from '/vite.svg';
+import { createFileRoute, Link } from '@tanstack/react-router';
+import { useTranslation } from 'react-i18next';
 import InstallPrompt from '@/components/pwa/InstallPrompt';
 import UpdateNotification from '@/components/pwa/UpdateNotification';
-import { Button } from '@/components/ui/button';
+import { billsMemory } from './bill';
+import { format } from 'date-fns';
+import type { Bill } from '@/interfaces/Bill';
+import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 
 const Index = () => {
 	const { t } = useTranslation();
-	const [count, setCount] = useState(0);
 
 	return (
 		<>
-			<div>
-				<a href="https://vite.dev" target="_blank">
-					<img src={viteLogo} className="logo" alt="Vite logo" />
-				</a>
-				<a href="https://react.dev" target="_blank">
-					<img src={reactLogo} className="logo react" alt="React logo" />
-				</a>
+			<div className="mt-8">
+				<h2 className="text-lg font-bold mb-2">{t('billsList')}</h2>
+				{billsMemory.length === 0 ? (
+					<p className="text-muted-foreground">{t('noBills')}</p>
+				) : (
+					<div className="flex flex-col gap-2">
+						{billsMemory.map((bill: Bill) => (
+							<Link
+								to="/bill"
+								search={{ id: Number(bill.id) }}
+								key={bill.id}
+								className="block w-full focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-xl"
+								style={{ textDecoration: 'none' }}
+							>
+								<Card className="transition-shadow hover:shadow-lg cursor-pointer">
+									<CardHeader className="pb-2">
+										<CardTitle>{bill.merchant?.name?.original || t('untitled')}</CardTitle>
+									</CardHeader>
+									<CardContent className="pt-0 text-xs text-gray-500">
+										{bill.date ? format(new Date(bill.date), 'yyyy-MM-dd') : ''}
+									</CardContent>
+								</Card>
+							</Link>
+						))}
+					</div>
+				)}
 			</div>
-			<h1 className="font-heading">{t('testThai')}</h1>
-			<div className="card">
-				<button onClick={() => setCount((count) => count + 1)}>{t('countIs', { count })}</button>
-				<p>
-					<Button>Click me</Button>
-					<Trans i18nKey="editAndSave">
-						Edit <code>src/App.tsx</code> and save to test HMR
-					</Trans>
-				</p>
-			</div>
-			<p className="read-the-docs">{t('clickLearnMore')}</p>
 
 			{/* PWA Components */}
 			<UpdateNotification />

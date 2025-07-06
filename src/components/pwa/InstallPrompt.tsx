@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation, Trans } from 'react-i18next';
-import { APP_NAME } from '@/constant/meta';
+import { APP_NAME } from '@/constants/meta';
 import { getItemWithExpiry, setItemWithExpiry } from '@/utils/localStorage';
 import { toMs } from '@/utils/time';
 
