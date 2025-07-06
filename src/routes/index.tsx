@@ -13,7 +13,7 @@ const Index = () => {
 	return (
 		<>
 			<div className="mt-8">
-				<h2 className="text-lg font-bold mb-2">{t('billsList')}</h2>
+				<h2 className="mb-2 text-lg font-bold">{t('billsList')}</h2>
 				{billsMemory.length === 0 ? (
 					<p className="text-muted-foreground">{t('noBills')}</p>
 				) : (
@@ -21,12 +21,12 @@ const Index = () => {
 						{billsMemory.map((bill: Bill) => (
 							<Link
 								to="/bill"
-								search={{ id: Number(bill.id) }}
+								search={{ id: bill.id }}
 								key={bill.id}
-								className="block w-full focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-xl"
+								className="focus-visible:ring-primary block w-full rounded-xl focus:outline-none focus-visible:ring-2"
 								style={{ textDecoration: 'none' }}
 							>
-								<Card className="transition-shadow hover:shadow-lg cursor-pointer">
+								<Card className="cursor-pointer transition-shadow hover:shadow-lg">
 									<CardHeader className="pb-2">
 										<CardTitle>{bill.merchant?.name?.original || t('untitled')}</CardTitle>
 									</CardHeader>

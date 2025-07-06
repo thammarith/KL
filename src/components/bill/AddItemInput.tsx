@@ -13,13 +13,32 @@ interface AddItemInputProps {
 	onCancel?: () => void;
 }
 
-const AddItemInput: React.FC<AddItemInputProps> = ({ itemName, itemPrice, setItemName, setItemPrice, onAdd, onCancel }) => {
+const AddItemInput: React.FC<AddItemInputProps> = ({
+	itemName,
+	itemPrice,
+	setItemName,
+	setItemPrice,
+	onAdd,
+	onCancel,
+}) => {
 	const { t } = useTranslation();
 	return (
 		<div className="mt-2 flex items-center gap-2">
-			<Input type="text" value={itemName} onChange={(e) => setItemName(e.target.value)} placeholder={t('itemName')} />
-			<Input type="text" value={itemPrice} onChange={(e) => setItemPrice(e.target.value)} placeholder={t('price')} />
-			<Button type="button" onClick={onAdd}>{t('add')}</Button>
+			<Input
+				type="text"
+				value={itemName}
+				onChange={(e) => setItemName(e.target.value)}
+				placeholder={t('itemName')}
+			/>
+			<Input
+				type="text"
+				value={itemPrice}
+				onChange={(e) => setItemPrice(e.target.value)}
+				placeholder={t('price')}
+			/>
+			<Button type="button" onClick={onAdd}>
+				{t('add')}
+			</Button>
 			{onCancel && (
 				<Button type="button" onClick={onCancel} variant="ghost" size="sm" title={t('cancel')}>
 					<X size={18} />

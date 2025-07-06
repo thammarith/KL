@@ -12,7 +12,7 @@ const AddButton: React.FC<AddButtonProps> = ({ onClick }) => {
 		<div className="mt-2">
 			<Button
 				variant="outline"
-				className="w-full flex items-center justify-center gap-2 border-dashed border-2 border-muted-foreground py-6 text-muted-foreground hover:border-primary hover:text-primary"
+				className="border-muted-foreground text-muted-foreground hover:border-primary hover:text-primary flex w-full items-center justify-center gap-2 border-2 border-dashed py-6"
 				onClick={onClick}
 			>
 				<span className="text-lg font-medium">{t('add')}</span>

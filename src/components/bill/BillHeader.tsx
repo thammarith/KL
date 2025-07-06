@@ -71,13 +71,7 @@ const BillHeader = ({ bill, setBill, isReadOnly }: BillHeaderProps) => {
 							required
 							placeholder={t('billNamePlaceholder')}
 						/>
-						<Button
-							type="button"
-							variant="ghost"
-							size="icon"
-							onClick={handleNameSave}
-							title={t('save')}
-						>
+						<Button type="button" variant="ghost" size="icon" onClick={handleNameSave} title={t('save')}>
 							<Check />
 						</Button>
 						{!isBillNameEmpty && (

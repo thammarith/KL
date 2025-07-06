@@ -6,10 +6,11 @@ import BillItems from '@/components/bill/BillItems';
 import type { Bill, BillItem } from '@/interfaces/Bill';
 import { useTranslation } from 'react-i18next';
 import BillHeader from '@/components/bill/BillHeader';
+import { generateUniqueId, generateUniqueBillItemId } from '@/utils/bill';
 
 // Search params validation
 const billSearchSchema = z.object({
-	id: z.number().optional(),
+	id: z.string().optional(),
 });
 
 export const billsMemory: Bill[] = [];
@@ -43,7 +44,7 @@ const BillManagementPage = () => {
 	const addItem = (name: string, price: string) => {
 		if (!name.trim() || isNaN(Number(price)) || Number(price) < 0) return;
 		const newItem: BillItem = {
-			id: Date.now().toString(),
+			id: generateUniqueBillItemId(bill.items || []),
 			name: { original: name.trim() },
 			quantity: 1,
 			amount: { amount: Number(price), currency: 'THB' },
@@ -82,9 +83,9 @@ const BillManagementPage = () => {
 	const createBill = async () => {
 		setIsLoading(true);
 		try {
-			const newBill: Bill = { ...bill, id: bill.id || Date.now().toString() };
+			const newBill: Bill = { ...bill, id: bill.id || generateUniqueId(billsMemory.map((b) => b.id)) };
 			billsMemory.push(newBill);
-			navigate({ to: '/bill', search: { id: Number(newBill.id) } });
+			navigate({ to: '/bill', search: { id: newBill.id } });
 		} finally {
 			setIsLoading(false);
 		}

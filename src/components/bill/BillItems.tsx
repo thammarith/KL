@@ -77,8 +77,8 @@ const BillItems: React.FC<BillItemsProps> = ({ items, isReadOnly, addItem, remov
 						/>
 					)
 				)}
-				{!isReadOnly && (
-					hasBillId ? (
+				{!isReadOnly &&
+					(hasBillId ? (
 						showAddInput ? (
 							<AddItemInput
 								itemName={itemName}
@@ -99,8 +99,7 @@ const BillItems: React.FC<BillItemsProps> = ({ items, isReadOnly, addItem, remov
 							setItemPrice={setItemPrice}
 							onAdd={handleAddItem}
 						/>
-					)
-				)}
+					))}
 			</div>
 		</div>
 	);
