@@ -66,7 +66,7 @@ const BillItems: React.FC<BillItemsProps> = ({ items, isReadOnly, addItem, remov
 							placeholder="Price"
 							disabled={isReadOnly}
 						/>
-						<Button onClick={handleAddItem} disabled={isReadOnly}>
+						<Button type="button" onClick={handleAddItem} disabled={isReadOnly}>
 							Add
 						</Button>
 					</div>
@@ -84,6 +84,7 @@ const BillItems: React.FC<BillItemsProps> = ({ items, isReadOnly, addItem, remov
 										onChange={(e) => setEditPrice(e.target.value)}
 									/>
 									<Button
+										type="button"
 										onClick={() => saveEdit(item.id)}
 										variant="secondary"
 										size="sm"
@@ -91,7 +92,7 @@ const BillItems: React.FC<BillItemsProps> = ({ items, isReadOnly, addItem, remov
 									>
 										<Check size={18} />
 									</Button>
-									<Button onClick={cancelEdit} variant="ghost" size="sm" title="Cancel">
+									<Button type="button" onClick={cancelEdit} variant="ghost" size="sm" title="Cancel">
 										<X size={18} />
 									</Button>
 								</>
@@ -102,6 +103,7 @@ const BillItems: React.FC<BillItemsProps> = ({ items, isReadOnly, addItem, remov
 									{!isReadOnly && (
 										<div className="flex gap-1">
 											<Button
+												type="button"
 												onClick={() => startEdit(item)}
 												variant="ghost"
 												size="sm"
@@ -110,6 +112,7 @@ const BillItems: React.FC<BillItemsProps> = ({ items, isReadOnly, addItem, remov
 												<Pencil size={18} />
 											</Button>
 											<Button
+												type="button"
 												onClick={() => removeItem(item.id)}
 												variant="ghost"
 												size="sm"
@@ -138,7 +141,9 @@ const BillItems: React.FC<BillItemsProps> = ({ items, isReadOnly, addItem, remov
 								onChange={(e) => setItemPrice(e.target.value)}
 								placeholder="Price"
 							/>
-							<Button onClick={handleAddItem}>Add</Button>
+							<Button type="button" onClick={handleAddItem}>
+								Add
+							</Button>
 						</div>
 					)}
 				</div>

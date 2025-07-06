@@ -11,7 +11,7 @@
 	"updateDesc": "มีเวอร์ชันใหม่ของแอปพร้อมใช้งาน รีเฟรชเพื่อรับฟีเจอร์ล่าสุด!",
 	"updateNow": "อัปเดตทันที",
 	"dismiss": "ปิด",
-	"billTitle": "บิล: {{merchant}}",
+	"billTitle": "บิล: {{billName}}",
 	"untitled": "ไม่มีชื่อ",
 	"edit": "แก้ไข",
 	"view": "ดู",
@@ -23,9 +23,9 @@
 	"loading": "กำลังโหลด...",
 	"failedToLoadBill": "โหลดบิลล้มเหลว",
 	"failedToDeleteBill": "ลบบิลล้มเหลว",
-	"merchantName": "ชื่อร้าน *",
-	"merchantNamePlaceholder": "ชื่อร้าน",
-	"date": "วันที่ *",
+	"billName": "ชื่อบิล *",
+	"billNamePlaceholder": "ชื่อบิล",
+	"date": "วันที่",
 	"datePlaceholder": "วันที่",
 	"items": "รายการสินค้า",
 	"create": "สร้าง",
@@ -34,5 +34,6 @@
 	"unsavedChangesConfirm": "คุณมีการเปลี่ยนแปลงที่ยังไม่ได้บันทึก ต้องการดำเนินการต่อหรือไม่?",
 	"deleteBillConfirm": "คุณแน่ใจหรือไม่ว่าต้องการลบบิลนี้?",
 	"editDate": "แก้ไขวันที่",
-	"confirmDate": "ยืนยันวันที่"
+	"confirmDate": "ยืนยันวันที่",
+	"cancel": "ยกเลิก"
 }

@@ -11,7 +11,7 @@
 	"updateDesc": "A new version of the app is available. Refresh to get the latest features!",
 	"updateNow": "Update Now",
 	"dismiss": "Dismiss",
-	"billTitle": "Bill: {{merchant}}",
+	"billTitle": "Bill: {{billName}}",
 	"untitled": "Untitled",
 	"edit": "Edit",
 	"view": "View",
@@ -23,9 +23,9 @@
 	"loading": "Loading...",
 	"failedToLoadBill": "Failed to load bill",
 	"failedToDeleteBill": "Failed to delete bill",
-	"merchantName": "Merchant Name *",
-	"merchantNamePlaceholder": "Merchant name",
-	"date": "Date *",
+	"billName": "Bill Name *",
+	"billNamePlaceholder": "Bill name",
+	"date": "Date",
 	"datePlaceholder": "Date",
 	"items": "Items",
 	"create": "Create",
@@ -34,5 +34,6 @@
 	"unsavedChangesConfirm": "You have unsaved changes. Continue anyway?",
 	"deleteBillConfirm": "Are you sure you want to delete this bill?",
 	"editDate": "Edit date",
-	"confirmDate": "Confirm date"
+	"confirmDate": "Confirm date",
+	"cancel": "Cancel"
 }
