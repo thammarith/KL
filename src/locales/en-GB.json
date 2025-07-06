@@ -38,5 +38,9 @@
 	"cancel": "Cancel",
 	"billsList": "Bills",
 	"noBills": "No bills yet.",
-	"viewBill": "View"
+	"viewBill": "View",
+	"noItems": "No items yet.",
+	"itemName": "Item name",
+	"price": "Price",
+	"add": "Add"
 }
