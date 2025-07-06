@@ -12,7 +12,7 @@ const billSearchSchema = z.object({
 	id: z.number().optional(),
 });
 
-const billsMemory: Bill[] = [];
+export const billsMemory: Bill[] = [];
 
 const BillManagementPage = () => {
 	const { id } = Route.useSearch();

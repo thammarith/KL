@@ -35,5 +35,8 @@
 	"deleteBillConfirm": "Are you sure you want to delete this bill?",
 	"editDate": "Edit date",
 	"confirmDate": "Confirm date",
-	"cancel": "Cancel"
+	"cancel": "Cancel",
+	"billsList": "Bills",
+	"noBills": "No bills yet.",
+	"viewBill": "View"
 }
