@@ -11,5 +11,7 @@
 	"untitled": "ไม่มีชื่อ",
 	"billInfo": "ข้อมูลบิล",
 	"billContent": "เนื้อหาบิล",
-	"billFooter": "ส่วนท้ายบิล"
+	"billFooter": "ส่วนท้ายบิล",
+	"back": "ย้อนกลับ",
+	"deleteBill": "ลบบิล"
 }

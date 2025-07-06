@@ -17,3 +17,7 @@ Coding styles:
 - Use React Context for state management if needed
 - Use IndexedDB via `idb` for storing data
 - If localStorage are to be used, ask me first
+
+HTML:
+
+- Use semantic HTML. Avoid using divs unless absolutely necessary.

@@ -15,10 +15,12 @@ const BillManagementPage = () => {
 
 	return (
 		<BillProvider id={id}>
-			<BillHeader />
-			<BillInfo />
-			<BillContent />
-			<BillFooter />
+			<section className="mx-auto flex w-full max-w-lg flex-col gap-4 px-2 py-4 sm:px-4">
+				<BillHeader onDelete={() => {}} />
+				<BillInfo />
+				<BillContent />
+				<BillFooter />
+			</section>
 		</BillProvider>
 	);
 };

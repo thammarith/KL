@@ -45,5 +45,7 @@
 	"noItems": "No items yet.",
 	"itemName": "Item name",
 	"price": "Price",
-	"add": "Add"
+	"add": "Add",
+	"back": "Back",
+	"deleteBill": "Delete bill"
 }

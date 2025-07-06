@@ -3,11 +3,7 @@ import { useTranslation } from 'react-i18next';
 
 const BillContent: React.FC = () => {
 	const { t } = useTranslation();
-	return (
-		<div className="p-4 border rounded-xl bg-background">
-			{t('billContent')}
-		</div>
-	);
+	return <div className="bg-background rounded-xl border p-4">{t('billContent')}</div>;
 };
 
 export default BillContent;
