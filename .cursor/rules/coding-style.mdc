@@ -13,3 +13,6 @@ Coding styles:
 - Extract functions to separate files if they are/can be reused
 - Always use `const` instead of `function` for the component function
 - Use currency.js when dealing with money
+- Use React Context for state management if needed
+- Use IndexedDB via `idb` for storing data
+- If localStorage are to be used, ask me first
