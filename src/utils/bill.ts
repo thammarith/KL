@@ -1,4 +1,4 @@
-import { getNanoId } from '@/utils/nanoid';
+import { getNanoId } from '@/utils/nanoId';
 
 export const generateUniqueId = (existingIds: string[]): string =>
 	existingIds.includes(getNanoId())
