@@ -14,5 +14,9 @@
 	"billContent": "เนื้อหาบิล",
 	"billFooter": "ส่วนท้ายบิล",
 	"back": "ย้อนกลับ",
-	"deleteBill": "ลบบิล"
+	"deleteBill": "ลบบิล",
+	"required": "จำเป็น",
+	"itemName": "รายการ",
+	"price": "ราคา",
+	"add": "เพิ่ม"
 }

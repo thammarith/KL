@@ -44,9 +44,10 @@
 	"cancel": "Cancel",
 	"viewBill": "View",
 	"noItems": "No items yet.",
-	"itemName": "Item name",
+	"itemName": "Item",
 	"price": "Price",
 	"add": "Add",
 	"back": "Back",
-	"deleteBill": "Delete bill"
+	"deleteBill": "Delete bill",
+	"required": "Required"
 }
