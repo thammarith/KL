@@ -32,28 +32,25 @@ const BillItemForm: React.FC<BillItemFormProps> = ({ item, onSave, onCancel }) =
 	const isDisabled = !name || !amount;
 
 	return (
-		<div className="flex flex-col gap-2">
-			<div className="flex gap-2">
-				<Input
-					id="item-name"
-					className="w-full"
-					value={name}
-					onChange={(e) => setName(e.target.value)}
-					placeholder={t('itemName')}
-					required
-				/>
-				<div className="w-32">
-					<Input
-						id="item-amount"
-						type="text"
-						value={amount}
-						onChange={(e) => setAmount(e.target.value)}
-						placeholder={t('price')}
-						required
-					/>
-				</div>
-			</div>
-			<div className="flex self-end">
+		<div className="grid grid-cols-2 grid-rows-2 items-end gap-2">
+			<Input
+				id="item-name"
+				className="w-full"
+				value={name}
+				onChange={(e) => setName(e.target.value)}
+				placeholder={t('itemName')}
+				required
+			/>
+			<Input
+				id="item-amount"
+				type="text"
+				value={amount}
+				onChange={(e) => setAmount(e.target.value)}
+				placeholder={t('price')}
+				required
+			/>
+			<div>{/* TODO: */}</div>
+			<div className="flex justify-end">
 				<Button
 					type="button"
 					variant={isEditing || isDisabled ? 'ghost' : 'default'}
@@ -72,10 +69,17 @@ const BillItemForm: React.FC<BillItemFormProps> = ({ item, onSave, onCancel }) =
 						</>
 					)}
 				</Button>
-				{onCancel && (
-					<Button type="button" variant="ghost" onClick={onCancel} aria-label={t('cancel')}>
+				{onCancel ? (
+					<Button
+						type="button"
+						variant="ghost"
+						onClick={onCancel}
+						aria-label={t('cancel')}
+					>
 						<XIcon className="h-4 w-4" />
 					</Button>
+				) : (
+					<div />
 				)}
 			</div>
 		</div>
