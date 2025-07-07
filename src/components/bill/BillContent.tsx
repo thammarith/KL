@@ -23,7 +23,7 @@ const BillContent: React.FC = () => {
 	};
 
 	return (
-		<section className="flex flex-col gap-2">
+		<section className="flex flex-col gap-4">
 			<div className="font-heading flex font-semibold">
 				<div className="flex-1">{t('itemName')}</div>
 				<div className="">{t('price')}</div>
