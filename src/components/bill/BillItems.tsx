@@ -36,6 +36,12 @@ const BillItems: React.FC = () => {
 		form.setValue('items', updatedItems);
 	};
 
+	const handleDelete = (id: string) => {
+		const updatedItems = localItems.filter((item) => item.id !== id);
+		setLocalItems(updatedItems);
+		form.setValue('items', updatedItems);
+	};
+
 	return (
 		<div className="flex flex-col gap-2">
 			{localItems.map((item) => (
@@ -43,6 +49,7 @@ const BillItems: React.FC = () => {
 					key={item.id}
 					item={item}
 					onEdit={(updated) => handleEdit(item.id, updated)}
+					onDelete={() => handleDelete(item.id)}
 					currency={{
 						original: form.watch('currency')?.original,
 						target: form.watch('currency')?.target,

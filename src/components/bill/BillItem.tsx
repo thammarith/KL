@@ -10,9 +10,10 @@ interface BillItemProps {
 		target?: string;
 	};
 	onEdit: (updated: { name: string; amount: string }) => void;
+	onDelete?: () => void;
 }
 
-const BillItem: React.FC<BillItemProps> = ({ item, onEdit, currency }) => {
+const BillItem: React.FC<BillItemProps> = ({ item, onEdit, onDelete, currency }) => {
 	const [isEditing, setIsEditing] = useState(false);
 	const isConverted = currency.target && currency.target !== currency.original;
 
@@ -25,6 +26,7 @@ const BillItem: React.FC<BillItemProps> = ({ item, onEdit, currency }) => {
 					setIsEditing(false);
 				}}
 				onCancel={() => setIsEditing(false)}
+				onDelete={onDelete}
 			/>
 		);
 	}
