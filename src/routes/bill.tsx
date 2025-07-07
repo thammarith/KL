@@ -1,5 +1,5 @@
 import { createFileRoute, useNavigate } from '@tanstack/react-router';
-import { BillProvider, useBillContext } from '@/contexts/BillContext';
+import { useBillContext } from '@/contexts/BillContext';
 import z from 'zod/v4';
 import BillHeader from '@/components/bill/BillHeader';
 import BillContent from '@/components/bill/BillContent';
@@ -11,48 +11,46 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Form } from '@/components/ui/form';
 import { billFormSchema, type BillFormValues } from '@/types/billForm';
-import { generateUniqueId } from '@/utils/bill';
+import { generateUniqueId, getDefaultBillName } from '@/utils/bill';
+import { useTranslation } from 'react-i18next';
 
 const billSearchSchema = z.object({
-	id: z.string().or(z.number()).optional(),
+	id: z.string().optional(),
 });
 
-const BillManagementInner = () => {
+const buildDefaultValues = (billText: string, billId: string): BillFormValues => ({
+	id: billId,
+	date: '',
+	time: '',
+	merchant: {
+		id: '',
+		name: {
+			original: getDefaultBillName(billText, billId),
+			english: '',
+		},
+	},
+	items: [],
+});
+
+const BillManagementPage = () => {
 	const navigate = useNavigate();
 	const { getBillById, deleteBill, mode, currentId, updateBill, bills } = useBillContext();
 	const bill = currentId ? getBillById(currentId) : undefined;
+	const { t } = useTranslation();
 
 	// Gather existing merchant name IDs to avoid duplicates
 	const existingIds = bills?.map((b) => b.merchant?.name?.original).filter(Boolean) || [];
-	const billId = useMemo(() => {
-		const id = generateUniqueId(existingIds);
-		console.log('Generated bill ID:', id);
-		return id;
-	}, [currentId]);
+	const billId = useMemo(() => generateUniqueId(existingIds), [currentId]);
 
 	const form = useForm<BillFormValues>({
 		resolver: zodResolver(billFormSchema),
 		mode: 'onBlur',
-		defaultValues: bill || {
-			id: billId,
-			date: '',
-			time: '',
-			merchant: {
-				id: '',
-				name: {
-					original: billId,
-					english: '',
-				},
-			},
-			items: [],
-		},
+		defaultValues: bill || buildDefaultValues(t('bill'), billId),
 	});
 
 	// Update form when bill data changes
 	useEffect(() => {
-		if (bill) {
-			form.reset(bill);
-		}
+		form.reset(bill || buildDefaultValues(t('bill'), billId));
 	}, [bill, form]);
 
 	// Console log form changes
@@ -67,8 +65,7 @@ const BillManagementInner = () => {
 	useEffect(() => {
 		if (currentId && !bill && mode === CrudMode.View) {
 			// If bill not found, go back to home or show a message
-			// TODO: uncomment this
-			// navigate({ to: '/' });
+			navigate({ to: '/' });
 		}
 	}, [currentId, bill, mode, navigate]);
 
@@ -98,15 +95,6 @@ const BillManagementInner = () => {
 				<BillFooter />
 			</form>
 		</Form>
-	);
-};
-
-const BillManagementPage = () => {
-	const { id } = Route.useSearch();
-	return (
-		<BillProvider id={id?.toString()}>
-			<BillManagementInner />
-		</BillProvider>
 	);
 };
 

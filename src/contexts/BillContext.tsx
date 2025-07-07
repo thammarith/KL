@@ -2,6 +2,7 @@ import { createContext, useContext, useState, useCallback } from 'react';
 import type { ReactNode } from 'react';
 import { CrudMode } from '@/constants/crudMode';
 import type { Bill } from '@/interfaces/Bill';
+import { generateUniqueId } from '@/utils/bill';
 
 export type BillMode = (typeof CrudMode)[keyof typeof CrudMode];
 
@@ -19,7 +20,7 @@ const BillContext = createContext<BillContextType | undefined>(undefined);
 
 const sampleBills: Bill[] = [
 	{
-		id: '1',
+		id: generateUniqueId(),
 		date: '2024-06-01',
 		time: '23:56',
 		merchant: {
@@ -42,7 +43,7 @@ const sampleBills: Bill[] = [
 		],
 	},
 	{
-		id: '2',
+		id: generateUniqueId(),
 		date: '2024-06-02',
 		merchant: {
 			id: 'm2',
@@ -76,12 +77,7 @@ export const BillProvider = ({ children, id }: { children: ReactNode; id?: strin
 		setBills((prev) => prev.filter((b) => b.id !== billId));
 	}, []);
 
-	const getBillById = useCallback(
-		(billId: string) => {
-			return bills.find((b) => b.id === billId);
-		},
-		[bills]
-	);
+	const getBillById = useCallback((billId: string) => bills.find((b) => b.id === billId), [bills]);
 
 	return (
 		<BillContext.Provider value={{ mode, bills, addBill, updateBill, deleteBill, getBillById, currentId }}>

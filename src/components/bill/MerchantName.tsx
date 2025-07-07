@@ -6,8 +6,10 @@ import { FormField, FormItem, FormControl } from '@/components/ui/form';
 import { Pencil, Check } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import type { BillFormValues } from '@/types/billForm';
+import { getDefaultBillName } from '@/utils/bill';
 
-const fieldName = 'merchant.name.original';
+const fieldNameOriginal = 'merchant.name.original';
+const fieldNameEnglish = 'merchant.name.english';
 
 const MerchantName: React.FC = () => {
 	const [isEditingName, setIsEditingName] = useState(false);
@@ -20,21 +22,21 @@ const MerchantName: React.FC = () => {
 
 	const handleSaveName = () => {
 		setIsEditingName(false);
-		if (form.getValues(fieldName).trim() === '') {
-			form.setValue(fieldName, `${t('bill')} #${form.getValues('id')}`);
-			form.trigger(fieldName);
+		if (form.getValues(fieldNameOriginal).trim() === '') {
+			form.setValue(fieldNameOriginal, getDefaultBillName(t('bill'), form.getValues('id')));
+			form.trigger(fieldNameOriginal);
 		}
 	};
 
 	return (
-		<div className="flex items-center gap-1">
+		<div className="mt-2 flex flex-col">
 			{isEditingName ? (
 				<FormField
-					name={fieldName}
+					name={fieldNameOriginal}
 					render={({ field }) => (
 						<FormItem className="flex flex-row items-center gap-2">
 							<FormControl>
-								<Input {...field} autoFocus className="h-8 text-lg font-bold" />
+								<Input {...field} autoFocus className="h-8 text-lg font-semibold" />
 							</FormControl>
 							<Button
 								type="button"
@@ -49,10 +51,10 @@ const MerchantName: React.FC = () => {
 					)}
 				/>
 			) : (
-				<>
-					<h1 className="inline-block text-lg font-bold" onClick={handleEditToggle}>
+				<div className="flex items-center gap-1">
+					<h1 className="block text-3xl font-semibold" onClick={handleEditToggle}>
 						{/* TODO: default bill name to ID */}
-						{form.getValues(fieldName) || t('untitled')}
+						{form.getValues(fieldNameOriginal) || t('untitled')}
 					</h1>
 					<Button
 						type="button"
@@ -63,7 +65,10 @@ const MerchantName: React.FC = () => {
 					>
 						<Pencil className="h-4 w-4" />
 					</Button>
-				</>
+				</div>
+			)}
+			{form.getValues(fieldNameEnglish) && (
+				<p className="text-muted-foreground text-base font-normal">{form.getValues(fieldNameEnglish)}</p>
 			)}
 		</div>
 	);
