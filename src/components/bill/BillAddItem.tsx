@@ -2,6 +2,7 @@ import React from 'react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { useTranslation } from 'react-i18next';
+import { PlusIcon } from 'lucide-react';
 
 interface BillAddItemProps {
 	newItem: { name: string; amount: string };
@@ -34,6 +35,7 @@ const BillAddItem: React.FC<BillAddItemProps> = ({ newItem, setNewItem, handleAd
 			</div>
 			<div className="self-end">
 				<Button type="button" disabled={!newItem.name || !newItem.amount} onClick={handleAddItem}>
+					<PlusIcon className="w-4 h-4" />
 					{t('add')}
 				</Button>
 			</div>
