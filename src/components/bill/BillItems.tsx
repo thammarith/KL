@@ -27,7 +27,8 @@ const BillItems: React.FC = () => {
 				? {
 					...item,
 					name: { ...item.name, original: updated.name },
-					amount: { ...item.amount, amount: Number(updated.amount) },
+					// TODO: use currency.js
+					amount: Number(updated.amount),
 				}
 				: item
 		);
@@ -38,7 +39,15 @@ const BillItems: React.FC = () => {
 	return (
 		<div className="flex flex-col gap-2">
 			{localItems.map((item) => (
-				<BillItem key={item.id} item={item} onEdit={(updated) => handleEdit(item.id, updated)} />
+				<BillItem
+					key={item.id}
+					item={item}
+					onEdit={(updated) => handleEdit(item.id, updated)}
+					currency={{
+						original: form.watch('currency'),
+						target: form.watch('currency'),
+					}}
+				/>
 			))}
 		</div>
 	);

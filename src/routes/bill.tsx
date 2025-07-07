@@ -23,13 +23,9 @@ const buildDefaultValues = (billText: string, billId: string): BillFormValues =>
 	id: billId,
 	date: '',
 	time: '',
-	merchant: {
-		id: '',
-		name: {
-			original: getDefaultBillName(billText, billId),
-			english: '',
-		},
-	},
+	name: { original: getDefaultBillName(billText, billId), english: '' },
+	// TODO: get currency from bill
+	currency: 'THB',
 	items: [],
 });
 
@@ -39,8 +35,8 @@ const BillManagementPage = () => {
 	const bill = currentId ? getBillById(currentId) : undefined;
 	const { t } = useTranslation();
 
-	// Gather existing merchant name IDs to avoid duplicates
-	const existingIds = bills?.map((b) => b.merchant?.name?.original).filter(Boolean) || [];
+	// Gather existing bill name IDs to avoid duplicates
+	const existingIds = bills?.map((b) => b.name?.original).filter(Boolean) || [];
 	const billId = useMemo(() => generateUniqueId(existingIds), [currentId]);
 
 	const form = useForm<BillFormValues>({

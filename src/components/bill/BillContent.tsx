@@ -17,9 +17,7 @@ const BillContent: React.FC = () => {
 		const newBillItem = {
 			id: getNanoId(),
 			name: { original: item.name, english: '' },
-			// TODO: Get currency from bill
-			amount: { amount: Number(item.amount), currency: 'THB' },
-			quantity: 1,
+			amount: Number(item.amount),
 		};
 		form.setValue('items', [...(items || []), newBillItem]);
 	};

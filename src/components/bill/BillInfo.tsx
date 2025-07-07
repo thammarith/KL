@@ -21,7 +21,7 @@ const BillInfo: React.FC = () => {
 			</div>
 			<div>
 				{/* currency */}
-				<div> currency</div>
+				<div>{bill?.currency}</div>
 			</div>
 		</section>
 	);

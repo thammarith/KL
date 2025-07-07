@@ -5,16 +5,20 @@ import BillItemForm from './BillItemForm';
 
 interface BillItemProps {
 	item: BillItemType;
+	currency: {
+		original: string;
+		target: string;
+	};
 	onEdit: (updated: { name: string; amount: string }) => void;
 }
 
-const BillItem: React.FC<BillItemProps> = ({ item, onEdit }) => {
+const BillItem: React.FC<BillItemProps> = ({ item, onEdit, currency }) => {
 	const [isEditing, setIsEditing] = useState(false);
 
 	if (isEditing) {
 		return (
 			<BillItemForm
-				item={{ name: item.name.original, amount: String(item.amount.amount) }}
+				item={{ name: item.name.original, amount: String(item.amount) }}
 				onSave={(updated) => {
 					onEdit(updated);
 					setIsEditing(false);
@@ -33,14 +37,14 @@ const BillItem: React.FC<BillItemProps> = ({ item, onEdit }) => {
 				</div>
 				<div className="font-medium">
 					{/* TODO: show currency only if converted */}
-					{formatCurrency(item.amount.amount, item.amount.currency, 'narrowSymbol')}
+					{formatCurrency(item.amount, currency.original, 'narrowSymbol')}
 				</div>
 			</div>
 			<div className="flex justify-between">
 				<div className="flex flex-1"></div>
 				<div className="text-muted-foreground text-sm">
 					{/* TODO: show currency only if converted */}
-					{formatCurrency(item.amount.amount, item.amount.currency, 'narrowSymbol')}
+					{formatCurrency(item.amount, currency.target, 'narrowSymbol')}
 				</div>
 			</div>
 		</div>

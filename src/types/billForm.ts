@@ -1,29 +1,23 @@
 import z from 'zod/v4';
 
+// Name schema for reuse
+export const nameSchema = z.object({
+	original: z.string().trim().min(1),
+	english: z.string().optional(),
+});
+
 // Form schema for Bill editing
 export const billFormSchema = z.object({
 	id: z.string(),
 	date: z.string().optional(),
 	time: z.string().optional(),
-	merchant: z.object({
-		id: z.string(),
-		name: z.object({
-			original: z.string().trim().min(1),
-			english: z.string().optional(),
-		}),
-	}),
+	name: nameSchema,
+	currency: z.string(),
 	items: z.array(
 		z.object({
 			id: z.string(),
-			name: z.object({
-				original: z.string(),
-				english: z.string().optional(),
-			}),
-			quantity: z.number(),
-			amount: z.object({
-				amount: z.number(),
-				currency: z.string(),
-			}),
+			name: nameSchema,
+			amount: z.number(),
 		})
 	),
 });

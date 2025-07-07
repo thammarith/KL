@@ -8,8 +8,8 @@ import { useTranslation } from 'react-i18next';
 import type { BillFormValues } from '@/types/billForm';
 import { getDefaultBillName } from '@/utils/bill';
 
-const fieldNameOriginal = 'merchant.name.original';
-const fieldNameEnglish = 'merchant.name.english';
+const fieldNameOriginal = 'name.original';
+const fieldNameEnglish = 'name.english';
 
 const MerchantName: React.FC = () => {
 	const [isEditingName, setIsEditingName] = useState(false);

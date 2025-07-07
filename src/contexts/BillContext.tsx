@@ -22,38 +22,32 @@ const sampleBills: Bill[] = [
 		id: 'zQNOD0QU',
 		date: '2024-06-01',
 		time: '23:56',
-		merchant: {
-			id: 'm1',
-			name: { original: 'ร้านอาหาร A', english: 'Restaurant A' },
-		},
+		name: { original: 'ร้านอาหาร A', english: 'Restaurant A' },
+		currency: 'THB',
 		items: [
 			{
 				id: 'i1',
 				name: { original: 'ข้าวผัด', english: 'Fried Rice' },
-				quantity: 2,
-				amount: { amount: 50, currency: 'THB' },
+				amount: 50,
 			},
 			{
 				id: 'i2',
 				name: { original: 'น้ำเปล่า', english: 'Water' },
-				quantity: 1,
-				amount: { amount: 10, currency: 'THB' },
+				amount: 10,
 			},
 		],
 	},
 	{
 		id: 'cZetOWzJ',
 		date: '2024-06-02',
-		merchant: {
-			id: 'm2',
-			name: { original: 'Cafe B', english: 'Cafe B' },
-		},
+		time: '10:00',
+		name: { original: 'Cafe B', english: 'Cafe B' },
+		currency: 'THB',
 		items: [
 			{
 				id: 'i3',
 				name: { original: 'กาแฟ', english: 'Coffee' },
-				quantity: 1,
-				amount: { amount: 60, currency: 'THB' },
+				amount: 60,
 			},
 		],
 	},

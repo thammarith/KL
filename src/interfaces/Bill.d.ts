@@ -1,30 +1,19 @@
+export interface Name {
+	original: string;
+	english?: string;
+}
+
 export interface Bill {
 	id: string;
 	date?: string;
 	time?: string;
 	items: BillItem[];
-	merchant: Merchant;
+	currency: string;
+	name: Name;
 }
 
 export interface BillItem {
 	id: string;
-	name: {
-		original: string;
-		english?: string;
-	};
-	quantity: number;
-	amount: Price;
-}
-
-export interface Merchant {
-	id: string;
-	name: {
-		original: string;
-		english?: string;
-	};
-}
-
-export interface Price {
+	name: Name;
 	amount: number;
-	currency: string;
 }

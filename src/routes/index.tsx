@@ -29,7 +29,10 @@ const Index = () => {
 							>
 								<Card className="cursor-pointer transition-shadow hover:shadow-lg">
 									<CardHeader className="pb-2">
-										<CardTitle>{bill.merchant?.name?.original || t('untitled')}</CardTitle>
+										<CardTitle>{bill.name?.original || t('untitled')}</CardTitle>
+										{bill.name?.english && (
+											<span className="block text-xs text-muted-foreground">{bill.name.english}</span>
+										)}
 									</CardHeader>
 									<CardContent className="pt-0 text-xs text-gray-500">
 										{bill.date ? format(new Date(bill.date), 'yyyy-MM-dd') : ''}
