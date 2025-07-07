@@ -1,16 +1,15 @@
 import React from 'react';
-import { useTranslation } from 'react-i18next';
 import { useBillContext } from '@/contexts/BillContext';
 import { formatDate, formatTime } from '@/utils/time';
+import MerchantName from './MerchantName';
 
 const BillInfo: React.FC = () => {
-	const { t } = useTranslation();
 	const { currentId, getBillById } = useBillContext();
 	const bill = currentId ? getBillById(currentId) : undefined;
 
 	return (
 		<section className="font-heading flex justify-between gap-2">
-			<div>
+			<div className="flex-1">
 				{bill?.date && (
 					<p className="text-muted-foreground text-sm">
 						{formatDate(new Date(bill.date))}
@@ -18,10 +17,7 @@ const BillInfo: React.FC = () => {
 						{bill.time && formatTime(new Date(`${bill.date} ${bill.time}`))}
 					</p>
 				)}
-				<h1 className="mb-2 text-lg font-semibold">
-					{bill?.merchant?.name?.original || t('untitled')}
-					<p className="text-muted-foreground text-sm font-normal">{bill?.merchant?.name?.english}</p>
-				</h1>
+				<MerchantName />
 			</div>
 			<div>
 				{/* currency */}

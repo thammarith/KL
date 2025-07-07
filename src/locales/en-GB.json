@@ -25,6 +25,7 @@
 	"viewMode": "view",
 	"modified": "• Modified",
 	"billId": "Bill ID:",
+	"bill": "Bill",
 	"loading": "Loading...",
 	"failedToLoadBill": "Failed to load bill",
 	"failedToDeleteBill": "Failed to delete bill",
