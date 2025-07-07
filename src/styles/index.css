@@ -10,6 +10,7 @@
 		'Noto Color Emoji';
 	/* --font-title: Poppins, var(--base-sans-serif); */
 	--font-heading: 'Figtree', 'Anuphan', var(--base-sans-serif);
+	--font-content: 'Noto Sans Thai Looped', var(--base-sans-serif);
 }
 
 html,

@@ -13,6 +13,7 @@ import { Form } from '@/components/ui/form';
 import { billFormSchema, type BillFormValues } from '@/types/billForm';
 import { generateUniqueId, getDefaultBillName } from '@/utils/bill';
 import { useTranslation } from 'react-i18next';
+import { Separator } from '@/components/ui/separator';
 
 const billSearchSchema = z.object({
 	id: z.string().optional(),
@@ -91,6 +92,7 @@ const BillManagementPage = () => {
 			>
 				<BillHeader onDelete={handleDelete} />
 				<BillInfo />
+				<Separator />
 				<BillContent />
 				<BillFooter />
 			</form>
