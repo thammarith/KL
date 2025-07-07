@@ -7,13 +7,14 @@ interface BillItemProps {
 	item: BillItemType;
 	currency: {
 		original: string;
-		target: string;
+		target?: string;
 	};
 	onEdit: (updated: { name: string; amount: string }) => void;
 }
 
 const BillItem: React.FC<BillItemProps> = ({ item, onEdit, currency }) => {
 	const [isEditing, setIsEditing] = useState(false);
+	const isConverted = currency.target && currency.target !== currency.original;
 
 	if (isEditing) {
 		return (
@@ -30,23 +31,20 @@ const BillItem: React.FC<BillItemProps> = ({ item, onEdit, currency }) => {
 
 	return (
 		<div className="font-content cursor-pointer tabular-nums" onClick={() => setIsEditing(true)}>
-			<div className="flex justify-between">
+			<div className="flex items-baseline justify-between">
 				<div className="flex items-baseline gap-1">
 					<span className="text-base">{item.name.original}</span>
 					<span className="text-muted-foreground text-sm">{item.name.english}</span>
 				</div>
-				<div className="font-medium">
-					{/* TODO: show currency only if converted */}
-					{formatCurrency(item.amount, currency.original, 'narrowSymbol')}
-				</div>
+				<div>{formatCurrency(item.amount, isConverted ? currency.original : '', 'narrowSymbol')}</div>
 			</div>
-			<div className="flex justify-between">
-				<div className="flex flex-1"></div>
-				<div className="text-muted-foreground text-sm">
-					{/* TODO: show currency only if converted */}
-					{formatCurrency(item.amount, currency.target, 'narrowSymbol')}
+			{isConverted && (
+				<div className="flex justify-end">
+					<div className="text-muted-foreground text-sm">
+						{formatCurrency(item.amount, currency.target ?? '', 'narrowSymbol')}
+					</div>
 				</div>
-			</div>
+			)}
 		</div>
 	);
 };

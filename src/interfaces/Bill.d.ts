@@ -5,11 +5,14 @@ export interface Name {
 
 export interface Bill {
 	id: string;
+	name: Name;
 	date?: string;
 	time?: string;
 	items: BillItem[];
-	currency: string;
-	name: Name;
+	currency: {
+		original: string;
+		target?: string;
+	};
 }
 
 export interface BillItem {

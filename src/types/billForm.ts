@@ -12,7 +12,10 @@ export const billFormSchema = z.object({
 	date: z.string().optional(),
 	time: z.string().optional(),
 	name: nameSchema,
-	currency: z.string(),
+	currency: z.object({
+		original: z.string(),
+		target: z.string().optional(),
+	}),
 	items: z.array(
 		z.object({
 			id: z.string(),

@@ -31,7 +31,9 @@ const Index = () => {
 									<CardHeader className="pb-2">
 										<CardTitle>{bill.name?.original || t('untitled')}</CardTitle>
 										{bill.name?.english && (
-											<span className="block text-xs text-muted-foreground">{bill.name.english}</span>
+											<span className="text-muted-foreground block text-xs">
+												{bill.name.english}
+											</span>
 										)}
 									</CardHeader>
 									<CardContent className="pt-0 text-xs text-gray-500">

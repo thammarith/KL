@@ -23,7 +23,7 @@ const sampleBills: Bill[] = [
 		date: '2024-06-01',
 		time: '23:56',
 		name: { original: 'ร้านอาหาร A', english: 'Restaurant A' },
-		currency: 'THB',
+		currency: { original: 'HKD', target: 'THB' },
 		items: [
 			{
 				id: 'i1',
@@ -42,7 +42,7 @@ const sampleBills: Bill[] = [
 		date: '2024-06-02',
 		time: '10:00',
 		name: { original: 'Cafe B', english: 'Cafe B' },
-		currency: 'THB',
+		currency: { original: 'THB' },
 		items: [
 			{
 				id: 'i3',

@@ -25,11 +25,11 @@ const BillItems: React.FC = () => {
 		const updatedItems = localItems.map((item) =>
 			item.id === id
 				? {
-					...item,
-					name: { ...item.name, original: updated.name },
-					// TODO: use currency.js
-					amount: Number(updated.amount),
-				}
+						...item,
+						name: { ...item.name, original: updated.name },
+						// TODO: use currency.js
+						amount: Number(updated.amount),
+					}
 				: item
 		);
 		setLocalItems(updatedItems);
@@ -44,8 +44,8 @@ const BillItems: React.FC = () => {
 					item={item}
 					onEdit={(updated) => handleEdit(item.id, updated)}
 					currency={{
-						original: form.watch('currency'),
-						target: form.watch('currency'),
+						original: form.watch('currency')?.original,
+						target: form.watch('currency')?.target,
 					}}
 				/>
 			))}

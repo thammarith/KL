@@ -24,8 +24,7 @@ const buildDefaultValues = (billText: string, billId: string): BillFormValues =>
 	date: '',
 	time: '',
 	name: { original: getDefaultBillName(billText, billId), english: '' },
-	// TODO: get currency from bill
-	currency: 'THB',
+	currency: { original: 'THB' },
 	items: [],
 });
 
