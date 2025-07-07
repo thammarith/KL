@@ -29,7 +29,7 @@ const MerchantName: React.FC = () => {
 	};
 
 	return (
-		<div className="mt-2 flex flex-col">
+		<div className="flex flex-col">
 			{isEditingName ? (
 				<FormField
 					name={fieldNameOriginal}

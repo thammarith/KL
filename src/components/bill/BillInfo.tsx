@@ -9,7 +9,7 @@ const BillInfo: React.FC = () => {
 
 	return (
 		<section className="font-heading flex justify-between gap-2">
-			<div className="flex-1">
+			<div className="flex-1 flex flex-col gap-2">
 				{bill?.date && (
 					<p className="text-muted-foreground text-sm">
 						{formatDate(new Date(bill.date))}
