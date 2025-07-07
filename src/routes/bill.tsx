@@ -58,7 +58,6 @@ const BillManagementPage = () => {
 	useEffect(() => {
 		const subscription = form.watch((value) => {
 			console.log('Form data changed:', value);
-			console.log(form.getFieldState('merchant.name.original'));
 		});
 		return () => subscription.unsubscribe();
 	}, [form]);
