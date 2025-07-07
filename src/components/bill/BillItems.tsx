@@ -1,27 +1,44 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import BillItem from '@/components/bill/BillItem';
 import { useTranslation } from 'react-i18next';
-import { useBillContext } from '@/contexts/BillContext';
 import type { BillItem as BillItemType } from '@/interfaces/Bill';
+import { useFormContext } from 'react-hook-form';
+import type { BillFormValues } from '@/types/billForm';
 
-interface BillItemsProps {
-	items?: BillItemType[];
-}
-
-const BillItems: React.FC<BillItemsProps> = ({ items }) => {
+const BillItems: React.FC = () => {
 	const { t } = useTranslation();
-	const { currentId, getBillById } = useBillContext();
-	const bill = currentId ? getBillById(currentId) : undefined;
-	const displayItems = items ?? bill?.items;
+	const form = useFormContext<BillFormValues>();
+	const items = form.watch('items') || [];
 
-	if (!displayItems || displayItems.length === 0) {
+	const [localItems, setLocalItems] = useState<BillItemType[]>(items);
+
+	// Sync localItems with form.items
+	useEffect(() => {
+		setLocalItems(items);
+	}, [items]);
+
+	if (!localItems?.length) {
 		return <div>{t('noItems')}</div>;
 	}
 
+	const handleEdit = (id: string, updated: { name: string; amount: string }) => {
+		const updatedItems = localItems.map((item) =>
+			item.id === id
+				? {
+					...item,
+					name: { ...item.name, original: updated.name },
+					amount: { ...item.amount, amount: Number(updated.amount) },
+				}
+				: item
+		);
+		setLocalItems(updatedItems);
+		form.setValue('items', updatedItems);
+	};
+
 	return (
 		<div className="flex flex-col gap-2">
-			{displayItems.map((item) => (
-				<BillItem key={item.id} item={item} />
+			{localItems.map((item) => (
+				<BillItem key={item.id} item={item} onEdit={(updated) => handleEdit(item.id, updated)} />
 			))}
 		</div>
 	);
