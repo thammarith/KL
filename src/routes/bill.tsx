@@ -82,7 +82,7 @@ const BillManagementPage = () => {
 		<Form {...form}>
 			<form
 				onSubmit={form.handleSubmit(onSubmit)}
-				className="mx-auto flex w-full max-w-lg flex-col gap-4 px-6 py-4 sm:px-4"
+				className="mx-auto flex w-full max-w-lg flex-col gap-4 px-4 py-4"
 			>
 				<BillHeader onDelete={handleDelete} />
 				<BillInfo />
