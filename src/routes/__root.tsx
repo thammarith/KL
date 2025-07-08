@@ -4,13 +4,23 @@ import Header from '@/components/Header';
 import { BillProvider } from '@/contexts/BillContext';
 import { useRouterState } from '@tanstack/react-router';
 import { UserProvider } from '@/contexts/UserContext';
+import { useEffect, useState } from 'react';
+import { getCountryCode } from '@/utils/geo';
 
 const RootComponent = () => {
 	const { location } = useRouterState();
 	const id = location?.search?.id;
 
+	const [countryCode, setCountryCode] = useState<string>();
+
+	useEffect(() => {
+		getCountryCode()
+			.then((code) => setCountryCode(code))
+			.catch(() => {});
+	}, []);
+
 	return (
-		<UserProvider>
+		<UserProvider countryCode={countryCode}>
 			<section className="box-border flex min-h-screen w-full flex-col px-[env(safe-area-inset-left)] pt-[env(safe-area-inset-top)] pr-[env(safe-area-inset-right)] pb-[env(safe-area-inset-bottom)]">
 				<Header />
 				<div className="flex gap-2 p-2">
