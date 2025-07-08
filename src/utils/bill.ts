@@ -1,7 +1,4 @@
-import { getNanoId } from '@/utils/nanoId';
-
-export const generateUniqueId = (existingIds: string[] = [], id: string = getNanoId()): string =>
-	existingIds.includes(id) || Number(id) ? generateUniqueId(existingIds) : id;
+import { generateUniqueId } from '@/utils/nanoId';
 
 export const generateUniqueBillItemId = (items: { id: string }[]): string =>
 	generateUniqueId(items.map((item) => item.id));

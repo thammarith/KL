@@ -11,7 +11,8 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Form } from '@/components/ui/form';
 import { billFormSchema, type BillFormValues } from '@/types/billForm';
-import { generateUniqueId, getDefaultBillName } from '@/utils/bill';
+import { generateUniqueId } from '@/utils/nanoId';
+import { getDefaultBillName } from '@/utils/bill';
 import { useTranslation } from 'react-i18next';
 import { Separator } from '@/components/ui/separator';
 

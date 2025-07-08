@@ -1,6 +1,6 @@
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
-import { getNanoId } from '@/utils/nanoId';
+import { generateUniqueId } from '@/utils/nanoId';
 import BillItems from './BillItems';
 import BillItemForm from './BillItemForm';
 import type { BillFormValues } from '@/types/billForm';
@@ -15,7 +15,7 @@ const BillContent: React.FC = () => {
 	const handleAddItem = (item: { name: string; amount: string }) => {
 		if (!item.name || !item.amount) return;
 		const newBillItem = {
-			id: getNanoId(),
+			id: generateUniqueId(),
 			name: { original: item.name, english: '' },
 			amount: Number(item.amount),
 		};
