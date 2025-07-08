@@ -121,7 +121,7 @@ const BillItemForm: React.FC<BillItemFormProps> = ({ item, onSave, onCancel, onD
 								type="button"
 								variant="ghost"
 								aria-label={t('delete')}
-								className="text-red-500 hover:bg-red-500 hover:text-white"
+								className="text-red-500 hover:bg-red-100 hover:text-red-500"
 							>
 								<Trash2Icon className="h-4 w-4" />
 							</Button>
