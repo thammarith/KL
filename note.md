@@ -7,3 +7,4 @@ Names: squid split / octo split / splitopus
 - [ ] Grafana Cloud for monitoring
 - [ ] Form validation
 - [ ] Currency
+- [ ] Disable auto complete
