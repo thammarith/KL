@@ -35,6 +35,11 @@ const sampleBills: Bill[] = [
 				name: { original: 'น้ำเปล่า', english: 'Water' },
 				amount: 10,
 			},
+			{
+				id: 'i3',
+				name: { original: 'โปร #1', english: 'Promotion #1' },
+				amount: -5,
+			},
 		],
 	},
 	{
@@ -48,6 +53,11 @@ const sampleBills: Bill[] = [
 				id: 'i3',
 				name: { original: 'กาแฟ', english: 'Coffee' },
 				amount: 60,
+			},
+			{
+				id: 'i3',
+				name: { original: 'โปร #1', english: 'Promotion #1' },
+				amount: -5,
 			},
 		],
 	},
