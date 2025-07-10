@@ -95,7 +95,7 @@ const TopRightCell: React.FC<GridCellProps> = ({ mode, item, currency, amount, o
 		case BillItemMode.VIEW:
 			if (item) {
 				return (
-					<div className="flex justify-end">
+					<div className={cn("flex justify-end", item.amount <= 0 && 'mr-16')}>
 						{formatCurrency(item.amount, isConverted ? currency.original : '', 'narrowSymbol')}
 					</div>
 				);
@@ -195,7 +195,7 @@ const BottomRightCell: React.FC<GridCellProps> = ({
 		case BillItemMode.VIEW:
 			if (item && isConverted) {
 				return (
-					<div className="flex justify-end">
+					<div className={cn("flex justify-end", item.amount <= 0 && 'mr-16')}>
 						<div className="text-muted-foreground text-sm">
 							{formatCurrency(item.amount, currency.target ?? '', 'narrowSymbol')}
 						</div>
