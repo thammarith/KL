@@ -40,6 +40,16 @@ const sampleBills: Bill[] = [
 				name: { original: 'โปร #1', english: 'Promotion #1' },
 				amount: -5,
 			},
+			{
+				id: 'i6',
+				name: { original: 'น้ำแข็ง', english: 'Ice Water' },
+				amount: 20,
+			},
+			{
+				id: 'i7',
+				name: { original: 'โปร #2', english: 'Promotion #1' },
+				amount: -7,
+			},
 		],
 	},
 	{
