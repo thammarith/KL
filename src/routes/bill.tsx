@@ -85,8 +85,9 @@ const BillManagementPage = () => {
 				<form onSubmit={form.handleSubmit(onSubmit)}>
 					<BillHeader onDelete={handleDelete} />
 					<BillInfo />
-					<Separator />
+					<Separator className='my-4' />
 					<BillContent />
+					<Separator className='my-4' />
 					<BillFooter />
 				</form>
 			</Form>
