@@ -1,136 +1,140 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { useTranslation } from 'react-i18next';
-import { CheckIcon, PlusIcon, XIcon, Trash2Icon } from 'lucide-react';
-import {
-	AlertDialog,
-	AlertDialogTrigger,
-	AlertDialogContent,
-	AlertDialogHeader,
-	AlertDialogTitle,
-	AlertDialogDescription,
-	AlertDialogFooter,
-	AlertDialogCancel,
-	AlertDialogAction,
-} from '@/components/ui/alert-dialog';
+import { CheckIcon, XIcon, Trash2Icon, PlusIcon } from 'lucide-react';
+import DeleteAlertDialog from './DeleteAlertDialog';
+import { BillItemMode, type BillItemMode as BillItemModeType } from './BillItem';
 
 interface BillItemFormProps {
-	item?: { name: string; amount: string };
-	onSave: (item: { name: string; amount: string }) => void;
+	mode: BillItemModeType;
+	name: string;
+	amount: string;
+	onNameChange: (value: string) => void;
+	onAmountChange: (value: string) => void;
+	onSave?: () => void;
 	onCancel?: () => void;
 	onDelete?: () => void;
+	onAdd?: () => void;
+	isDisabled?: boolean;
 }
 
-interface DeleteAlertDialogProps {
-	onDelete: () => void;
-	trigger: React.ReactNode;
-	t: (key: string) => string;
-}
-
-const DeleteAlertDialog = ({ onDelete, trigger, t }: DeleteAlertDialogProps) => (
-	<AlertDialog>
-		<AlertDialogTrigger asChild>{trigger}</AlertDialogTrigger>
-		<AlertDialogContent>
-			<AlertDialogHeader>
-				<AlertDialogTitle>{t('deleteConfirmTitle')}</AlertDialogTitle>
-				<AlertDialogDescription>{t('deleteConfirmDescription')}</AlertDialogDescription>
-			</AlertDialogHeader>
-			<AlertDialogFooter>
-				<AlertDialogCancel>{t('cancel')}</AlertDialogCancel>
-				<AlertDialogAction onClick={onDelete} className="bg-red-500 text-white hover:bg-red-600">
-					{t('delete')}
-				</AlertDialogAction>
-			</AlertDialogFooter>
-		</AlertDialogContent>
-	</AlertDialog>
-);
-
-const BillItemForm: React.FC<BillItemFormProps> = ({ item, onSave, onCancel, onDelete }) => {
+const BillItemForm: React.FC<BillItemFormProps> = ({
+	mode,
+	name,
+	amount,
+	onNameChange,
+	onAmountChange,
+	onSave,
+	onCancel,
+	onDelete,
+	onAdd,
+	isDisabled,
+}) => {
 	const { t } = useTranslation();
-	const [name, setName] = useState(item?.name || '');
-	const [amount, setAmount] = useState(item?.amount || '');
 
-	useEffect(() => {
-		setName(item?.name || '');
-		setAmount(item?.amount || '');
-	}, [item]);
+	const renderBottomRightActions = () => {
+		switch (mode) {
+			case BillItemMode.EDIT:
+				return (
+					<div className="flex w-full justify-end">
+						<DeleteAlertDialog
+							onDelete={onDelete || (() => {})}
+							trigger={
+								<Button
+									type="button"
+									variant="ghost"
+									aria-label={t('delete')}
+									className="text-red-500 hover:bg-red-100 hover:text-red-500"
+									onClick={(e) => e.stopPropagation()}
+								>
+									<Trash2Icon className="h-4 w-4" />
+								</Button>
+							}
+							t={t}
+						/>
 
-	const handleSave = () => {
-		onSave({ name, amount });
-		if (!item) {
-			setName('');
-			setAmount('');
+						<Button
+							type="button"
+							variant="ghost"
+							onClick={(e) => {
+								e.stopPropagation();
+								onCancel?.();
+							}}
+							aria-label={t('cancel')}
+						>
+							<XIcon className="h-4 w-4" />
+						</Button>
+
+						<Button
+							type="button"
+							variant={isDisabled ? 'ghost' : 'default'}
+							disabled={isDisabled}
+							onClick={(e) => {
+								e.stopPropagation();
+								onSave?.();
+							}}
+							aria-label={t('save')}
+							className="font-semibold"
+						>
+							<CheckIcon className="h-4 w-4 stroke-3" />
+						</Button>
+					</div>
+				);
+			case BillItemMode.ADD:
+				return (
+					<div className="flex justify-end">
+						<Button
+							type="button"
+							variant={isDisabled ? 'ghost' : 'default'}
+							disabled={isDisabled}
+							onClick={(e) => {
+								e.stopPropagation();
+								onAdd?.();
+							}}
+							aria-label={t('add')}
+							className="font-semibold"
+						>
+							<PlusIcon className="h-4 w-4" />
+							{t('add')}
+						</Button>
+					</div>
+				);
+			default:
+				return <div />;
 		}
 	};
 
-	const isEditing = !!item;
-	const isDisabled = !name || !amount;
-
 	return (
-		<div className="grid grid-cols-[2fr_1fr] grid-rows-2 items-end gap-x-2 gap-y-1">
+		<>
+			{/* Top Left - Name Input */}
 			<Input
 				id="item-name"
 				className="w-full"
 				value={name}
-				onChange={(e) => setName(e.target.value)}
+				onChange={(e) => onNameChange(e.target.value)}
 				placeholder={t('itemName')}
 				required
+				onClick={(e) => e.stopPropagation()}
 			/>
+
+			{/* Top Right - Amount Input */}
 			<Input
 				id="item-amount"
 				type="text"
 				value={amount}
-				onChange={(e) => setAmount(e.target.value)}
+				onChange={(e) => onAmountChange(e.target.value)}
 				placeholder={t('price')}
 				required
+				onClick={(e) => e.stopPropagation()}
 			/>
+
+			{/* Bottom Left - Empty */}
 			<div />
-			<div className="col-start-2 row-start-2 flex justify-end">
-				<Button
-					type="button"
-					variant={isEditing || isDisabled ? 'ghost' : 'default'}
-					disabled={isDisabled}
-					onClick={handleSave}
-					aria-label={isEditing ? t('save') : t('add')}
-					className={isEditing ? 'font-semibold' : ''}
-				>
-					{isEditing ? (
-						<>
-							<CheckIcon className="h-4 w-4 stroke-3" />
-							{t('save')}
-						</>
-					) : (
-						<>
-							<PlusIcon className="h-4 w-4" /> {t('add')}
-						</>
-					)}
-				</Button>
-				{onCancel ? (
-					<Button type="button" variant="ghost" onClick={onCancel} aria-label={t('cancel')}>
-						<XIcon className="h-4 w-4" />
-					</Button>
-				) : (
-					<div />
-				)}
-				{isEditing && onDelete && (
-					<DeleteAlertDialog
-						onDelete={onDelete}
-						trigger={
-							<Button
-								type="button"
-								variant="ghost"
-								aria-label={t('delete')}
-								className="text-red-500 hover:bg-red-100 hover:text-red-500"
-							>
-								<Trash2Icon className="h-4 w-4" />
-							</Button>
-						}
-						t={t}
-					/>
-				)}
-			</div>
-		</div>
+
+			{/* Bottom Right - Actions */}
+			{renderBottomRightActions()}
+		</>
 	);
 };
 

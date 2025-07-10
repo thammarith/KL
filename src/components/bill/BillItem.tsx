@@ -1,51 +1,95 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import type { BillItem as BillItemType } from '@/interfaces/Bill';
-import { formatCurrency } from '@/utils/currency';
+import { cn } from '@/utils/shadcn';
+import type { BillFormValues } from '@/types/billForm';
+import { useFormContext } from 'react-hook-form';
+import BillItemView from './BillItemView';
 import BillItemForm from './BillItemForm';
 
+export const BillItemMode = {
+	ADD: 'add',
+	EDIT: 'edit',
+	VIEW: 'view',
+} as const;
+
+export type BillItemMode = (typeof BillItemMode)[keyof typeof BillItemMode];
+
 interface BillItemProps {
-	item: BillItemType;
-	currency: {
-		original: string;
-		target?: string;
-	};
+	item?: BillItemType;
+	mode?: BillItemMode;
 	onEdit: (updated: { name: string; amount: string }) => void;
-	onDelete?: () => void;
+	onDelete: () => void;
+	onAdd: (item: { name: string; amount: string }) => void;
 }
 
-const BillItem: React.FC<BillItemProps> = ({ item, onEdit, onDelete, currency }) => {
-	const [isEditing, setIsEditing] = useState(false);
-	const isConverted = currency.target && currency.target !== currency.original;
+const BillItem: React.FC<BillItemProps> = ({ item, onEdit, onDelete, onAdd, mode: modeProp }) => {
+	const form = useFormContext<BillFormValues>();
 
-	if (isEditing) {
-		return (
-			<BillItemForm
-				item={{ name: item.name.original, amount: String(item.amount) }}
-				onSave={(updated) => {
-					onEdit(updated);
-					setIsEditing(false);
-				}}
-				onCancel={() => setIsEditing(false)}
-				onDelete={onDelete}
-			/>
-		);
-	}
+	const [mode, setMode] = useState<BillItemMode>(modeProp ?? BillItemMode.VIEW);
+	const [name, setName] = useState(item?.name.original || '');
+	const [amount, setAmount] = useState(item ? String(item.amount) : '');
+
+	const currency = form.getValues('currency');
+
+	useEffect(() => {
+		if (item) {
+			setName(item.name.original);
+			setAmount(String(item.amount));
+		} else if (mode === BillItemMode.ADD) {
+			setName('');
+			setAmount('');
+		}
+	}, [item, mode]);
+
+	const handleSave = () => {
+		onEdit?.({ name, amount });
+		setMode(BillItemMode.VIEW);
+	};
+
+	const handleCancel = () => {
+		if (item) {
+			setName(item.name.original);
+			setAmount(String(item.amount));
+		}
+		setMode(BillItemMode.VIEW);
+	};
+
+	const handleAdd = () => {
+		onAdd?.({ name, amount });
+		setName('');
+		setAmount('');
+	};
+
+	const isDisabled = !name || !amount;
+
+	const handleContainerClick = () => {
+		if (mode === BillItemMode.VIEW && item) {
+			setMode(BillItemMode.EDIT);
+		}
+	};
 
 	return (
-		<div className="font-content cursor-pointer tabular-nums" onClick={() => setIsEditing(true)}>
-			<div className="flex items-baseline justify-between">
-				<div className="flex items-baseline gap-1">
-					<span className="text-base">{item.name.original}</span>
-					<span className="text-muted-foreground text-sm">{item.name.english}</span>
-				</div>
-				<div>{formatCurrency(item.amount, isConverted ? currency.original : '', 'narrowSymbol')}</div>
-			</div>
-			{isConverted && (
-				<div className="flex justify-end">
-					<div className="text-muted-foreground text-sm">
-						{formatCurrency(item.amount, currency.target ?? '', 'narrowSymbol')}
-					</div>
-				</div>
+		<div
+			className={cn(
+				'font-content grid grid-cols-[2fr_1fr] grid-rows-2 items-end gap-x-2 gap-y-1 tabular-nums',
+				mode === BillItemMode.VIEW && 'cursor-pointer'
+			)}
+			onClick={handleContainerClick}
+		>
+			{mode === BillItemMode.VIEW && item && <BillItemView item={item} currency={currency} />}
+			{(mode === BillItemMode.ADD || mode === BillItemMode.EDIT) && (
+				<BillItemForm
+					mode={mode}
+					name={name}
+					amount={amount}
+					onNameChange={setName}
+					onAmountChange={setAmount}
+					onSave={handleSave}
+					onCancel={handleCancel}
+					onDelete={onDelete}
+					onAdd={handleAdd}
+					isDisabled={isDisabled}
+				/>
 			)}
 		</div>
 	);
