@@ -10,7 +10,7 @@ interface BillItemProps {
 		target?: string;
 	};
 	onEdit: (updated: { name: string; amount: string }) => void;
-	onDelete?: () => void;
+	onDelete: () => void;
 }
 
 const BillItem: React.FC<BillItemProps> = ({ item, onEdit, onDelete, currency }) => {

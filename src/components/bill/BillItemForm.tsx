@@ -3,48 +3,14 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { useTranslation } from 'react-i18next';
 import { CheckIcon, PlusIcon, XIcon, Trash2Icon } from 'lucide-react';
-import {
-	AlertDialog,
-	AlertDialogTrigger,
-	AlertDialogContent,
-	AlertDialogHeader,
-	AlertDialogTitle,
-	AlertDialogDescription,
-	AlertDialogFooter,
-	AlertDialogCancel,
-	AlertDialogAction,
-} from '@/components/ui/alert-dialog';
+import DeleteAlertDialog from './DeleteAlertDialog';
 
 interface BillItemFormProps {
 	item?: { name: string; amount: string };
 	onSave: (item: { name: string; amount: string }) => void;
-	onCancel?: () => void;
-	onDelete?: () => void;
-}
-
-interface DeleteAlertDialogProps {
+	onCancel: () => void;
 	onDelete: () => void;
-	trigger: React.ReactNode;
-	t: (key: string) => string;
 }
-
-const DeleteAlertDialog = ({ onDelete, trigger, t }: DeleteAlertDialogProps) => (
-	<AlertDialog>
-		<AlertDialogTrigger asChild>{trigger}</AlertDialogTrigger>
-		<AlertDialogContent>
-			<AlertDialogHeader>
-				<AlertDialogTitle>{t('deleteConfirmTitle')}</AlertDialogTitle>
-				<AlertDialogDescription>{t('deleteConfirmDescription')}</AlertDialogDescription>
-			</AlertDialogHeader>
-			<AlertDialogFooter>
-				<AlertDialogCancel>{t('cancel')}</AlertDialogCancel>
-				<AlertDialogAction onClick={onDelete} className="bg-red-500 text-white hover:bg-red-600">
-					{t('delete')}
-				</AlertDialogAction>
-			</AlertDialogFooter>
-		</AlertDialogContent>
-	</AlertDialog>
-);
 
 const BillItemForm: React.FC<BillItemFormProps> = ({ item, onSave, onCancel, onDelete }) => {
 	const { t } = useTranslation();
@@ -106,14 +72,11 @@ const BillItemForm: React.FC<BillItemFormProps> = ({ item, onSave, onCancel, onD
 						</>
 					)}
 				</Button>
-				{onCancel ? (
-					<Button type="button" variant="ghost" onClick={onCancel} aria-label={t('cancel')}>
-						<XIcon className="h-4 w-4" />
-					</Button>
-				) : (
-					<div />
-				)}
-				{isEditing && onDelete && (
+
+				<Button type="button" variant="ghost" onClick={onCancel} aria-label={t('cancel')}>
+					<XIcon className="h-4 w-4" />
+				</Button>
+				{isEditing && (
 					<DeleteAlertDialog
 						onDelete={onDelete}
 						trigger={
