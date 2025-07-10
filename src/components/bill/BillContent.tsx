@@ -72,13 +72,7 @@ const BillContent: React.FC = () => {
 					<div>{t('noItems')}</div>
 				)}
 			</div>
-			<BillItem
-				mode="add"
-				onAdd={handleAddItem}
-				onEdit={() => {}}
-				onDelete={() => {}}
-				item={undefined}
-			/>
+			<BillItem mode="add" onAdd={handleAddItem} onEdit={() => {}} onDelete={() => {}} item={undefined} />
 		</section>
 	);
 };

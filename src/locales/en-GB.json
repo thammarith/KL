@@ -51,5 +51,14 @@
 	"deleteBill": "Delete bill",
 	"required": "Required",
 	"deleteConfirmTitle": "Are you sure you want to delete this item?",
-	"deleteConfirmDescription": "This action cannot be undone. This will permanently delete the item."
+	"deleteConfirmDescription": "This action cannot be undone. This will permanently delete the item.",
+	"people": "People",
+	"managePeople": "Manage people in your app",
+	"addNewPerson": "Add New Person",
+	"addPerson": "Add Person",
+	"name": "Name",
+	"enterPersonName": "Enter person name...",
+	"noPeople": "No people added yet.",
+	"deletePerson": "Delete Person",
+	"deletePersonConfirm": "Are you sure you want to delete {{name}}? This action cannot be undone."
 }

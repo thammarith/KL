@@ -9,10 +9,16 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as PeopleRouteImport } from './routes/people'
 import { Route as BillRouteImport } from './routes/bill'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 
+const PeopleRoute = PeopleRouteImport.update({
+  id: '/people',
+  path: '/people',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const BillRoute = BillRouteImport.update({
   id: '/bill',
   path: '/bill',
@@ -33,34 +39,45 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/bill': typeof BillRoute
+  '/people': typeof PeopleRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/bill': typeof BillRoute
+  '/people': typeof PeopleRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/bill': typeof BillRoute
+  '/people': typeof PeopleRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/bill'
+  fullPaths: '/' | '/about' | '/bill' | '/people'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/bill'
-  id: '__root__' | '/' | '/about' | '/bill'
+  to: '/' | '/about' | '/bill' | '/people'
+  id: '__root__' | '/' | '/about' | '/bill' | '/people'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   BillRoute: typeof BillRoute
+  PeopleRoute: typeof PeopleRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/people': {
+      id: '/people'
+      path: '/people'
+      fullPath: '/people'
+      preLoaderRoute: typeof PeopleRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/bill': {
       id: '/bill'
       path: '/bill'
@@ -89,6 +106,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   BillRoute: BillRoute,
+  PeopleRoute: PeopleRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

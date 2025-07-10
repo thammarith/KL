@@ -2,6 +2,7 @@ import { createRootRoute, Link, Outlet } from '@tanstack/react-router';
 import { TanStackRouterDevtools } from '@tanstack/react-router-devtools';
 import Header from '@/components/Header';
 import { BillProvider } from '@/contexts/BillContext';
+import { PeopleProvider } from '@/contexts/PeopleContext';
 import { useRouterState } from '@tanstack/react-router';
 import { UserProvider } from '@/contexts/UserContext';
 import { useEffect, useState } from 'react';
@@ -33,11 +34,16 @@ const RootComponent = () => {
 					<Link to="/bill" className="[&.active]:font-bold">
 						Bill
 					</Link>
+					<Link to="/people" className="[&.active]:font-bold">
+						People
+					</Link>
 				</div>
 				<hr />
-				<BillProvider id={id}>
-					<Outlet />
-				</BillProvider>
+				<PeopleProvider>
+					<BillProvider id={id}>
+						<Outlet />
+					</BillProvider>
+				</PeopleProvider>
 			</section>
 			<TanStackRouterDevtools />
 		</UserProvider>

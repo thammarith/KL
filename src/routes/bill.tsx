@@ -80,18 +80,17 @@ const BillManagementPage = () => {
 	};
 
 	return (
-		<Form {...form}>
-			<form
-				onSubmit={form.handleSubmit(onSubmit)}
-				className="mx-auto flex w-full max-w-lg flex-col gap-4 px-4 py-4"
-			>
-				<BillHeader onDelete={handleDelete} />
-				<BillInfo />
-				<Separator />
-				<BillContent />
-				<BillFooter />
-			</form>
-		</Form>
+		<main className="mx-auto flex w-full max-w-lg flex-col gap-4 px-4 py-4">
+			<Form {...form}>
+				<form onSubmit={form.handleSubmit(onSubmit)}>
+					<BillHeader onDelete={handleDelete} />
+					<BillInfo />
+					<Separator />
+					<BillContent />
+					<BillFooter />
+				</form>
+			</Form>
+		</main>
 	);
 };
 
