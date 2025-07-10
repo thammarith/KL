@@ -36,7 +36,7 @@ const sampleBills: Bill[] = [
 				amount: 10,
 			},
 			{
-				id: 'i3',
+				id: 'i5',
 				name: { original: 'โปร #1', english: 'Promotion #1' },
 				amount: -5,
 			},
@@ -55,7 +55,7 @@ const sampleBills: Bill[] = [
 				amount: 60,
 			},
 			{
-				id: 'i3',
+				id: 'i4',
 				name: { original: 'โปร #1', english: 'Promotion #1' },
 				amount: -5,
 			},

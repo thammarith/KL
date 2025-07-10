@@ -1,16 +1,22 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { generateUniqueId } from '@/utils/nanoId';
-import BillItems from './BillItems';
-import BillItemForm from './BillItemForm';
+import BillItem from './BillItem';
 import type { BillFormValues } from '@/types/billForm';
 import { useTranslation } from 'react-i18next';
+import type { BillItem as BillItemType } from '@/interfaces/Bill';
 
 const BillContent: React.FC = () => {
 	const { t } = useTranslation();
 	const form = useFormContext<BillFormValues>();
 
-	const items = form.watch('items');
+	const items = form.watch('items') || [];
+	const [localItems, setLocalItems] = useState<BillItemType[]>(items);
+
+	// Sync localItems with form.items
+	useEffect(() => {
+		setLocalItems(items);
+	}, [items]);
 
 	const handleAddItem = (item: { name: string; amount: string }) => {
 		if (!item.name || !item.amount) return;
@@ -19,7 +25,30 @@ const BillContent: React.FC = () => {
 			name: { original: item.name, english: '' },
 			amount: Number(item.amount),
 		};
-		form.setValue('items', [...(items || []), newBillItem]);
+		const updatedItems = [...(localItems || []), newBillItem];
+		setLocalItems(updatedItems);
+		form.setValue('items', updatedItems);
+	};
+
+	const handleEdit = (id: string, updated: { name: string; amount: string }) => {
+		const updatedItems = localItems.map((item) =>
+			item.id === id
+				? {
+						...item,
+						name: { ...item.name, original: updated.name },
+						// TODO: use currency.js
+						amount: Number(updated.amount),
+					}
+				: item
+		);
+		setLocalItems(updatedItems);
+		form.setValue('items', updatedItems);
+	};
+
+	const handleDelete = (id: string) => {
+		const updatedItems = localItems.filter((item) => item.id !== id);
+		setLocalItems(updatedItems);
+		form.setValue('items', updatedItems);
 	};
 
 	return (
@@ -28,8 +57,28 @@ const BillContent: React.FC = () => {
 				<div className="flex-1">{t('itemName')}</div>
 				<div className="">{t('price')}</div>
 			</div>
-			<BillItems />
-			<BillItemForm onSave={handleAddItem} />
+			<div className="flex flex-col gap-2">
+				{localItems && localItems.length > 0 ? (
+					localItems.map((item) => (
+						<BillItem
+							key={item.id}
+							item={item}
+							onEdit={(updated) => handleEdit(item.id, updated)}
+							onDelete={() => handleDelete(item.id)}
+							onAdd={() => {}}
+						/>
+					))
+				) : (
+					<div>{t('noItems')}</div>
+				)}
+			</div>
+			<BillItem
+				mode="add"
+				onAdd={handleAddItem}
+				onEdit={() => {}}
+				onDelete={() => {}}
+				item={undefined}
+			/>
 		</section>
 	);
 };
