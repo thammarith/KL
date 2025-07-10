@@ -23,7 +23,7 @@ const BillItemView: React.FC<BillItemViewProps> = ({ item, currency }) => {
 			</div>
 
 			{/* Top Right - Amount */}
-			<div className={cn("flex justify-end", item.amount <= 0 && 'mr-16')}>
+			<div className={cn('flex justify-end', item.amount <= 0 && 'mr-16 text-red-700')}>
 				{formatCurrency(item.amount, isConverted ? currency.original : '', 'narrowSymbol')}
 			</div>
 
@@ -32,10 +32,13 @@ const BillItemView: React.FC<BillItemViewProps> = ({ item, currency }) => {
 
 			{/* Bottom Right - Converted Amount */}
 			{isConverted ? (
-				<div className={cn("flex justify-end", item.amount <= 0 && 'mr-16')}>
-					<div className="text-muted-foreground text-sm">
-						{formatCurrency(item.amount, currency.target ?? '', 'narrowSymbol')}
-					</div>
+				<div
+					className={cn(
+						'text-muted-foreground flex justify-end text-sm',
+						item.amount <= 0 && 'mr-16 text-red-400'
+					)}
+				>
+					{formatCurrency(item.amount, currency.target ?? '', 'narrowSymbol')}
 				</div>
 			) : (
 				<div />

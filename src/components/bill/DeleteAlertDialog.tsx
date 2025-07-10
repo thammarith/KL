@@ -1,4 +1,9 @@
-import React from 'react';
+export interface DeleteAlertDialogProps {
+	onDelete: () => void;
+	trigger: React.ReactNode;
+	t: (key: string) => string;
+}
+
 import {
 	AlertDialog,
 	AlertDialogTrigger,
@@ -10,12 +15,6 @@ import {
 	AlertDialogCancel,
 	AlertDialogAction,
 } from '@/components/ui/alert-dialog';
-
-export interface DeleteAlertDialogProps {
-	onDelete: () => void;
-	trigger: React.ReactNode;
-	t: (key: string) => string;
-}
 
 const DeleteAlertDialog = ({ onDelete, trigger, t }: DeleteAlertDialogProps) => (
 	<AlertDialog>
