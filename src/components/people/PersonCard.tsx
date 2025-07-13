@@ -19,7 +19,7 @@ const PersonCard = ({ mode, person, allPeople = [], view, form }: PersonCardProp
 	return (
 		<div className="flex items-center gap-4">
 			{/* Slot 1: Avatar */}
-			<PersonAvatar person={avatarPerson} allPeople={avatarPeople} size="md" />
+			<PersonAvatar person={avatarPerson} allPeople={avatarPeople} />
 
 			{/* Slot 2: Form or View */}
 			{(mode === 'create' || mode === 'edit') && form}
