@@ -5,6 +5,8 @@ import { useTranslation } from 'react-i18next';
 import { CheckIcon, XIcon, Trash2Icon, PlusIcon } from 'lucide-react';
 import DeleteAlertDialog from './DeleteAlertDialog';
 import { BillItemMode, type BillItemMode as BillItemModeType } from './BillItem';
+import BillItemPeopleManager from './BillItemPeopleManager';
+import type { Person } from '@/interfaces/Person';
 
 interface BillItemFormProps {
 	mode: BillItemModeType;
@@ -16,6 +18,7 @@ interface BillItemFormProps {
 	onCancel?: () => void;
 	onDelete?: () => void;
 	onAdd?: () => void;
+	onPeopleChange: (people: Person[]) => void;
 	isDisabled?: boolean;
 }
 
@@ -30,8 +33,10 @@ const BillItemForm: React.FC<BillItemFormProps> = ({
 	onDelete,
 	onAdd,
 	isDisabled,
+	onPeopleChange,
 }) => {
 	const { t } = useTranslation();
+	const isAddPeopleEnabledInAddMode = false;
 
 	const renderBottomRightActions = () => {
 		switch (mode) {
@@ -131,6 +136,9 @@ const BillItemForm: React.FC<BillItemFormProps> = ({
 
 			{/* Bottom Left - Empty */}
 			<div />
+			{isAddPeopleEnabledInAddMode && (
+				<BillItemPeopleManager className="col-start-1 row-start-2" onPeopleChange={onPeopleChange} />
+			)}
 
 			{/* Bottom Right - Actions */}
 			{renderBottomRightActions()}

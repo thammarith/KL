@@ -5,6 +5,7 @@ import type { BillFormValues } from '@/types/billForm';
 import { useFormContext } from 'react-hook-form';
 import BillItemView from './BillItemView';
 import BillItemForm from './BillItemForm';
+import type { Person } from '@/interfaces/Person';
 
 export const BillItemMode = {
 	ADD: 'add',
@@ -68,6 +69,11 @@ const BillItem: React.FC<BillItemProps> = ({ item, onEdit, onDelete, onAdd, mode
 		}
 	};
 
+	const onPeopleChange = (people: Person[]) => {
+		// TODO: Handle people selection change for the bill item
+		console.log('People selection changed:', people);
+	};
+
 	return (
 		<div
 			className={cn(
@@ -76,7 +82,9 @@ const BillItem: React.FC<BillItemProps> = ({ item, onEdit, onDelete, onAdd, mode
 			)}
 			onClick={handleContainerClick}
 		>
-			{mode === BillItemMode.VIEW && item && <BillItemView item={item} currency={currency} />}
+			{mode === BillItemMode.VIEW && item && (
+				<BillItemView item={item} currency={currency} onPeopleChange={onPeopleChange} />
+			)}
 			{(mode === BillItemMode.ADD || mode === BillItemMode.EDIT) && (
 				<BillItemForm
 					mode={mode}
@@ -88,6 +96,7 @@ const BillItem: React.FC<BillItemProps> = ({ item, onEdit, onDelete, onAdd, mode
 					onCancel={handleCancel}
 					onDelete={onDelete}
 					onAdd={handleAdd}
+					onPeopleChange={onPeopleChange}
 					isDisabled={isDisabled}
 				/>
 			)}

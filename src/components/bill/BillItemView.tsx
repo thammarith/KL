@@ -2,6 +2,8 @@ import React from 'react';
 import type { BillItem as BillItemType } from '@/interfaces/Bill';
 import { formatCurrency } from '@/utils/currency';
 import { cn } from '@/utils/shadcn';
+import BillItemPeopleManager from './BillItemPeopleManager';
+import type { Person } from '@/interfaces/Person';
 
 interface BillItemViewProps {
 	item: BillItemType;
@@ -9,9 +11,10 @@ interface BillItemViewProps {
 		original: string;
 		target?: string;
 	};
+	onPeopleChange: (people: Person[]) => void;
 }
 
-const BillItemView: React.FC<BillItemViewProps> = ({ item, currency }) => {
+const BillItemView: React.FC<BillItemViewProps> = ({ item, currency, onPeopleChange }) => {
 	const isConverted = currency.target && currency.target !== currency.original;
 
 	return (
@@ -28,13 +31,13 @@ const BillItemView: React.FC<BillItemViewProps> = ({ item, currency }) => {
 			</div>
 
 			{/* Bottom Left - Empty */}
-			<div />
+			<BillItemPeopleManager className="col-start-1 row-start-2" onPeopleChange={onPeopleChange} />
 
 			{/* Bottom Right - Converted Amount */}
 			{isConverted ? (
 				<div
 					className={cn(
-						'text-muted-foreground flex justify-end text-sm',
+						'text-muted-foreground flex justify-end self-center text-sm',
 						item.amount <= 0 && 'mr-16 text-red-400'
 					)}
 				>
