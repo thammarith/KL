@@ -1,0 +1,46 @@
+---
+alwaysApply: true
+---
+
+# UI and Styling Guidelines
+
+## Component Library
+- **Always use shadcn/ui components** from [src/components/ui/](mdc:src/components/ui/)
+- Available components: Button, Input, Card, Avatar, Badge, etc.
+- **Ask for guidance if a needed component doesn't exist**
+
+## Styling
+- **Always use TailwindCSS** for styling
+- Use semantic HTML elements when possible
+- **Avoid using `<div>` unless absolutely necessary**
+- Use proper semantic tags: `<main>`, `<section>`, `<article>`, `<header>`, `<footer>`
+
+## TailwindCSS Best Practices
+- Use responsive classes: `sm:`, `md:`, `lg:`, `xl:`
+- Use semantic color classes: `bg-primary`, `text-secondary`
+- Group related classes together
+- Use arbitrary values sparingly: `w-[123px]`
+
+## Layout Patterns
+- Use Flexbox and Grid for layouts
+- Responsive design is required
+- Mobile-first approach
+- Consider accessibility (ARIA labels, keyboard navigation)
+
+## Form Styling
+- Use shadcn/ui form components
+- Consistent spacing and alignment
+- Clear error states and validation feedback
+- Proper focus states
+
+## Interactive Elements
+- Use hover, focus, and active states
+- Smooth transitions where appropriate
+- Loading states for async operations
+- Disabled states for unavailable actions
+
+## Icons and Assets
+- Use consistent icon library
+- Optimize images and assets
+- Use appropriate image formats
+- Consider dark mode if applicable

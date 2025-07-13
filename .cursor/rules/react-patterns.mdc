@@ -1,0 +1,49 @@
+---
+globs: *.tsx,*.ts
+---
+
+# React Component Patterns
+
+## Component Declaration
+- Always use `const` instead of `function` for component functions
+- Use TypeScript interfaces for props
+- Export components as default when they're the main component of a file
+
+```typescript
+interface PersonCardProps {
+  person: Person;
+  onEdit: (person: Person) => void;
+  onDelete: (id: string) => void;
+}
+
+const PersonCard: React.FC<PersonCardProps> = ({ person, onEdit, onDelete }) => {
+  // Component logic
+  return (
+    // JSX
+  );
+};
+
+export default PersonCard;
+```
+
+## State Management
+- Use React Context for application state (see [src/contexts/](mdc:src/contexts/))
+- Use `useState` for local component state
+- Use `useReducer` for complex state logic
+- Access contexts: `BillContext`, `PeopleContext`, `UserContext`
+- use question words for boolean such as `isLoading`, `shouldShow`
+
+## Event Handlers
+- Prefix event handlers with `handle` (e.g., `handleSubmit`, `handleClick`)
+- Use arrow functions for inline handlers
+- Extract complex handlers to separate functions
+
+## Conditional Rendering
+- Use ternary operators for simple conditions
+- Use logical AND (`&&`) for conditional rendering
+- Use early returns to reduce nesting
+
+## Forms
+- Use shadcn/ui form components
+- Validate with appropriate libraries
+- Handle form submission with proper error handling

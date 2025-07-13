@@ -1,0 +1,33 @@
+---
+alwaysApply: true
+---
+
+# Project Structure Guide
+
+## Key Directories
+
+- **[src/components/](mdc:src/components/)** - Reusable UI components organized by feature
+  - `bill/` - Bill-related components
+  - `people/` - People management components
+  - `ui/` - shadcn/ui components
+  - `pwa/` - Progressive Web App components
+- **[src/interfaces/](mdc:src/interfaces/)** - TypeScript interfaces for data structures
+- **[src/contexts/](mdc:src/contexts/)** - React Context providers for state management
+- **[src/utils/](mdc:src/utils/)** - Utility functions and helpers
+- **[src/locales/](mdc:src/locales/)** - i18n translation files
+- **[src/routes/](mdc:src/routes/)** - TanStack Router route definitions
+
+## Key Files
+
+- **[src/main.tsx](mdc:src/main.tsx)** - Application entry point
+- **[src/routes/__root.tsx](mdc:src/routes/__root.tsx)** - Root layout component
+- **[src/routeTree.gen.ts](mdc:src/routeTree.gen.ts)** - Auto-generated route tree (do not edit)
+- **[package.json](mdc:package.json)** - Project dependencies and scripts
+- **[vite.config.ts](mdc:vite.config.ts)** - Vite configuration
+
+## Component Organization
+
+Components are organized by feature/domain:
+- Group related components in folders
+- Use PascalCase for component files
+- Keep component files focused and single-purpose

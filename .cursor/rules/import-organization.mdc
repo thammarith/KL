@@ -1,0 +1,28 @@
+---
+alwaysApply: true
+---
+
+# Import Organization
+
+- Always use absolute imports with `@` prefix instead of relative imports
+- Organize imports in this order:
+  1. React and third-party libraries
+  2. Internal components (with `@` prefix)
+  3. Types and interfaces
+  4. Utils and constants
+  5. CSS imports (if any)
+
+Example:
+```typescript
+import { useState } from 'react';
+import { createFileRoute } from '@tanstack/react-router';
+
+import { Button } from '@/components/ui/button';
+import { PersonCard } from '@/components/people/PersonCard';
+
+import type { Person } from '@/interfaces/Person';
+import type { Bill } from '@/interfaces/Bill';
+
+import { generateId } from '@/utils/nanoId';
+import { formatCurrency } from '@/utils/currency';
+```

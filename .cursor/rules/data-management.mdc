@@ -1,0 +1,48 @@
+---
+alwaysApply: true
+---
+
+# Data Management Guidelines
+
+## TypeScript Interfaces
+- All data interfaces are defined in [src/interfaces/](mdc:src/interfaces/)
+- Current interfaces: `Person`, `Bill`, `User`
+- **Always check existing interfaces before creating new ones**
+- **If you need additional fields, ask the user first before modifying interfaces**
+
+## Data Storage
+- Use IndexedDB via `idb` for persistent data storage
+- Use React Context for application state management
+- Context providers: `BillContext`, `PeopleContext`, `UserContext`
+- **Ask before using localStorage** - prefer IndexedDB
+
+## Currency Handling
+- **Always use currency.js** for money calculations and formatting
+- Import from [src/utils/currency.tsx](mdc:src/utils/currency.tsx)
+- Never use raw numbers for currency operations
+
+Example:
+```typescript
+import { formatCurrency, parseCurrency } from '@/utils/currency';
+
+// ✅ Good - using currency utility
+const total = formatCurrency(123.45);
+const parsed = parseCurrency('$123.45');
+
+// ❌ Bad - raw number operations
+const total = (123.45).toFixed(2);
+```
+
+## ID Generation
+- Use the nanoId utility from [src/utils/nanoId.ts](mdc:src/utils/nanoId.ts)
+- Generate unique IDs for all entities
+
+## Data Validation
+- Validate data at interface boundaries
+- Use TypeScript types for compile-time safety
+- Implement runtime validation for user inputs
+
+## State Updates
+- Use immutable update patterns
+- Avoid direct state mutations
+- Use context setters for global state updates
