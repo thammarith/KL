@@ -6,6 +6,7 @@ import { useFormContext } from 'react-hook-form';
 import BillItemView from './BillItemView';
 import BillItemForm from './BillItemForm';
 import type { Person } from '@/interfaces/Person';
+import { useMemo } from 'react';
 
 export const BillItemMode = {
 	ADD: 'add',
@@ -21,9 +22,10 @@ interface BillItemProps {
 	onEdit: (updated: { name: string; amount: string }) => void;
 	onDelete: () => void;
 	onAdd: (item: { name: string; amount: string }) => void;
+	onPeopleChange: (people: Person[]) => void;
 }
 
-const BillItem: React.FC<BillItemProps> = ({ item, onEdit, onDelete, onAdd, mode: modeProp }) => {
+const BillItem: React.FC<BillItemProps> = ({ item, onEdit, onDelete, onAdd, onPeopleChange, mode: modeProp }) => {
 	const form = useFormContext<BillFormValues>();
 
 	const [mode, setMode] = useState<BillItemMode>(modeProp ?? BillItemMode.VIEW);
@@ -31,6 +33,9 @@ const BillItem: React.FC<BillItemProps> = ({ item, onEdit, onDelete, onAdd, mode
 	const [amount, setAmount] = useState(item ? String(item.amount) : '');
 
 	const currency = form.getValues('currency');
+
+	// Memoize selectedPeople to prevent unnecessary re-renders
+	const selectedPeople = useMemo(() => item?.selectedPeople || [], [item?.selectedPeople]);
 
 	useEffect(() => {
 		if (item) {
@@ -51,8 +56,8 @@ const BillItem: React.FC<BillItemProps> = ({ item, onEdit, onDelete, onAdd, mode
 		if (item) {
 			setName(item.name.original);
 			setAmount(String(item.amount));
+			setMode(BillItemMode.VIEW);
 		}
-		setMode(BillItemMode.VIEW);
 	};
 
 	const handleAdd = () => {
@@ -61,18 +66,17 @@ const BillItem: React.FC<BillItemProps> = ({ item, onEdit, onDelete, onAdd, mode
 		setAmount('');
 	};
 
-	const isDisabled = !name || !amount;
-
 	const handleContainerClick = () => {
-		if (mode === BillItemMode.VIEW && item) {
+		if (mode === BillItemMode.VIEW) {
 			setMode(BillItemMode.EDIT);
 		}
 	};
 
-	const onPeopleChange = (people: Person[]) => {
-		// TODO: Handle people selection change for the bill item
-		console.log('People selection changed:', people);
+	const handlePeopleChange = (people: Person[]) => {
+		onPeopleChange(people);
 	};
+
+	const isDisabled = !name || !amount || Number.isNaN(Number(amount));
 
 	return (
 		<div
@@ -83,7 +87,7 @@ const BillItem: React.FC<BillItemProps> = ({ item, onEdit, onDelete, onAdd, mode
 			onClick={handleContainerClick}
 		>
 			{mode === BillItemMode.VIEW && item && (
-				<BillItemView item={item} currency={currency} onPeopleChange={onPeopleChange} />
+				<BillItemView item={item} currency={currency} onPeopleChange={handlePeopleChange} />
 			)}
 			{(mode === BillItemMode.ADD || mode === BillItemMode.EDIT) && (
 				<BillItemForm
@@ -96,7 +100,8 @@ const BillItem: React.FC<BillItemProps> = ({ item, onEdit, onDelete, onAdd, mode
 					onCancel={handleCancel}
 					onDelete={onDelete}
 					onAdd={handleAdd}
-					onPeopleChange={onPeopleChange}
+					onPeopleChange={handlePeopleChange}
+					selectedPeople={selectedPeople}
 					isDisabled={isDisabled}
 				/>
 			)}

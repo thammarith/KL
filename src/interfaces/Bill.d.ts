@@ -3,6 +3,12 @@ export interface Name {
 	english?: string;
 }
 
+export interface Person {
+	id: string;
+	name: string;
+	// Add any other person fields you need
+}
+
 export interface Bill {
 	id: string;
 	name: Name;
@@ -19,4 +25,5 @@ export interface BillItem {
 	id: string;
 	name: Name;
 	amount: number;
+	selectedPeople: Person[]; // People who should pay for this item
 }

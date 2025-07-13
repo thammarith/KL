@@ -6,15 +6,6 @@ import PersonAvatar from '@/components/people/PersonAvatar';
 import { cn } from '@/utils/shadcn';
 import type { Person } from '@/interfaces/Person';
 
-// Mock data for demonstration
-const mockPeople: Person[] = [
-	{ id: '1', name: 'Alice' },
-	{ id: '2', name: 'Bob' },
-	{ id: '3', name: 'Charlie' },
-	{ id: '4', name: 'Diana' },
-	{ id: '5', name: 'Eve' },
-];
-
 interface ParticipantsSelectorProps {
 	selectedPeople: Person[];
 	onSelectionChange: (people: Person[]) => void;
@@ -25,7 +16,7 @@ interface ParticipantsSelectorProps {
 const ParticipantsSelector: FC<ParticipantsSelectorProps> = ({
 	selectedPeople,
 	onSelectionChange,
-	// allPeople,
+	allPeople,
 	openController,
 }) => {
 	const [isOpen, setIsOpen] = openController;
@@ -56,7 +47,7 @@ const ParticipantsSelector: FC<ParticipantsSelectorProps> = ({
 	};
 
 	const toggleAll = () => {
-		onSelectionChange(selectedPeople.length === 0 ? [...mockPeople] : []);
+		onSelectionChange(selectedPeople.length === 0 ? [...allPeople] : []);
 	};
 
 	return (
@@ -72,7 +63,7 @@ const ParticipantsSelector: FC<ParticipantsSelectorProps> = ({
 					<UserPlus className="size-4" />
 				</Button>
 			</PopoverTrigger>
-			<PopoverContent className="w-72 p-2 mx-4" onClick={(e) => e.stopPropagation()}>
+			<PopoverContent className="mx-4 min-w-72 p-2" onClick={(e) => e.stopPropagation()}>
 				<div className="mb-2 flex items-center justify-between p-2">
 					<span className="text-sm font-semibold">Participants</span>
 					<Button
@@ -85,7 +76,7 @@ const ParticipantsSelector: FC<ParticipantsSelectorProps> = ({
 					</Button>
 				</div>
 				<div className="max-h-48 space-y-2 overflow-y-auto">
-					{mockPeople.map((person) => {
+					{allPeople.map((person) => {
 						const count = getPersonCount(person);
 						const isSelected = count > 0;
 						return (
@@ -107,7 +98,7 @@ const ParticipantsSelector: FC<ParticipantsSelectorProps> = ({
 									>
 										{isSelected && <Check className="h-4 w-4" />}
 									</span>
-									<PersonAvatar person={person} allPeople={mockPeople} />
+									<PersonAvatar person={person} allPeople={allPeople} />
 									<span className="text-sm">{person.name}</span>
 								</div>
 								<div className="flex items-center gap-1">

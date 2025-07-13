@@ -6,6 +6,12 @@ export const nameSchema = z.object({
 	english: z.string().optional(),
 });
 
+// Person schema for reuse
+export const personSchema = z.object({
+	id: z.string(),
+	name: z.string(),
+});
+
 // Form schema for Bill editing
 export const billFormSchema = z.object({
 	id: z.string(),
@@ -21,6 +27,7 @@ export const billFormSchema = z.object({
 			id: z.string(),
 			name: nameSchema,
 			amount: z.number(),
+			selectedPeople: z.array(personSchema), // People who should pay for this item
 		})
 	),
 });

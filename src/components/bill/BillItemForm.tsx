@@ -7,6 +7,7 @@ import DeleteAlertDialog from './DeleteAlertDialog';
 import { BillItemMode, type BillItemMode as BillItemModeType } from './BillItem';
 import BillItemPeopleManager from './BillItemPeopleManager';
 import type { Person } from '@/interfaces/Person';
+import { useMemo } from 'react';
 
 interface BillItemFormProps {
 	mode: BillItemModeType;
@@ -19,6 +20,7 @@ interface BillItemFormProps {
 	onDelete?: () => void;
 	onAdd?: () => void;
 	onPeopleChange: (people: Person[]) => void;
+	selectedPeople?: Person[];
 	isDisabled?: boolean;
 }
 
@@ -34,9 +36,14 @@ const BillItemForm: React.FC<BillItemFormProps> = ({
 	onAdd,
 	isDisabled,
 	onPeopleChange,
+	selectedPeople = [],
 }) => {
 	const { t } = useTranslation();
-	const isAddPeopleEnabledInAddMode = false;
+	// NEVER ENABLE THIS (TODO:)
+	const isAddPeopleEnabledInAddMode = false; // Enable people management for ADD mode
+
+	// Memoize selectedPeople to prevent unnecessary re-renders
+	const memoizedSelectedPeople = useMemo(() => selectedPeople, [selectedPeople]);
 
 	const renderBottomRightActions = () => {
 		switch (mode) {
@@ -134,10 +141,15 @@ const BillItemForm: React.FC<BillItemFormProps> = ({
 				onClick={(e) => e.stopPropagation()}
 			/>
 
-			{/* Bottom Left - Empty */}
-			<div />
-			{isAddPeopleEnabledInAddMode && (
-				<BillItemPeopleManager className="col-start-1 row-start-2" onPeopleChange={onPeopleChange} />
+			{/* Bottom Left - People Management */}
+			{(mode === BillItemMode.ADD && isAddPeopleEnabledInAddMode) || mode === BillItemMode.EDIT ? (
+				<BillItemPeopleManager
+					className="col-start-1 row-start-2"
+					onPeopleChange={onPeopleChange}
+					selectedPeople={memoizedSelectedPeople}
+				/>
+			) : (
+				<div />
 			)}
 
 			{/* Bottom Right - Actions */}

@@ -5,6 +5,7 @@ import BillItem from './BillItem';
 import type { BillFormValues } from '@/types/billForm';
 import { useTranslation } from 'react-i18next';
 import type { BillItem as BillItemType } from '@/interfaces/Bill';
+import type { Person } from '@/interfaces/Person';
 
 const BillContent: React.FC = () => {
 	const { t } = useTranslation();
@@ -24,6 +25,7 @@ const BillContent: React.FC = () => {
 			id: generateUniqueId(),
 			name: { original: item.name, english: '' },
 			amount: Number(item.amount),
+			selectedPeople: [], // Add the required selectedPeople field
 		};
 		const updatedItems = [...(localItems || []), newBillItem];
 		setLocalItems(updatedItems);
@@ -51,6 +53,19 @@ const BillContent: React.FC = () => {
 		form.setValue('items', updatedItems);
 	};
 
+	const handlePeopleChange = (id: string, selectedPeople: Person[]) => {
+		const updatedItems = localItems.map((item) =>
+			item.id === id
+				? {
+						...item,
+						selectedPeople,
+					}
+				: item
+		);
+		setLocalItems(updatedItems);
+		form.setValue('items', updatedItems);
+	};
+
 	return (
 		<section className="flex flex-col gap-4">
 			<div className="font-heading flex font-semibold">
@@ -66,13 +81,21 @@ const BillContent: React.FC = () => {
 							onEdit={(updated) => handleEdit(item.id, updated)}
 							onDelete={() => handleDelete(item.id)}
 							onAdd={() => {}}
+							onPeopleChange={(people) => handlePeopleChange(item.id, people)}
 						/>
 					))
 				) : (
 					<div>{t('noItems')}</div>
 				)}
 			</div>
-			<BillItem mode="add" onAdd={handleAddItem} onEdit={() => {}} onDelete={() => {}} item={undefined} />
+			<BillItem
+				mode="add"
+				onAdd={handleAddItem}
+				onEdit={() => {}}
+				onDelete={() => {}}
+				item={undefined}
+				onPeopleChange={() => {}}
+			/>
 		</section>
 	);
 };
