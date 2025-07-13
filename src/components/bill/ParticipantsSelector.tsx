@@ -72,7 +72,7 @@ const ParticipantsSelector: FC<ParticipantsSelectorProps> = ({
 					<UserPlus className="size-4" />
 				</Button>
 			</PopoverTrigger>
-			<PopoverContent className="w-72 p-2" onClick={(e) => e.stopPropagation()}>
+			<PopoverContent className="w-72 p-2 mx-4" onClick={(e) => e.stopPropagation()}>
 				<div className="mb-2 flex items-center justify-between p-2">
 					<span className="text-sm font-semibold">Participants</span>
 					<Button
