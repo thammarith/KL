@@ -57,7 +57,7 @@ export const PeopleProvider = ({ children }: { children: ReactNode }) => {
 			...personData,
 			id: generateUniqueId(),
 		};
-		setPeople((prev) => [...prev, newPerson]);
+		setPeople((prev) => [...prev, newPerson].toSorted((a, b) => a.name.localeCompare(b.name)));
 	}, []);
 
 	const updatePerson = useCallback((updatedPerson: Person) => {
