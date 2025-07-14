@@ -39,7 +39,10 @@ const SelectedPeopleAvatars: React.FC<SelectedPeopleAvatarsProps> = ({
 		return null;
 	}
 
-	const isEveryone = new Set(selectedPeople.map((p) => p.id)).size === allPeople.length;
+	const isEveryone =
+		new Set(selectedPeople.map((p) => p.id)).size === allPeople.length
+		&& selectedPeople.length === allPeople.length;
+
 	if (isEveryone) {
 		return (
 			<Badge variant="outline">
