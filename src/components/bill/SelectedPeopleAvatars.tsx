@@ -39,7 +39,8 @@ const SelectedPeopleAvatars: React.FC<SelectedPeopleAvatarsProps> = ({
 		return null;
 	}
 
-	if (selectedPeople.length === allPeople.length) {
+	const isEveryone = new Set(selectedPeople.map((p) => p.id)).size === allPeople.length;
+	if (isEveryone) {
 		return (
 			<Badge variant="outline">
 				<CheckCheck />
