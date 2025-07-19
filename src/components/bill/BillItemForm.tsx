@@ -126,7 +126,6 @@ const BillItemForm: React.FC<BillItemFormProps> = ({
 				value={name}
 				onChange={(e) => onNameChange(e.target.value)}
 				placeholder={t('itemName')}
-				required
 				onClick={(e) => e.stopPropagation()}
 			/>
 
@@ -137,7 +136,6 @@ const BillItemForm: React.FC<BillItemFormProps> = ({
 				value={amount}
 				onChange={(e) => onAmountChange(e.target.value)}
 				placeholder={t('price')}
-				required
 				onClick={(e) => e.stopPropagation()}
 			/>
 

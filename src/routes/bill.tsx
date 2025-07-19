@@ -109,7 +109,7 @@ const BillManagementPage = () => {
 				<BillSummary open={isBillSummaryOpen} onOpenChange={setIsBillSummaryOpen} />
 			</Form>
 
-			<div className="mb-24" />
+			<div className="mb-8" />
 		</main>
 	);
 };

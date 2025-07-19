@@ -22,7 +22,7 @@ const BillSummary = ({ ...props }: ComponentProps<typeof Drawer>) => {
 					</DrawerDescription>
 				</DrawerHeader>
 				<section className="p-4">sdfsdfsdfdsf</section>
-				<DrawerFooter className="mb-12">
+				<DrawerFooter className="mb-8">
 					<Button>Submit</Button>
 					<DrawerClose>Cancel</DrawerClose>
 				</DrawerFooter>
