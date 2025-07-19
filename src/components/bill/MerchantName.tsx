@@ -9,7 +9,7 @@ import type { BillFormValues } from '@/types/billForm';
 import { getDefaultBillName } from '@/utils/bill';
 
 const fieldNameOriginal = 'name.original';
-const fieldNameEnglish = 'name.english';
+// const fieldNameEnglish = 'name.english';
 
 const MerchantName: React.FC = () => {
 	const [isEditingName, setIsEditingName] = useState(false);
@@ -67,9 +67,9 @@ const MerchantName: React.FC = () => {
 					</Button>
 				</div>
 			)}
-			{form.getValues(fieldNameEnglish) && (
+			{/* {form.getValues(fieldNameEnglish) && (
 				<p className="text-muted-foreground text-base font-normal">{form.getValues(fieldNameEnglish)}</p>
-			)}
+			)} */}
 		</div>
 	);
 };

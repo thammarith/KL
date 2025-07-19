@@ -30,6 +30,18 @@ export const billFormSchema = z.object({
 			selectedPeople: z.array(personSchema), // People who should pay for this item
 		})
 	),
+	adjustments: z.array(
+		z.object({
+			id: z.string(),
+			name: nameSchema,
+			amount: z.number(),
+			ref: z.string(),
+		})
+	),
+	totals: z.object({
+		subTotal: z.number(),
+		grandTotal: z.number(),
+	}),
 });
 
 export type BillFormValues = z.infer<typeof billFormSchema>;

@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useCallback } from 'react';
+import { createContext, useContext, useState, useCallback, useMemo } from 'react';
 import type { ReactNode } from 'react';
 import { CrudMode } from '@/constants/crudMode';
 import type { Bill } from '@/interfaces/Bill';
@@ -13,6 +13,7 @@ interface BillContextType {
 	deleteBill: (id: string) => void;
 	getBillById: (id: string) => Bill | undefined;
 	currentId?: string;
+	currentBill?: Bill;
 }
 
 const BillContext = createContext<BillContextType | undefined>(undefined);
@@ -56,6 +57,24 @@ const sampleBills: Bill[] = [
 				selectedPeople: [],
 			},
 		],
+		adjustments: [
+			{
+				id: 'adj1',
+				name: { original: 'S.C.', english: 'Service Fee' },
+				amount: 10,
+				ref: 'ad1',
+			},
+			{
+				id: 'adj2',
+				name: { original: 'Discount', english: 'Discount' },
+				amount: -5,
+				ref: 'ad1',
+			},
+		],
+		totals: {
+			subTotal: 68,
+			grandTotal: 68,
+		},
 	},
 	{
 		id: 'cZetOWzJ',
@@ -77,6 +96,11 @@ const sampleBills: Bill[] = [
 				selectedPeople: [],
 			},
 		],
+		adjustments: [],
+		totals: {
+			subTotal: 55,
+			grandTotal: 55,
+		},
 	},
 ];
 
@@ -99,8 +123,12 @@ export const BillProvider = ({ children, id }: { children: ReactNode; id?: strin
 
 	const getBillById = useCallback((billId: string) => bills.find((b) => b.id === billId), [bills]);
 
+	const currentBill = useMemo(() => (currentId ? getBillById(currentId) : undefined), [currentId, getBillById]);
+
 	return (
-		<BillContext.Provider value={{ mode, bills, addBill, updateBill, deleteBill, getBillById, currentId }}>
+		<BillContext.Provider
+			value={{ mode, bills, addBill, updateBill, deleteBill, getBillById, currentId, currentBill }}
+		>
 			{children}
 		</BillContext.Provider>
 	);
