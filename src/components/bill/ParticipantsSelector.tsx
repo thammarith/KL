@@ -111,7 +111,9 @@ const ParticipantsSelector: FC<ParticipantsSelectorProps> = ({
 									>
 										<Minus className="h-4 w-4" />
 									</Button>
-									<span className="w-6 text-center font-mono text-sm">{count}</span>
+									<span className="w-6 text-center font-mono text-sm">
+										{count}
+									</span>
 									<Button
 										variant="outline"
 										size="icon"

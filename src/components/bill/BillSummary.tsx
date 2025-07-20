@@ -9,6 +9,7 @@ import {
 	DrawerContent,
 	DrawerFooter,
 } from '@/components/ui/drawer';
+import BillSummaryInner from './bill-summary/BillSummaryInner';
 
 const BillSummary = ({ ...props }: ComponentProps<typeof Drawer>) => {
 	return (
@@ -21,7 +22,7 @@ const BillSummary = ({ ...props }: ComponentProps<typeof Drawer>) => {
 						charge, taxes, discounts, fees, etc.
 					</DrawerDescription>
 				</DrawerHeader>
-				<section className="p-4">sdfsdfsdfdsf</section>
+				<BillSummaryInner />
 				<DrawerFooter className="mb-8">
 					<Button>Submit</Button>
 					<DrawerClose>Cancel</DrawerClose>

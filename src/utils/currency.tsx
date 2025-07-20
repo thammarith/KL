@@ -16,3 +16,6 @@ export const formatCurrency = (
 		return `${amount}`;
 	}
 };
+
+export const getNakedCurrency = (amount: number, currency: string) =>
+	formatCurrency(amount, currency, 'code').replaceAll(/[A-Z]/g, '').trim();

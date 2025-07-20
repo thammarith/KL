@@ -16,7 +16,13 @@ const USER_STORAGE_KEY = 'user';
 
 const UserContext = createContext<UserContextType | undefined>(undefined);
 
-export const UserProvider = ({ children, countryCode }: { children: ReactNode; countryCode?: string }) => {
+export const UserProvider = ({
+	children,
+	countryCode,
+}: {
+	children: ReactNode;
+	countryCode?: string;
+}) => {
 	const uniqueId = useMemo(() => generateUniqueId(), []);
 	const [name, setName] = useState<string>(`u#${uniqueId}`);
 
@@ -31,7 +37,8 @@ export const UserProvider = ({ children, countryCode }: { children: ReactNode; c
 	const user = {
 		..._user,
 		countryCode: countryCode ?? _user.countryCode,
-		defaultCurrency: (countryCode && getCurrencyByCountryCode(countryCode)?.code) ?? _user.defaultCurrency,
+		defaultCurrency:
+			(countryCode && getCurrencyByCountryCode(countryCode)?.code) ?? _user.defaultCurrency,
 		locale: getDefaultLocale(),
 	};
 

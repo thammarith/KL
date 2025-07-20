@@ -20,7 +20,12 @@ const BillHeader = ({ onDelete }: BillHeaderProps) => {
 
 	return (
 		<header className="bg-background font-heading -mx-4 flex items-center justify-between gap-2 py-2">
-			<Button variant="ghost" onClick={handleBack} aria-label={t('back')} className="flex items-center gap-2">
+			<Button
+				variant="ghost"
+				onClick={handleBack}
+				aria-label={t('back')}
+				className="flex items-center gap-2"
+			>
 				<ArrowLeft />
 				<span>{t('back')}</span>
 			</Button>

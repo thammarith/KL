@@ -61,17 +61,24 @@ export const PeopleProvider = ({ children }: { children: ReactNode }) => {
 	}, []);
 
 	const updatePerson = useCallback((updatedPerson: Person) => {
-		setPeople((prev) => prev.map((person) => (person.id === updatedPerson.id ? updatedPerson : person)));
+		setPeople((prev) =>
+			prev.map((person) => (person.id === updatedPerson.id ? updatedPerson : person))
+		);
 	}, []);
 
 	const deletePerson = useCallback((personId: string) => {
 		setPeople((prev) => prev.filter((person) => person.id !== personId));
 	}, []);
 
-	const getPersonById = useCallback((personId: string) => people.find((person) => person.id === personId), [people]);
+	const getPersonById = useCallback(
+		(personId: string) => people.find((person) => person.id === personId),
+		[people]
+	);
 
 	return (
-		<PeopleContext.Provider value={{ people, addPerson, updatePerson, deletePerson, getPersonById }}>
+		<PeopleContext.Provider
+			value={{ people, addPerson, updatePerson, deletePerson, getPersonById }}
+		>
 			{children}
 		</PeopleContext.Provider>
 	);

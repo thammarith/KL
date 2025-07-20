@@ -15,13 +15,19 @@ const Adjustments = ({ adjustments, openAdjustmentsSheet, currency }: Adjustment
 		<>
 			{adjustments.map((adj) => (
 				<Fragment key={adj.id}>
-					<div className="text-sm flex items-center gap-1">
+					<div className="flex items-center gap-1 text-sm">
 						{adj.name.original}{' '}
-						<Button variant="ghost" size="sm" onClick={() => openAdjustmentsSheet(true)}>
+						<Button
+							variant="ghost"
+							size="sm"
+							onClick={() => openAdjustmentsSheet(true)}
+						>
 							<Pencil />
 						</Button>
 					</div>
-					<div className="text-sm tabular-nums justify-self-end">{formatCurrency(adj.amount, currency.original, 'narrowSymbol')}</div>
+					<div className="justify-self-end text-sm tabular-nums">
+						{formatCurrency(adj.amount, currency.original, 'narrowSymbol')}
+					</div>
 				</Fragment>
 			))}
 		</>

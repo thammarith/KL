@@ -8,3 +8,4 @@ Names: squid split / octo split / splitopus
 - [ ] Form validation
 - [ ] Currency
 - [ ] Disable auto complete
+- [ ] Adjusted amount should come from only selected items

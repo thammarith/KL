@@ -6,8 +6,8 @@
 @theme {
 	/* Fonts */
 	--base-sans-serif:
-		'ui-sans-serif', 'system-ui', 'sans-serif', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
-		'Noto Color Emoji';
+		'ui-sans-serif', 'system-ui', 'sans-serif', 'Apple Color Emoji', 'Segoe UI Emoji',
+		'Segoe UI Symbol', 'Noto Color Emoji';
 	/* --font-title: Poppins, var(--base-sans-serif); */
 	--font-heading: 'Figtree', 'Anuphan', var(--base-sans-serif);
 	--font-content: 'Noto Sans Thai Looped', var(--base-sans-serif);

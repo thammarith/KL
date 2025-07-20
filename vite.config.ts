@@ -62,7 +62,11 @@ export default defineConfig({
 							},
 							plugins: [
 								{
-									cacheKeyWillBeUsed: async ({ request }: { request: Request }) => {
+									cacheKeyWillBeUsed: async ({
+										request,
+									}: {
+										request: Request;
+									}) => {
 										return `${request.url}?v=1`;
 									},
 								},

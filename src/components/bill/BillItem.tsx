@@ -25,7 +25,14 @@ interface BillItemProps {
 	onPeopleChange: (people: Person[]) => void;
 }
 
-const BillItem: React.FC<BillItemProps> = ({ item, onEdit, onDelete, onAdd, onPeopleChange, mode: modeProp }) => {
+const BillItem: React.FC<BillItemProps> = ({
+	item,
+	onEdit,
+	onDelete,
+	onAdd,
+	onPeopleChange,
+	mode: modeProp,
+}) => {
 	const form = useFormContext<BillFormValues>();
 
 	const [mode, setMode] = useState<BillItemMode>(modeProp ?? BillItemMode.VIEW);

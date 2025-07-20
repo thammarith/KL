@@ -9,7 +9,7 @@ type GrandTotalProps = {
 const GrandTotal = ({ currency, grandTotal }: GrandTotalProps) => {
 	return (
 		<>
-			<div className="mt-6 text-lg font-bold place-self-start">Grand total</div>
+			<div className="mt-6 place-self-start text-lg font-bold">Grand total</div>
 			<div className="mt-6 flex flex-col items-end justify-self-end text-lg">
 				<div className="font-bold">{formatCurrency(grandTotal, currency.original)}</div>
 				{currency.target && (

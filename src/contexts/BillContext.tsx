@@ -102,6 +102,39 @@ const sampleBills: Bill[] = [
 			grandTotal: 55,
 		},
 	},
+	{
+		id: 'cZetOWxJ',
+		date: '2025-06-03',
+		time: '15:00',
+		name: { original: 'ร้านอาหาร C', english: 'Restaurant C' },
+		currency: { original: 'THB' },
+		items: [
+			{
+				id: 'i8a',
+				name: { original: 'item A' },
+				amount: 100,
+				selectedPeople: [],
+			},
+			{
+				id: 'i8ab',
+				name: { original: 'item AB' },
+				amount: 100,
+				selectedPeople: [],
+			},
+		],
+		adjustments: [
+			{
+				id: 'adj3',
+				name: { original: 'SC' },
+				amount: 10,
+				ref: 'adjj11',
+			},
+		],
+		totals: {
+			subTotal: 0,
+			grandTotal: 0,
+		},
+	},
 ];
 
 export const BillProvider = ({ children, id }: { children: ReactNode; id?: string }) => {
@@ -121,13 +154,28 @@ export const BillProvider = ({ children, id }: { children: ReactNode; id?: strin
 		setBills((prev) => prev.filter((b) => b.id !== billId));
 	}, []);
 
-	const getBillById = useCallback((billId: string) => bills.find((b) => b.id === billId), [bills]);
+	const getBillById = useCallback(
+		(billId: string) => bills.find((b) => b.id === billId),
+		[bills]
+	);
 
-	const currentBill = useMemo(() => (currentId ? getBillById(currentId) : undefined), [currentId, getBillById]);
+	const currentBill = useMemo(
+		() => (currentId ? getBillById(currentId) : undefined),
+		[currentId, getBillById]
+	);
 
 	return (
 		<BillContext.Provider
-			value={{ mode, bills, addBill, updateBill, deleteBill, getBillById, currentId, currentBill }}
+			value={{
+				mode,
+				bills,
+				addBill,
+				updateBill,
+				deleteBill,
+				getBillById,
+				currentId,
+				currentBill,
+			}}
 		>
 			{children}
 		</BillContext.Provider>

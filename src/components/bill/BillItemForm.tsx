@@ -140,7 +140,8 @@ const BillItemForm: React.FC<BillItemFormProps> = ({
 			/>
 
 			{/* Bottom Left - People Management */}
-			{(mode === BillItemMode.ADD && isAddPeopleEnabledInAddMode) || mode === BillItemMode.EDIT ? (
+			{(mode === BillItemMode.ADD && isAddPeopleEnabledInAddMode)
+			|| mode === BillItemMode.EDIT ? (
 				<BillItemPeopleManager
 					className="col-start-1 row-start-2"
 					onPeopleChange={onPeopleChange}

@@ -36,13 +36,19 @@ const PeopleView = ({ person, onEdit, onDelete }: PeopleViewProps) => {
 
 				<AlertDialog>
 					<AlertDialogTrigger asChild>
-						<Button variant="ghost" size="sm" className="text-destructive hover:text-destructive">
+						<Button
+							variant="ghost"
+							size="sm"
+							className="text-destructive hover:text-destructive"
+						>
 							<Trash2 className="size-4" />
 						</Button>
 					</AlertDialogTrigger>
 					<AlertDialogContent>
 						<AlertDialogHeader>
-							<AlertDialogTitle>{t('deletePerson', 'Delete Person')}</AlertDialogTitle>
+							<AlertDialogTitle>
+								{t('deletePerson', 'Delete Person')}
+							</AlertDialogTitle>
 							<AlertDialogDescription>
 								{t(
 									'deletePersonConfirm',

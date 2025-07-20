@@ -29,7 +29,12 @@ const BillItemView: React.FC<BillItemViewProps> = ({ item, currency, onPeopleCha
 			</div>
 
 			{/* Top Right - Amount */}
-			<div className={cn('flex justify-end whitespace-nowrap', item.amount <= 0 && 'mr-16 text-red-700')}>
+			<div
+				className={cn(
+					'flex justify-end whitespace-nowrap',
+					item.amount <= 0 && 'mr-16 text-red-700'
+				)}
+			>
 				{formatCurrency(item.amount, isConverted ? currency.original : '', 'narrowSymbol')}
 			</div>
 

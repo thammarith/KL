@@ -249,5 +249,7 @@ const countryCurrencies: Record<string, { code: string; name: string }> = {
 	ZW: { code: 'ZWL', name: 'Zimbabwean dollar' }, // Zimbabwe
 };
 
-export const getCurrencyByCountryCode = (countryCode: string): { code: string; name: string } | undefined =>
+export const getCurrencyByCountryCode = (
+	countryCode: string
+): { code: string; name: string } | undefined =>
 	countryCurrencies[countryCode as keyof typeof countryCurrencies];

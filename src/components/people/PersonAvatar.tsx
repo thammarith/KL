@@ -15,7 +15,9 @@ const PersonAvatar = ({ person, allPeople, className }: PersonAvatarProps) => {
 
 	return (
 		<Avatar className={cn('size-8 text-xs', className)}>
-			<AvatarFallback className={cn(colourClass, 'leading-6 font-medium text-white')}>{initials}</AvatarFallback>
+			<AvatarFallback className={cn(colourClass, 'leading-6 font-medium text-white')}>
+				{initials}
+			</AvatarFallback>
 		</Avatar>
 	);
 };

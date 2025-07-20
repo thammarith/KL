@@ -9,7 +9,9 @@ type SubTotalProps = {
 const SubTotal = ({ currency, subTotal }: SubTotalProps) => (
 	<>
 		<div className="mb-4">Sub total</div>
-		<div className="mb-4 justify-self-end">{formatCurrency(subTotal, currency.original, 'narrowSymbol')}</div>
+		<div className="mb-4 justify-self-end">
+			{formatCurrency(subTotal, currency.original, 'narrowSymbol')}
+		</div>
 	</>
 );
 

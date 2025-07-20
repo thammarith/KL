@@ -7,10 +7,11 @@ type IconProps = LucideProps | (React.SVGProps<SVGSVGElement> & { children?: nev
 type IconPropsWithBehavior<T extends IconProps> = T & { behavior: 'append' | 'prepend' };
 type IconComponent<T extends IconProps = IconProps> = React.ComponentType<T>;
 
-export type InputProps<T extends IconComponent = IconComponent> = React.InputHTMLAttributes<HTMLInputElement> & {
-	icon?: T;
-	iconProps?: T extends IconComponent<infer P> ? IconPropsWithBehavior<P> : never;
-};
+export type InputProps<T extends IconComponent = IconComponent> =
+	React.InputHTMLAttributes<HTMLInputElement> & {
+		icon?: T;
+		iconProps?: T extends IconComponent<infer P> ? IconPropsWithBehavior<P> : never;
+	};
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
 	(
@@ -32,7 +33,10 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
 				)}
 			>
 				{Icon && type !== 'file' && iconBehavior === 'prepend' && (
-					<Icon className={cn('text-muted-foreground mr-3 h-4 w-4', iconClassName)} {...iconProps} />
+					<Icon
+						className={cn('text-muted-foreground mr-3 h-4 w-4', iconClassName)}
+						{...iconProps}
+					/>
 				)}
 				<input
 					type={type}
@@ -45,7 +49,10 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
 					{...props}
 				/>
 				{Icon && type !== 'file' && iconBehavior === 'append' && (
-					<Icon className={cn('text-muted-foreground ml-3 h-4 w-4', iconClassName)} {...iconProps} />
+					<Icon
+						className={cn('text-muted-foreground ml-3 h-4 w-4', iconClassName)}
+						{...iconProps}
+					/>
 				)}
 			</div>
 		);

@@ -8,7 +8,7 @@ import type { BillFormValues } from '@/types/billForm';
 import AdjustmentsSheet from './AdjustmentsSheet';
 
 const BillFooter: React.FC = () => {
-	const { setValue } = useFormContext<BillFormValues>();
+	const form = useFormContext<BillFormValues>();
 	const currency = useWatch<BillFormValues>({
 		name: 'currency',
 	}) as BillFormValues['currency'];
@@ -28,9 +28,9 @@ const BillFooter: React.FC = () => {
 	const grandTotal = calculateTotal(subTotal, calculatedAdjustments);
 
 	useEffect(() => {
-		setValue('totals.subTotal', subTotal);
-		setValue('totals.grandTotal', grandTotal);
-	}, [subTotal, grandTotal, setValue]);
+		form.setValue('totals.subTotal', subTotal);
+		form.setValue('totals.grandTotal', grandTotal);
+	}, [subTotal, grandTotal, form]);
 
 	return (
 		<footer className="font-content">

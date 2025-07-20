@@ -32,11 +32,13 @@ const InstallPrompt: React.FC = () => {
 					</div>
 				</div>
 				<div className="min-w-0 flex-1">
-					<h3 className="text-sm font-medium text-gray-900">{t('installAppTitle', { appName: APP_NAME })}</h3>
+					<h3 className="text-sm font-medium text-gray-900">
+						{t('installAppTitle', { appName: APP_NAME })}
+					</h3>
 					<p className="mt-1 text-sm text-gray-500">
 						<Trans i18nKey="installAppDesc">
-							You can install this app for a better experience. Look for <b>Install</b> or{' '}
-							<b>Add to Home Screen</b> in your browser menu.
+							You can install this app for a better experience. Look for{' '}
+							<b>Install</b> or <b>Add to Home Screen</b> in your browser menu.
 						</Trans>
 					</p>
 				</div>

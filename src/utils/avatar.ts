@@ -64,7 +64,9 @@ export const generateUniqueInitials = (person: Person, existingPeople: Person[])
 	const baseInitials = getInitials(person.name);
 
 	// Get all existing initials except for the current person
-	const existingInitials = existingPeople.filter((p) => p.id !== person.id).map((p) => getInitials(p.name));
+	const existingInitials = existingPeople
+		.filter((p) => p.id !== person.id)
+		.map((p) => getInitials(p.name));
 
 	// If no conflict, return base initials
 	if (!existingInitials.includes(baseInitials)) {

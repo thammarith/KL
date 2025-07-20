@@ -24,9 +24,10 @@ const BillInfo: React.FC = () => {
 				{bill?.currency && (
 					<div>
 						{bill.currency.original}
-						{bill.currency.target && bill.currency.target !== bill.currency.original && (
-							<>&nbsp;&rarr;&nbsp;{bill.currency.target}</>
-						)}
+						{bill.currency.target
+							&& bill.currency.target !== bill.currency.original && (
+								<>&nbsp;&rarr;&nbsp;{bill.currency.target}</>
+							)}
 					</div>
 				)}
 			</div>

@@ -75,7 +75,9 @@ const SelectedPeopleAvatars: React.FC<SelectedPeopleAvatarsProps> = ({
 					)}
 				</div>
 			))}
-			{remainingCount > 0 && <div className="ml-1 text-xs text-gray-500">+{remainingCount}</div>}
+			{remainingCount > 0 && (
+				<div className="ml-1 text-xs text-gray-500">+{remainingCount}</div>
+			)}
 		</div>
 	);
 };

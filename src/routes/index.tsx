@@ -29,7 +29,9 @@ const Index = () => {
 							>
 								<Card className="cursor-pointer transition-shadow hover:shadow-lg">
 									<CardHeader className="pb-2">
-										<CardTitle>{bill.name?.original || t('untitled')}</CardTitle>
+										<CardTitle>
+											{bill.name?.original || t('untitled')}
+										</CardTitle>
 										{bill.name?.english && (
 											<span className="text-muted-foreground block text-xs">
 												{bill.name.english}
