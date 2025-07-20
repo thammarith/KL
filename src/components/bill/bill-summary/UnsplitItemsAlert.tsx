@@ -31,8 +31,10 @@ export const UnsplitItemsAlert = ({
 					<div className="flex items-center gap-2">
 						<TriangleAlert className="h-3.5 w-3.5" />
 						{/* TODO: handle plural */}
-						{unsplitItems.length} items are not split (
-						{formatCurrency(amount, displayCurrency, 'narrowSymbol')})
+						{unsplitItems.length} items are not split
+						{' '}
+						({formatCurrency(amount, displayCurrency, 'narrowSymbol')})
+						<span className="text-muted-foreground text-xs">Tap to see details</span>
 					</div>
 					<div>
 						{isOpen ? (
