@@ -36,14 +36,14 @@ export const UnsplitItemsAlert = ({
 						{' '}
 						({formatCurrency(amount, displayCurrency, 'narrowSymbol')})
 					</div>
-					<div className="flex shrink-0 grow-0 items-center gap-2">
+					<div className="flex shrink-0 grow-0 items-center gap-1">
 						<div className="text-muted-foreground hidden overflow-hidden text-xs 2xs:block">
 							See details
 						</div>
 						{isOpen ? (
-							<ChevronsDownUp className="h-3.5 w-3.5" />
+							<ChevronsDownUp className="text-muted-foreground h-3.5 w-3.5" />
 						) : (
-							<ChevronsUpDown className="h-3.5 w-3.5" />
+							<ChevronsUpDown className="text-muted-foreground h-3.5 w-3.5" />
 						)}
 					</div>
 				</div>
