@@ -5,7 +5,7 @@
 
 @theme {
 	/* Breakpoints */
-	--breakpoint-2xs: 20rem; /* 480px */
+	--breakpoint-2xs: 24rem; /* 480px */
 	--breakpoint-xs: 30rem;
 
 	/* Fonts */
