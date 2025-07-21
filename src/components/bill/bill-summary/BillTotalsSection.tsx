@@ -44,8 +44,8 @@ export const BillTotalsSection = ({
 					<TotalRow label="Split total" amount={totalSplit} currency={currency} />
 					<TotalRow label="Unsplit total" amount={unsplitAmount} currency={currency} />
 				</CollapsibleContent>
-				<CollapsibleTrigger className="w-full">
-					<div className="flex items-center justify-between tabular-nums">
+				<CollapsibleTrigger className="w-full overflow-hidden">
+					<div className="flex flex-wrap items-center justify-between tabular-nums">
 						<span className="font-medium inline-flex items-center gap-1">
 							{isOpen ? (
 								<ChevronsDownUp className="h-3.5 w-3.5" />
