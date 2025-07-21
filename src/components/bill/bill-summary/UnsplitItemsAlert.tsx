@@ -37,9 +37,11 @@ export const UnsplitItemsAlert = ({
 						({formatCurrency(amount, displayCurrency, 'narrowSymbol')})
 					</div>
 					<div className="flex shrink-0 grow-0 items-center gap-1">
-						<div className="text-muted-foreground hidden overflow-hidden text-xs 2xs:block">
-							See details
-						</div>
+						{!isOpen && (
+							<div className="text-muted-foreground 2xs:block hidden overflow-hidden text-xs">
+								See details
+							</div>
+						)}
 						{isOpen ? (
 							<ChevronsDownUp className="text-muted-foreground h-3.5 w-3.5" />
 						) : (
