@@ -23,6 +23,7 @@ const TotalRow = ({ label, amount, currency }: TotalRowProps) => (
 interface BillTotalsSectionProps {
 	totalSplit: number;
 	unsplitAmount: number;
+	adjustmentAmount: number;
 	grandTotal: number;
 	currency: Currency;
 }
@@ -30,6 +31,7 @@ interface BillTotalsSectionProps {
 export const BillTotalsSection = ({
 	totalSplit,
 	unsplitAmount,
+	adjustmentAmount,
 	grandTotal,
 	currency,
 }: BillTotalsSectionProps) => {
@@ -43,6 +45,7 @@ export const BillTotalsSection = ({
 				<CollapsibleContent className="mb-4">
 					<TotalRow label="Split total" amount={totalSplit} currency={currency} />
 					<TotalRow label="Unsplit total" amount={unsplitAmount} currency={currency} />
+					<TotalRow label="Adjustments" amount={adjustmentAmount} currency={currency} />
 				</CollapsibleContent>
 				<CollapsibleTrigger className="w-full overflow-hidden">
 					<div className="flex flex-wrap items-center justify-between tabular-nums">

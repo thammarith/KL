@@ -1,12 +1,9 @@
+export type PersonId = string;
+export type ItemId = string;
+
 export interface Name {
 	original: string;
 	english?: string;
-}
-
-export interface Person {
-	id: string;
-	name: string;
-	// Add any other person fields you need
 }
 
 export interface Currency {

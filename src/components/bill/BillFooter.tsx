@@ -2,7 +2,7 @@ import SubTotal from './SubTotal';
 import Adjustments from './Adjustments';
 import GrandTotal from './GrandTotal';
 import { useEffect, useState } from 'react';
-import { calculateAdjustments, calculateSubTotal, calculateTotal } from '@/utils/calculation';
+import { calculateTotalAdjustment, calculateSubTotal, calculateTotal } from '@/utils/calculation';
 import { useFormContext, useWatch } from 'react-hook-form';
 import type { BillFormValues } from '@/types/billForm';
 import AdjustmentsSheet from './AdjustmentsSheet';
@@ -23,7 +23,7 @@ const BillFooter: React.FC = () => {
 		name: 'items',
 	}) as BillFormValues['items'];
 
-	const calculatedAdjustments = calculateAdjustments(adjustments);
+	const calculatedAdjustments = calculateTotalAdjustment(adjustments);
 	const subTotal = calculateSubTotal(items);
 	const grandTotal = calculateTotal(subTotal, calculatedAdjustments);
 

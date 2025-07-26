@@ -2,10 +2,10 @@ import { useState } from 'react';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import { ChevronRight } from 'lucide-react';
 import { formatCurrency, getNakedCurrency } from '@/utils/currency';
-import Currency from 'currency.js';
-import type { Bill, BillItem } from '@/interfaces/Bill';
+import type { ItemId } from '@/interfaces/Bill';
 import type { Person } from '@/interfaces/Person';
 import { Separator } from '@/components/ui/separator';
+import { type PersonItemData, type PersonSummary } from '@/utils/personCalculation';
 
 interface ItemRowProps {
 	label: string;
@@ -26,26 +26,18 @@ const ItemRow = ({ label, amount, displayCurrency, count }: ItemRowProps) => (
 
 interface PersonAmountItemProps {
 	person: Person;
-	amount: number;
-	items: Map<string, { item: BillItem; totalShare: number; count: number }>;
 	displayCurrency: string;
-	adjustments: Bill['adjustments'];
+	personItemData: Map<ItemId, PersonItemData>;
+	summary: PersonSummary;
 }
 
 export const PersonAmountItem = ({
 	person,
-	amount,
-	items,
+	personItemData,
 	displayCurrency,
-	adjustments,
+	summary,
 }: PersonAmountItemProps) => {
 	const [isExpanded, setIsExpanded] = useState(false);
-
-	const itemsSubtotal = Array.from(items.values()).reduce(
-		(sum, { totalShare }) => sum + totalShare,
-		0
-	);
-	const adjustmentAmount = Currency(amount).subtract(itemsSubtotal).value;
 
 	return (
 		<Collapsible open={isExpanded} onOpenChange={setIsExpanded}>
@@ -58,28 +50,28 @@ export const PersonAmountItem = ({
 						<span className="font-medium">{person.name}</span>
 					</div>
 					<span className="tabular-nums">
-						{formatCurrency(amount, displayCurrency, 'narrowSymbol')}
+						{formatCurrency(summary.adjustedTotal, displayCurrency, 'narrowSymbol')}
 					</span>
 				</div>
 			</CollapsibleTrigger>
 			<CollapsibleContent>
 				<div className="mt-1 ml-6 space-y-1 text-sm">
-					{Array.from(items.values()).map(({ item, totalShare, count }) => (
+					{Array.from(personItemData.values()).map(({ item, shares, amount }) => (
 						<ItemRow
 							key={item.id}
 							label={item.name.english || item.name.original}
-							amount={totalShare}
+							amount={amount}
 							displayCurrency={displayCurrency}
-							count={count}
+							count={shares}
 						/>
 					))}
 
 					<Separator className="my-2" />
 
-					{adjustments.length > 0 && (
+					{summary.adjustmentAmount !== 0 && (
 						<ItemRow
 							label="Adjustments"
-							amount={adjustmentAmount}
+							amount={summary.adjustmentAmount}
 							displayCurrency={displayCurrency}
 						/>
 					)}
