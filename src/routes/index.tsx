@@ -13,7 +13,7 @@ const Index = () => {
 
 	return (
 		<>
-			<div className="mt-8">
+			<div className="mt-8 px-2">
 				<h2 className="mb-2 text-lg font-bold">{t('billsList')}</h2>
 				{bills.length === 0 ? (
 					<p className="text-muted-foreground">{t('noBills')}</p>
