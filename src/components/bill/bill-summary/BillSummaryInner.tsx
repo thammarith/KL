@@ -3,7 +3,11 @@ import { usePeopleContext } from '@/contexts/PeopleContext';
 import { PersonAmountItem } from './PersonAmountItem';
 import { UnsplitItemsAlert } from './UnsplitItemsAlert';
 import { BillTotalsSection } from './BillTotalsSection';
-import { calculateSplitItemsTotal, calculateTotalAdjustment, calculateUnsplitItemsTotal } from '@/utils/calculation';
+import {
+	calculateSplitItemsTotal,
+	calculateTotalAdjustment,
+	calculateUnsplitItemsTotal,
+} from '@/utils/calculation';
 import { getPersonItemData, getPersonSummary } from '@/utils/personCalculation';
 import type { BillFormValues } from '@/types/billForm';
 import type { Bill } from '@/interfaces/Bill';
@@ -46,7 +50,11 @@ const BillSummaryInner = () => {
 									person={person}
 									personItemData={itemsDataMap}
 									displayCurrency={displayCurrency}
-									summary={getPersonSummary(itemsDataMap, currentBill.items, currentBill.adjustments)}
+									summary={getPersonSummary(
+										itemsDataMap,
+										currentBill.items,
+										currentBill.adjustments
+									)}
 								/>
 							);
 						})}

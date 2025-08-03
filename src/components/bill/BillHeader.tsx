@@ -34,7 +34,7 @@ const BillHeader = ({ onDelete }: BillHeaderProps) => {
 					variant="ghost"
 					onClick={onDelete}
 					aria-label={t('deleteBill')}
-					className="text-destructive hover:text-white hover:bg-destructive flex items-center gap-2"
+					className="text-destructive hover:bg-destructive flex items-center gap-2 hover:text-white"
 				>
 					<Trash2 />
 					<span>{t('deleteBill')}</span>

@@ -43,10 +43,7 @@ const getPersonItemsMap = (items: BillItem[]): Map<PersonId, BillItem[]> => {
 	return personItemsMap;
 };
 
-const buildPersonItemData = (
-	personId: PersonId,
-	item: BillItem,
-): PersonItemData => {
+const buildPersonItemData = (personId: PersonId, item: BillItem): PersonItemData => {
 	const shares = getItemSharesByPersonId(personId, item);
 	const amount = getItemAmountByPersonId(personId, item);
 
@@ -54,7 +51,7 @@ const buildPersonItemData = (
 };
 
 export const getPersonItemData = (
-	items: BillItem[],
+	items: BillItem[]
 ): Map<PersonId, Map<ItemId, PersonItemData>> => {
 	const personItemDataMap = new Map<PersonId, Map<ItemId, PersonItemData>>();
 
@@ -86,7 +83,9 @@ export const getPersonSummary = (
 	const billSubtotal = calculateSubTotal(items);
 	const billAdjustmentTotal = calculateTotalAdjustment(adjustments);
 
-	const adjustmentAmount = Currency(unadjustedTotal / billSubtotal).multiply(billAdjustmentTotal).value;
+	const adjustmentAmount = Currency(unadjustedTotal / billSubtotal).multiply(
+		billAdjustmentTotal
+	).value;
 	const adjustedTotal = Currency(unadjustedTotal).add(adjustmentAmount).value;
 
 	return { unadjustedTotal, adjustedTotal, adjustmentAmount };
