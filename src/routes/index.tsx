@@ -2,7 +2,6 @@ import { createFileRoute, Link } from '@tanstack/react-router';
 import { useTranslation } from 'react-i18next';
 import InstallPrompt from '@/components/pwa/InstallPrompt';
 import UpdateNotification from '@/components/pwa/UpdateNotification';
-import { format } from 'date-fns';
 import type { Bill } from '@/interfaces/Bill';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { useBillContext } from '@/contexts/BillContext';
@@ -39,7 +38,16 @@ const Index = () => {
 										)}
 									</CardHeader>
 									<CardContent className="pt-0 text-xs text-gray-500">
-										{bill.date ? format(new Date(bill.date), 'yyyy-MM-dd') : ''}
+										{bill.date
+											? new Date(`${bill.date} ${bill.time}`).toLocaleString(
+													undefined,
+													{
+														dateStyle: 'medium',
+														timeStyle: 'short',
+														hour12: false,
+													}
+												)
+											: ''}
 									</CardContent>
 								</Card>
 							</Link>

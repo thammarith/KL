@@ -1,6 +1,5 @@
 ---
 description: TanStack Router: Guide
-globs: src/**/*.ts,src/**/*.tsx
 alwaysApply: false
 ---
 # Authenticated Routes
@@ -4990,7 +4989,7 @@ Now that you've learned how to read your route's search params, you'll be happy 
 
 The best way to update search params is to use the `search` prop on the `<Link />` component.
 
-If the search for the current page shall be updated and the `from` prop is specified, the `to` prop can be omitted.  
+If the search for the current page shall be updated and the `from` prop is specified, the `to` prop can be omitted.
 Here's an example:
 
 ```tsx
@@ -5012,7 +5011,7 @@ const ProductList = () => {
 
 If you want to update the search params in a generic component that is rendered on multiple routes, specifying `from` can be challenging.
 
-In this scenario you can set `to="."` which will give you access to loosely typed search params.  
+In this scenario you can set `to="."` which will give you access to loosely typed search params.
 Here is an example that illustrates this:
 
 ```tsx

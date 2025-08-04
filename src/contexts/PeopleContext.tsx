@@ -1,8 +1,8 @@
 import { createContext, useContext, useEffect, useState, useCallback } from 'react';
 import type { ReactNode } from 'react';
 import { generateUniqueId } from '@/utils/nanoId';
-import { getItem, setItem } from '@/utils/localStorage';
 import type { Person } from '@/interfaces/Person';
+import { peopleRepository } from '@/repositories/peopleRepository';
 
 export interface PeopleContextType {
 	people: Person[];
@@ -10,9 +10,8 @@ export interface PeopleContextType {
 	updatePerson: (person: Person) => void;
 	deletePerson: (personId: string) => void;
 	getPersonById: (personId: string) => Person | undefined;
+	syncWithDB: () => Promise<void>;
 }
-
-const PEOPLE_STORAGE_KEY = 'people';
 
 const PeopleContext = createContext<PeopleContextType | undefined>(undefined);
 
@@ -41,32 +40,47 @@ const samplePeople: Person[] = [
 ];
 
 export const PeopleProvider = ({ children }: { children: ReactNode }) => {
-	// Load people from localStorage or use sample data
-	const [people, setPeople] = useState<Person[]>(() => {
-		const savedPeople = getItem<Person[]>(PEOPLE_STORAGE_KEY);
-		return savedPeople || samplePeople;
-	});
+	const [people, setPeople] = useState<Person[]>([]);
 
-	// Save to localStorage whenever people change
+	// Load people from IndexedDB on mount
 	useEffect(() => {
-		setItem(PEOPLE_STORAGE_KEY, people);
-	}, [people]);
+		loadPeople();
+	}, []);
 
-	const addPerson = useCallback((personData: Omit<Person, 'id'>) => {
+	const loadPeople = async () => {
+		const storedPeople = (await peopleRepository.get()) as Person[];
+
+		// If no people in DB, initialize with sample data
+		if (storedPeople.length === 0) {
+			await peopleRepository.save(samplePeople);
+			setPeople(samplePeople);
+		} else {
+			setPeople(storedPeople);
+		}
+	};
+
+	const syncWithDB = useCallback(async () => {
+		await loadPeople();
+	}, []);
+
+	const addPerson = useCallback(async (personData: Omit<Person, 'id'>) => {
 		const newPerson: Person = {
 			...personData,
 			id: generateUniqueId(),
 		};
+		await peopleRepository.save([newPerson]);
 		setPeople((prev) => [...prev, newPerson].toSorted((a, b) => a.name.localeCompare(b.name)));
 	}, []);
 
-	const updatePerson = useCallback((updatedPerson: Person) => {
+	const updatePerson = useCallback(async (updatedPerson: Person) => {
+		await peopleRepository.save([updatedPerson]);
 		setPeople((prev) =>
 			prev.map((person) => (person.id === updatedPerson.id ? updatedPerson : person))
 		);
 	}, []);
 
-	const deletePerson = useCallback((personId: string) => {
+	const deletePerson = useCallback(async (personId: string) => {
+		await peopleRepository.delete(personId);
 		setPeople((prev) => prev.filter((person) => person.id !== personId));
 	}, []);
 
@@ -77,7 +91,14 @@ export const PeopleProvider = ({ children }: { children: ReactNode }) => {
 
 	return (
 		<PeopleContext.Provider
-			value={{ people, addPerson, updatePerson, deletePerson, getPersonById }}
+			value={{
+				people,
+				addPerson,
+				updatePerson,
+				deletePerson,
+				getPersonById,
+				syncWithDB,
+			}}
 		>
 			{children}
 		</PeopleContext.Provider>

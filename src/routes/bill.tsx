@@ -1,4 +1,4 @@
-import { createFileRoute, useNavigate } from '@tanstack/react-router';
+import { createFileRoute, useNavigate, redirect } from '@tanstack/react-router';
 import { useBillContext } from '@/contexts/BillContext';
 import z from 'zod/v4';
 import BillHeader from '@/components/bill/BillHeader';
@@ -6,7 +6,6 @@ import BillContent from '@/components/bill/BillContent';
 import BillFooter from '@/components/bill/BillFooter';
 import BillInfo from '@/components/bill/BillInfo';
 import { useEffect, useMemo, useState } from 'react';
-import { CrudMode } from '@/constants/crudMode';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Form } from '@/components/ui/form';
@@ -17,6 +16,7 @@ import { useTranslation } from 'react-i18next';
 import { Separator } from '@/components/ui/separator';
 import SaveBill from '@/components/bill/SaveBill';
 import BillSummary from '@/components/bill/BillSummary';
+import { billRepository } from '@/repositories/billRepository';
 
 const billSearchSchema = z.object({
 	id: z.string().optional(),
@@ -38,7 +38,7 @@ const buildDefaultValues = (billText: string, billId: string): BillFormValues =>
 
 const BillManagementPage = () => {
 	const navigate = useNavigate();
-	const { getBillById, deleteBill, mode, currentId, updateBill, bills } = useBillContext();
+	const { getBillById, deleteBill, currentId, upsertBill, bills } = useBillContext();
 	const { t } = useTranslation();
 
 	const [isBillSummaryOpen, setIsBillSummaryOpen] = useState(false);
@@ -67,13 +67,6 @@ const BillManagementPage = () => {
 		return () => subscription.unsubscribe();
 	}, [form]);
 
-	useEffect(() => {
-		if (currentId && !bill && mode === CrudMode.View) {
-			// If bill not found, go back to home or show a message
-			navigate({ to: '/' });
-		}
-	}, [currentId, bill, mode, navigate]);
-
 	const handleDelete = () => {
 		if (currentId) {
 			deleteBill(currentId);
@@ -85,10 +78,10 @@ const BillManagementPage = () => {
 		setIsBillSummaryOpen(true);
 	};
 
-	const onSubmit = (values: BillFormValues) => {
+	const onSubmit = async (values: BillFormValues) => {
 		console.log('Form submitted:', values);
-		if (updateBill) {
-			updateBill(values);
+		if (upsertBill) {
+			await upsertBill(values);
 		}
 	};
 
@@ -116,6 +109,17 @@ const BillManagementPage = () => {
 
 export const Route = createFileRoute('/bill')({
 	validateSearch: billSearchSchema,
+	beforeLoad: async ({ search }) => {
+		if (!search.id) return;
+
+		const existingBill = await billRepository.get(search.id);
+
+		if (!existingBill) {
+			throw redirect({
+				to: '/',
+			});
+		}
+	},
 	component: BillManagementPage,
 });
 

@@ -1,6 +1,5 @@
 ---
 description: TanStack Router: API
-globs: src/**/*.ts,src/**/*.tsx
 alwaysApply: false
 ---
 # ActiveLinkOptions type
@@ -1598,7 +1597,7 @@ interface RemountDepsOptions<
 - The return value needs to be JSON serializable.
 - By default, a route component will not be remounted if it stays active after a navigation
 
-Example:  
+Example:
 If you want to configure to remount all route components upon `params` change, use:
 
 ```tsx

@@ -27,7 +27,6 @@
 		"class-variance-authority": "^0.7.1",
 		"clsx": "^2.1.1",
 		"currency.js": "^2.0.4",
-		"date-fns": "^4.1.0",
 		"i18next": "^25.3.2",
 		"i18next-browser-languagedetector": "^8.2.0",
 		"idb": "^8.0.3",

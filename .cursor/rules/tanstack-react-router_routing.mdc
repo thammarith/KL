@@ -1,6 +1,5 @@
 ---
 description: TanStack Router: Routing
-globs: src/**/*.ts,src/**/*.tsx
 alwaysApply: false
 ---
 # Code-Based Routing
@@ -1816,7 +1815,7 @@ export const routes = rootRoute('root.tsx', [
 ## Virtual Routes inside of TanStack Router File Based routing
 
 The previous section showed you how you can use TanStack Router's File Based routing convention inside of a virtual route configuration.
-However, the opposite is possible as well.  
+However, the opposite is possible as well.
 You can configure the main part of your app's route tree using TanStack Router's File Based routing convention and opt into virtual route configuration for specific subtrees.
 
 Consider the following file structure:
@@ -1860,8 +1859,8 @@ The helper function `defineVirtualSubtreeConfig` is closely modeled after vite's
 
 ## Inception
 
-You can mix and match TanStack Router's File Based routing convention and virtual route configuration however you like.  
-Let's go deeper!  
+You can mix and match TanStack Router's File Based routing convention and virtual route configuration however you like.
+Let's go deeper!
 Check out the following example that starts off using File Based routing convention, switches over to virtual route configuration for `/posts`, switches back to File Based routing convention for `/posts/lets-go` only to switch over to virtual route configuration again for `/posts/lets-go/deeper`.
 
 ```

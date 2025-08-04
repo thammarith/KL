@@ -1,19 +1,20 @@
-import { createContext, useContext, useState, useCallback, useMemo } from 'react';
+import { createContext, useContext, useState, useCallback, useMemo, useEffect } from 'react';
 import type { ReactNode } from 'react';
 import { CrudMode } from '@/constants/crudMode';
 import type { Bill } from '@/interfaces/Bill';
+import { billRepository } from '@/repositories/billRepository';
 
 export type BillMode = (typeof CrudMode)[keyof typeof CrudMode];
 
 interface BillContextType {
 	mode: BillMode;
 	bills: Bill[];
-	addBill: (bill: Bill) => void;
-	updateBill: (bill: Bill) => void;
-	deleteBill: (id: string) => void;
+	upsertBill: (bill: Bill) => Promise<void>;
+	deleteBill: (id: string) => Promise<void>;
 	getBillById: (id: string) => Bill | undefined;
 	currentId?: string;
 	currentBill?: Bill;
+	syncWithDB: () => Promise<void>;
 }
 
 const BillContext = createContext<BillContextType | undefined>(undefined);
@@ -138,19 +139,58 @@ const sampleBills: Bill[] = [
 ];
 
 export const BillProvider = ({ children, id }: { children: ReactNode; id?: string }) => {
-	const [bills, setBills] = useState<Bill[]>(sampleBills);
+	const [bills, setBills] = useState<Bill[]>([]);
 	const mode: BillMode = id ? CrudMode.View : CrudMode.Create;
 	const currentId = id;
 
-	const addBill = useCallback((bill: Bill) => {
-		setBills((prev) => [...prev, bill]);
+	const sortBills = useCallback(
+		(bills: Bill[]) =>
+			[...bills].sort(
+				(a, b) =>
+					(a.date ?? '').localeCompare(b.date ?? '')
+					|| (a.time ?? '').localeCompare(b.time ?? '')
+					|| a.name.original.localeCompare(b.name.original)
+			),
+		[]
+	);
+
+	const loadBills = useCallback(async () => {
+		const storedBills = (await billRepository.get()) as Bill[];
+
+		// If no bills in DB, initialise with sample data
+		if (storedBills.length === 0) {
+			await billRepository.save(sampleBills);
+			setBills(sampleBills);
+		} else {
+			setBills(storedBills);
+		}
 	}, []);
 
-	const updateBill = useCallback((bill: Bill) => {
-		setBills((prev) => prev.map((b) => (b.id === bill.id ? bill : b)));
-	}, []);
+	useEffect(() => {
+		loadBills();
+	}, [loadBills]);
 
-	const deleteBill = useCallback((billId: string) => {
+	const syncWithDB = useCallback(async () => {
+		await loadBills();
+	}, [loadBills]);
+
+	const upsertBill = useCallback(
+		async (bill: Bill) => {
+			await billRepository.save([bill]);
+			setBills((prev) => {
+				const existingIndex = prev.findIndex((b) => b.id === bill.id);
+				const updatedBills =
+					existingIndex >= 0
+						? prev.map((b) => (b.id === bill.id ? bill : b)) // Update existing
+						: [...prev, bill]; // Add new
+				return sortBills(updatedBills);
+			});
+		},
+		[sortBills]
+	);
+
+	const deleteBill = useCallback(async (billId: string) => {
+		await billRepository.delete(billId);
 		setBills((prev) => prev.filter((b) => b.id !== billId));
 	}, []);
 
@@ -169,12 +209,12 @@ export const BillProvider = ({ children, id }: { children: ReactNode; id?: strin
 			value={{
 				mode,
 				bills,
-				addBill,
-				updateBill,
+				upsertBill,
 				deleteBill,
 				getBillById,
 				currentId,
 				currentBill,
+				syncWithDB,
 			}}
 		>
 			{children}
