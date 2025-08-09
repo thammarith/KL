@@ -11,6 +11,7 @@
 	"updateDesc": "A new version of the app is available. Refresh to get the latest features!",
 	"updateNow": "Update Now",
 	"dismiss": "Dismiss",
+	"appUpdated": "App updated successfully!",
 	"billsList": "Bills",
 	"noBills": "No bills yet.",
 	"untitled": "Untitled",
@@ -60,5 +61,9 @@
 	"enterPersonName": "Enter person name...",
 	"noPeople": "No people added yet.",
 	"deletePerson": "Delete Person",
-	"deletePersonConfirm": "Are you sure you want to delete {{name}}? This action cannot be undone."
+	"deletePersonConfirm": "Are you sure you want to delete {{name}}? This action cannot be undone.",
+	"scanReceipt": "Scan Receipt",
+	"processing": "Processing...",
+	"viewReceipt": "View Receipt",
+	"receiptImage": "Receipt Image"
 }

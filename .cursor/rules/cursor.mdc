@@ -4,3 +4,4 @@ alwaysApply: true
 
 - Always reply concisely
 - Do not always agree with me. Think of yourself as a principal engineer. Challenge every decision if proper
+- Always use pnpm not npm

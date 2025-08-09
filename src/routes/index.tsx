@@ -1,7 +1,9 @@
 import { createFileRoute, Link } from '@tanstack/react-router';
 import { useTranslation } from 'react-i18next';
 import InstallPrompt from '@/components/pwa/InstallPrompt';
-import UpdateNotification from '@/components/pwa/UpdateNotification';
+import AutoUpdateToast from '@/components/pwa/AutoUpdateToast';
+
+import ScanReceiptButton from '@/components/bill/ScanReceiptButton';
 import type { Bill } from '@/interfaces/Bill';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { useBillContext } from '@/contexts/BillContext';
@@ -13,7 +15,10 @@ const Index = () => {
 	return (
 		<>
 			<div className="mt-8 px-2">
-				<h2 className="mb-2 text-lg font-bold">{t('billsList')}</h2>
+				<div className="mb-2 flex items-center justify-between">
+					<h2 className="text-lg font-bold">{t('billsList')}</h2>
+					<ScanReceiptButton />
+				</div>
 				{bills.length === 0 ? (
 					<p className="text-muted-foreground">{t('noBills')}</p>
 				) : (
@@ -57,7 +62,7 @@ const Index = () => {
 			</div>
 
 			{/* PWA Components */}
-			<UpdateNotification />
+			<AutoUpdateToast />
 			<InstallPrompt />
 		</>
 	);

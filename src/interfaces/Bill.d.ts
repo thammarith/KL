@@ -20,6 +20,7 @@ export interface Bill {
 	currency: Currency;
 	adjustments: Adjustment[];
 	totals: Totals;
+	receiptImage?: Blob; // Compressed image for verification
 }
 
 export interface Adjustment {

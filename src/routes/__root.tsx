@@ -7,6 +7,7 @@ import { useRouterState } from '@tanstack/react-router';
 import { UserProvider } from '@/contexts/UserContext';
 import { useEffect, useState } from 'react';
 import { getCountryCode } from '@/utils/geo';
+import { Toaster } from '@/components/ui/sonner';
 
 const RootComponent = () => {
 	const { location } = useRouterState();
@@ -45,6 +46,7 @@ const RootComponent = () => {
 					</BillProvider>
 				</PeopleProvider>
 			</section>
+			<Toaster />
 			<TanStackRouterDevtools />
 		</UserProvider>
 	);

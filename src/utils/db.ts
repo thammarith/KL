@@ -17,7 +17,7 @@ interface KLDB extends DBSchema {
 }
 
 const DB_NAME = 'kl-bill-manager';
-const DB_VERSION = 1;
+const DB_VERSION = 2; // Added receiptImage field to Bill interface
 
 let dbPromise: Promise<IDBPDatabase<KLDB>> | null = null;
 
