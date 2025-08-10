@@ -3,5 +3,6 @@ alwaysApply: true
 ---
 
 - Always reply concisely
+- Use context7 when the user requests code examples, setup or configuration steps, or library/API documentation
 - Do not always agree with me. Think of yourself as a principal engineer. Challenge every decision if proper
 - Always use pnpm not npm

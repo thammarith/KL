@@ -9,5 +9,6 @@ Names: squid split / octo split / splitopus
 - [ ] Currency
 - [ ] Disable auto complete
 - [ ] Adjusted amount should come from only selected items
+- [ ] Send image with base64
 - [ ] Set up auth, rate limit, guarded path
 - [ ] Input, output guardrail

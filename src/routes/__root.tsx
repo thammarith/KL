@@ -3,6 +3,7 @@ import { TanStackRouterDevtools } from '@tanstack/react-router-devtools';
 import Header from '@/components/Header';
 import { BillProvider } from '@/contexts/BillContext';
 import { PeopleProvider } from '@/contexts/PeopleContext';
+import { FileProvider } from '@/contexts/FileContext';
 import { useRouterState } from '@tanstack/react-router';
 import { UserProvider } from '@/contexts/UserContext';
 import { useEffect, useState } from 'react';
@@ -40,11 +41,13 @@ const RootComponent = () => {
 					</Link>
 				</div>
 				<hr />
-				<PeopleProvider>
-					<BillProvider id={id}>
-						<Outlet />
-					</BillProvider>
-				</PeopleProvider>
+				<FileProvider>
+					<PeopleProvider>
+						<BillProvider id={id}>
+							<Outlet />
+						</BillProvider>
+					</PeopleProvider>
+				</FileProvider>
 			</section>
 			<Toaster />
 			<TanStackRouterDevtools />

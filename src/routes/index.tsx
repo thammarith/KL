@@ -14,11 +14,12 @@ const Index = () => {
 
 	return (
 		<>
-			<div className="mt-8 px-2">
-				<div className="mb-2 flex items-center justify-between">
-					<h2 className="text-lg font-bold">{t('billsList')}</h2>
-					<ScanReceiptButton />
-				</div>
+			<section className="mt-8 flex flex-col items-center justify-center px-2">
+				<ScanReceiptButton />
+			</section>
+			<section className="mt-8 px-2">
+				<h2 className="text-lg font-bold">{t('billsList')}</h2>
+
 				{bills.length === 0 ? (
 					<p className="text-muted-foreground">{t('noBills')}</p>
 				) : (
@@ -59,7 +60,7 @@ const Index = () => {
 						))}
 					</div>
 				)}
-			</div>
+			</section>
 
 			{/* PWA Components */}
 			<AutoUpdateToast />
