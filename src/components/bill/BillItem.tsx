@@ -73,7 +73,7 @@ const BillItem: React.FC<BillItemProps> = ({
 		setAmount('');
 	};
 
-	const handleContainerClick = () => {
+	const handleOnItemClick = () => {
 		if (mode === BillItemMode.VIEW) {
 			setMode(BillItemMode.EDIT);
 		}
@@ -88,13 +88,16 @@ const BillItem: React.FC<BillItemProps> = ({
 	return (
 		<div
 			className={cn(
-				'font-content grid grid-cols-[2fr_1fr] grid-rows-2 items-end gap-x-2 gap-y-1 tabular-nums',
-				mode === BillItemMode.VIEW && 'cursor-pointer'
+				'font-content grid grid-cols-[2fr_1fr] grid-rows-2 items-end gap-x-2 gap-y-1 tabular-nums'
 			)}
-			onClick={handleContainerClick}
 		>
 			{mode === BillItemMode.VIEW && item && (
-				<BillItemView item={item} currency={currency} onPeopleChange={handlePeopleChange} />
+				<BillItemView
+					item={item}
+					currency={currency}
+					onPeopleChange={handlePeopleChange}
+					onItemClick={handleOnItemClick}
+				/>
 			)}
 			{(mode === BillItemMode.ADD || mode === BillItemMode.EDIT) && (
 				<BillItemForm

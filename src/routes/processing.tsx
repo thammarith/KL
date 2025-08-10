@@ -88,14 +88,13 @@ const Processing = () => {
 			};
 
 			console.log('newBill', newBill);
-
 			setBillData(newBill);
 
 			await upsertBill(newBill);
 
-			// Clear file from context and navigate to the bill page
-			setCurrentFile(null);
-			navigate({ to: '/bill', search: { id: newBill.id } });
+			navigate({ to: '/bill', search: { id: newBill.id } }).then(() => {
+				setCurrentFile(null);
+			});
 		} catch (error) {
 			console.error('Scan receipt error:', error);
 			setError(error instanceof Error ? error.message : t('processingFailed'));

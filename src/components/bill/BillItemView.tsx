@@ -12,9 +12,15 @@ interface BillItemViewProps {
 		target?: string;
 	};
 	onPeopleChange: (people: Person[]) => void;
+	onItemClick: () => void;
 }
 
-const BillItemView: React.FC<BillItemViewProps> = ({ item, currency, onPeopleChange }) => {
+const BillItemView: React.FC<BillItemViewProps> = ({
+	item,
+	currency,
+	onPeopleChange,
+	onItemClick,
+}) => {
 	const isConverted = currency.target && currency.target !== currency.original;
 
 	// Memoize selectedPeople to prevent unnecessary re-renders
@@ -24,16 +30,18 @@ const BillItemView: React.FC<BillItemViewProps> = ({ item, currency, onPeopleCha
 		<>
 			{/* Top Left - Item Name */}
 			<div className="flex items-baseline gap-1">
-				<span className="text-base">{item.name.original}</span>
-				<span className="text-muted-foreground text-sm">{item.name.english}</span>
+				<span className="cursor-pointer text-base" onClick={onItemClick}>
+					{item.name.original}
+				</span>
 			</div>
 
 			{/* Top Right - Amount */}
 			<div
 				className={cn(
-					'flex justify-end whitespace-nowrap',
-					item.amount <= 0 && 'mr-16 text-red-700'
+					'flex cursor-pointer justify-end whitespace-nowrap',
+					item.amount < 0 && 'mr-16 text-red-700'
 				)}
+				onClick={onItemClick}
 			>
 				{formatCurrency(item.amount, isConverted ? currency.original : '', 'narrowSymbol')}
 			</div>
@@ -50,7 +58,7 @@ const BillItemView: React.FC<BillItemViewProps> = ({ item, currency, onPeopleCha
 				<div
 					className={cn(
 						'text-muted-foreground flex justify-end self-center text-sm whitespace-nowrap',
-						item.amount <= 0 && 'mr-16 text-red-400'
+						item.amount < 0 && 'mr-16 text-red-400'
 					)}
 				>
 					{formatCurrency(item.amount, currency.target ?? '', 'narrowSymbol')}
