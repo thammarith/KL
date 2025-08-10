@@ -1,7 +1,7 @@
 {
 	"name": "KL",
 	"private": true,
-	"version": "1.0.0",
+	"version": "1.0.576087",
 	"type": "module",
 	"scripts": {
 		"dev": "vite",
@@ -10,10 +10,13 @@
 		"lint": "eslint .",
 		"prettier": "prettier --write --ignore-unknown .",
 		"preview": "vite preview",
+		"version:bump": "node -e \"const pkg=require('./package.json'); const now=new Date(); pkg.version=pkg.version.split('.').slice(0,2).join('.')+'.'+(Date.now()%1000000); pkg.buildDate=now.toISOString(); require('fs').writeFileSync('./package.json', JSON.stringify(pkg, null, '\\t')+require('os').EOL);\"",
 		"deploy:functions": "cd functions && pnpm build && firebase deploy --only functions",
+		"deploy:hosting": "pnpm version:bump && pnpm build && firebase deploy --only hosting",
+		"deploy:all": "pnpm version:bump && pnpm build && pnpm deploy:functions && firebase deploy --only hosting",
 		"serve:functions": "cd functions && pnpm serve",
-		"logs:functions": "firebase functions:log",
-		"deploy:all": "pnpm build && pnpm deploy:functions && firebase deploy --only hosting"
+		"serve:hosting": "firebase serve --only hosting",
+		"logs:functions": "firebase functions:log"
 	},
 	"dependencies": {
 		"@hookform/resolvers": "^5.2.1",
@@ -80,5 +83,6 @@
 	"packageManager": "pnpm@10.14.0",
 	"engines": {
 		"node": "22"
-	}
+	},
+	"buildDate": "2025-08-10T15:09:36.087Z"
 }

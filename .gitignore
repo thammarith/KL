@@ -25,6 +25,7 @@ functions/lib
 .env.production.local
 
 # Firebase Functions environment variables (but allow .example files)
+.firebase/
 functions/.env
 functions/.env.local
 functions/.env.dev

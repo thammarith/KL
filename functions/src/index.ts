@@ -23,7 +23,7 @@ const createGenAI = (): GoogleGenAI => {
 		throw new Error('GEMINI_API_KEY appears to be invalid format');
 	}
 
-	console.debug('Gemini API key passed simple validation');
+	console.debug('[createGenAI] Gemini API key passed simple validation');
 
 	return new GoogleGenAI({ apiKey });
 };
@@ -110,7 +110,9 @@ const billExtractionSchema = {
 	],
 };
 
-const BILL_EXTRACTION_PROMPT = `Extract structured data from this bill/receipt image:
+const BILL_EXTRACTION_PROMPT = `Always think before giving the answer.
+
+Extract structured data from this bill/receipt image:
 
 1. Restaurant name: Include original text followed by phonetic transliteration (NOT translation) in parentheses
    Example: "สุกี้ยากี้ (Suki Yaki)"
@@ -118,6 +120,7 @@ const BILL_EXTRACTION_PROMPT = `Extract structured data from this bill/receipt i
 2. Menu items: Include original name followed by English translation in parentheses
    Example: "ข้าวผัด (Fried Rice)"
    - Extract the total price for each line item (already includes quantity × unit price)
+   - Some items in the list might be a promotion, discount, etc. Make sure to include as negative amount.
 
 3. Adjustments (tax, service charge, discounts):
    Example: "ภาษี (Tax)", "ค่าบริการ (Service Charge)"
@@ -128,34 +131,27 @@ const BILL_EXTRACTION_PROMPT = `Extract structured data from this bill/receipt i
 5. Identify currency code (THB, USD, etc.)
 
 6. Extract date and time if visible.
+    - Make sure the date format is YYYY-MM-DD. Convert to this format if it's not in this format.
+    - Make sure the time format is HH:MM (24-hour). Convert to this format if it's not in this format.
 
 IMPORTANT:
 - For restaurant names: Use TRANSLITERATION (how it sounds), not translation
 - For menu items and adjustments: Use TRANSLATION (what it means)
-- Always format as: "Original Text (English)"
-- Make sure the date format is YYYY-MM-DD. Convert to this format if it's not in this format.
-- Make sure the time format is HH:MM (24-hour). Convert to this format if it's not in this format.`;
+- Always format as: 'Original Text (English)' for items that are not in English
+- Verify spelling of the items and adjustments. Make sure your output is as accurate as possible.`;
 
 /**
  * Process bill images using Google Gemini API
  * Extracts structured data from receipt images
  */
-export const processBillv2 = onCall(
+export const processBillv1 = onCall(
 	{
-		cors: [
-			'http://localhost:5173',
-			'http://127.0.0.1:5173',
-			/^https:\/\/.*\.thammarith\.dev$/,
-			'https://thammarith.dev',
-			'https://thammarith.github.io',
-			/^https:\/\/.*\.web\.app$/,
-			/^https:\/\/.*\.firebaseapp\.com$/,
-		].filter(Boolean),
+		cors: true,
 		memory: '1GiB',
 		timeoutSeconds: 300,
 	},
 	async (request) => {
-		console.log('processBill called');
+		console.log('[processBillv1] processBill created');
 
 		try {
 			const { imageData, mimeType } = request.data;
@@ -170,6 +166,7 @@ export const processBillv2 = onCall(
 				'image/heic',
 				'image/heif',
 			];
+
 			if (!allowedTypes.includes(mimeType)) {
 				throw new HttpsError(
 					'invalid-argument',
@@ -177,7 +174,7 @@ export const processBillv2 = onCall(
 				);
 			}
 
-			console.log(`Processing image of type: ${mimeType}`);
+			console.log(`[processBillv1] Processing image of type: ${mimeType}`);
 
 			const genAI = createGenAI();
 
@@ -188,7 +185,9 @@ export const processBillv2 = onCall(
 				},
 			};
 
-			console.log('Calling Gemini API for bill extraction...');
+			console.debug('[processBillv1] image data: ', imageData);
+			console.log('[processBillv1] Calling Gemini API for bill extraction...');
+
 			const result = await genAI.models.generateContent({
 				model: 'gemini-2.5-flash-lite',
 				contents: [BILL_EXTRACTION_PROMPT, imagePart],
@@ -202,6 +201,9 @@ export const processBillv2 = onCall(
 			console.log('Successfully extracted bill data:', extractedData);
 
 			if (!extractedData.restaurant || !extractedData.items || !extractedData.grandTotal) {
+				console.error('[processBillv1] Cannot extract data: ', imageData);
+				console.error('[processBillv1] Get the following results: ', result);
+				console.error('[processBillv1] Extracted data: ', extractedData);
 				throw new HttpsError('internal', 'Extracted data missing required fields');
 			}
 

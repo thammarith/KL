@@ -7,7 +7,7 @@ import path from 'path';
 
 // https://vite.dev/config/
 export default defineConfig({
-	base: process.env.NODE_ENV === 'production' ? '/KL/' : '/',
+	base: '/',
 	plugins: [
 		tanstackRouter({
 			target: 'react',
@@ -18,6 +18,7 @@ export default defineConfig({
 		VitePWA({
 			registerType: 'autoUpdate',
 			includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'masked-icon.svg'],
+			manifestFilename: 'manifest.json',
 			manifest: {
 				name: 'KL PWA App',
 				short_name: 'KL',
@@ -25,8 +26,8 @@ export default defineConfig({
 				theme_color: '#ffffff',
 				background_color: '#ffffff',
 				display: 'standalone',
-				scope: process.env.NODE_ENV === 'production' ? '/KL/' : '/',
-				start_url: process.env.NODE_ENV === 'production' ? '/KL/' : '/',
+				scope: '/',
+				start_url: '/',
 				icons: [
 					{
 						src: 'pwa-192x192.png',
@@ -92,5 +93,8 @@ export default defineConfig({
 		alias: {
 			'@': path.resolve(__dirname, './src'),
 		},
+	},
+	json: {
+		stringify: false,
 	},
 });

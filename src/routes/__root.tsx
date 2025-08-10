@@ -1,6 +1,7 @@
 import { createRootRoute, Link, Outlet } from '@tanstack/react-router';
 import { TanStackRouterDevtools } from '@tanstack/react-router-devtools';
 import Header from '@/components/Header';
+import Footer from '@/components/Footer';
 import { BillProvider } from '@/contexts/BillContext';
 import { PeopleProvider } from '@/contexts/PeopleContext';
 import { FileProvider } from '@/contexts/FileContext';
@@ -49,6 +50,7 @@ const RootComponent = () => {
 						</BillProvider>
 					</PeopleProvider>
 				</FileProvider>
+				<Footer />
 			</section>
 			<Toaster />
 			<AutoUpdateToast />
