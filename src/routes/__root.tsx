@@ -9,6 +9,7 @@ import { UserProvider } from '@/contexts/UserContext';
 import { useEffect, useState } from 'react';
 import { getCountryCode } from '@/utils/geo';
 import { Toaster } from '@/components/ui/sonner';
+import AutoUpdateToast from '@/components/pwa/AutoUpdateToast';
 
 const RootComponent = () => {
 	const { location } = useRouterState();
@@ -50,6 +51,7 @@ const RootComponent = () => {
 				</FileProvider>
 			</section>
 			<Toaster />
+			<AutoUpdateToast />
 			<TanStackRouterDevtools />
 		</UserProvider>
 	);

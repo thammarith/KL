@@ -1,7 +1,6 @@
 import { createFileRoute, Link } from '@tanstack/react-router';
 import { useTranslation } from 'react-i18next';
 import InstallPrompt from '@/components/pwa/InstallPrompt';
-import AutoUpdateToast from '@/components/pwa/AutoUpdateToast';
 
 import ScanReceiptButton from '@/components/bill/ScanReceiptButton';
 import type { Bill } from '@/interfaces/Bill';
@@ -63,7 +62,6 @@ const Index = () => {
 			</section>
 
 			{/* PWA Components */}
-			<AutoUpdateToast />
 			<InstallPrompt />
 		</>
 	);
