@@ -215,7 +215,10 @@ export const processBillv1 = onCall(
 			console.info('[processBillv1] [debugMe] Result text:', result.text);
 
 			const extractedData = JSON.parse(result.text || '{}');
-			console.log('[processBillv1] [debugMe] Successfully extracted bill data:', extractedData);
+			console.log(
+				'[processBillv1] [debugMe] Successfully extracted bill data:',
+				extractedData
+			);
 
 			if (!extractedData.restaurant || !extractedData.items || !extractedData.grandTotal) {
 				console.error('[processBillv1] [debugMe] Cannot extract data: ', imageData);

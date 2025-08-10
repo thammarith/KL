@@ -23,22 +23,6 @@ export const usePeopleContext = () => {
 	return context;
 };
 
-// Sample data for development
-const samplePeople: Person[] = [
-	{
-		id: 'person-1',
-		name: 'John Doe',
-	},
-	{
-		id: 'person-2',
-		name: 'Jane Smith',
-	},
-	{
-		id: 'person-3',
-		name: 'Michael Johnson',
-	},
-];
-
 export const PeopleProvider = ({ children }: { children: ReactNode }) => {
 	const [people, setPeople] = useState<Person[]>([]);
 
@@ -49,14 +33,7 @@ export const PeopleProvider = ({ children }: { children: ReactNode }) => {
 
 	const loadPeople = async () => {
 		const storedPeople = (await peopleRepository.get()) as Person[];
-
-		// If no people in DB, initialize with sample data
-		if (storedPeople.length === 0) {
-			await peopleRepository.save(samplePeople);
-			setPeople(samplePeople);
-		} else {
-			setPeople(storedPeople);
-		}
+		setPeople(storedPeople);
 	};
 
 	const syncWithDB = useCallback(async () => {
