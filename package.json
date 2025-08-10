@@ -1,7 +1,7 @@
 {
 	"name": "KL",
 	"private": true,
-	"version": "1.0.606803",
+	"version": "1.0.673196",
 	"type": "module",
 	"scripts": {
 		"dev": "vite",
@@ -84,5 +84,5 @@
 	"engines": {
 		"node": "22"
 	},
-	"buildDate": "2025-08-10T16:16:46.803Z"
+	"buildDate": "2025-08-10T17:07:53.196Z"
 }

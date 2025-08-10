@@ -152,7 +152,13 @@ IMPORTANT:
  */
 export const processBillv1 = onCall(
 	{
-		cors: true,
+		cors: [
+			'http://localhost:5173',
+			'http://127.0.0.1:5173',
+			/^https:\/\/.*\.thammarith\.dev$/,
+			/^https:\/\/.*\.web\.app$/,
+			/^https:\/\/.*\.firebaseapp\.com$/,
+		].filter(Boolean),
 		memory: '1GiB',
 		timeoutSeconds: 300,
 	},
@@ -195,7 +201,7 @@ export const processBillv1 = onCall(
 			console.log('[processBillv1] Calling Gemini API for bill extraction...');
 
 			const result = await genAI.models.generateContent({
-				model: 'gemini-2.5-flash-lite',
+				model: 'gemini-2.5-flash',
 				contents: [BILL_EXTRACTION_PROMPT, imagePart],
 				config: {
 					responseMimeType: 'application/json',
@@ -205,9 +211,11 @@ export const processBillv1 = onCall(
 					},
 				},
 			});
+			console.debug('[processBillv1] [debugMe] Result:', result);
+			console.info('[processBillv1] [debugMe] Result text:', result.text);
 
 			const extractedData = JSON.parse(result.text || '{}');
-			console.log('Successfully extracted bill data:', extractedData);
+			console.log('[processBillv1] [debugMe] Successfully extracted bill data:', extractedData);
 
 			if (!extractedData.restaurant || !extractedData.items || !extractedData.grandTotal) {
 				console.error('[processBillv1] [debugMe] Cannot extract data: ', imageData);
