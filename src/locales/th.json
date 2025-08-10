@@ -10,6 +10,8 @@
 	"deleteBill": "ลบบิล",
 	"deleteConfirmDescription": "การกระทำนี้ไม่สามารถย้อนกลับได้ รายการนี้จะถูกลบอย่างถาวร.",
 	"deleteConfirmTitle": "คุณแน่ใจหรือไม่ว่าต้องการลบรายการนี้?",
+	"deleteBillConfirmDescription": "การกระทำนี้ไม่สามารถย้อนกลับได้ บิลนี้จะถูกลบอย่างถาวร.",
+	"deleteBillConfirmTitle": "คุณแน่ใจหรือไม่ว่าต้องการลบ “{{name}}”?",
 	"deletePerson": "ลบบุคคล",
 	"deletePersonConfirm": "คุณแน่ใจหรือไม่ว่าต้องการลบ {{name}}? การกระทำนี้ไม่สามารถย้อนกลับได้",
 	"dismiss": "ปิด",

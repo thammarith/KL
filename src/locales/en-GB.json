@@ -10,6 +10,8 @@
 	"deleteBill": "Delete bill",
 	"deleteConfirmDescription": "This action cannot be undone. This will permanently delete the item.",
 	"deleteConfirmTitle": "Are you sure you want to delete this item?",
+	"deleteBillConfirmDescription": "This action cannot be undone. This will permanently delete the bill.",
+	"deleteBillConfirmTitle": "Are you sure you want to delete ‘{{name}}’?",
 	"deletePerson": "Delete Person",
 	"deletePersonConfirm": "Are you sure you want to delete {{name}}? This action cannot be undone.",
 	"dismiss": "Dismiss",
