@@ -52,7 +52,6 @@ const billExtractionSchema = {
 					},
 				},
 				required: ['name', 'amount'],
-				propertyOrdering: ['name', 'amount'],
 			},
 		},
 		adjustments: {
@@ -125,6 +124,8 @@ Extract structured data from this bill/receipt image:
 3. Adjustments (tax, service charge, discounts):
    Example: "ภาษี (Tax)", "ค่าบริการ (Service Charge)"
    - Include both positive and negative adjustments
+   - Do not repetitive text for the same adjustment
+   - If the adjustment is included with the item, do not include it in the adjustments list
 
 4. Extract subtotal (before adjustments) and grand total (final amount)
 
@@ -139,10 +140,11 @@ Extract structured data from this bill/receipt image:
     - Make sure the time format is HH:MM (24-hour). Convert to this format if it's not in this format.
 
 IMPORTANT:
+- MAKE SURE TO FORMAT THE OUTPUT CORRECTLY AS JSON FORMAT
 - For restaurant names: Use TRANSLITERATION (how it sounds), not translation
 - For menu items and adjustments: Use TRANSLATION (what it means)
-- Always format as: 'Original Text (English)' for items that are not in English
-- Verify spelling of the items and adjustments. Make sure your output is as accurate as possible.`;
+- Always format as: 'Original Text (English)' for items that are not in English. Do not repetitive text for the same item.
+- Verify spelling of the items and adjustments. Make sure your output is as accurate as possible`;
 
 /**
  * Process bill images using Google Gemini API
@@ -198,6 +200,9 @@ export const processBillv1 = onCall(
 				config: {
 					responseMimeType: 'application/json',
 					responseSchema: billExtractionSchema,
+					thinkingConfig: {
+						thinkingBudget: -1,
+					},
 				},
 			});
 

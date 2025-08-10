@@ -11,12 +11,13 @@ import { generateUniqueId } from '@/utils/nanoId';
 import type { Bill } from '@/interfaces/Bill';
 import { useTranslation } from 'react-i18next';
 import type { ProcessedBillData } from '@/mappers/billMapper';
+import { useBillContext } from '@/contexts/BillContext';
 
 const Processing = () => {
 	const navigate = useNavigate();
 	const { t } = useTranslation();
-	// const { upsertBill } = useBillContext();
-	const { currentFile } = useFile();
+	const { upsertBill } = useBillContext();
+	const { currentFile, setCurrentFile } = useFile();
 	const [billData, setBillData] = useState<Bill | null>(null);
 
 	const [error, setError] = useState<string | null>(null);
@@ -90,11 +91,11 @@ const Processing = () => {
 
 			setBillData(newBill);
 
-			// await upsertBill(newBill);
+			await upsertBill(newBill);
 
 			// Clear file from context and navigate to the bill page
-			// setCurrentFile(null);
-			// navigate({ to: '/bill', search: { id: newBill.id } });
+			setCurrentFile(null);
+			navigate({ to: '/bill', search: { id: newBill.id } });
 		} catch (error) {
 			console.error('Scan receipt error:', error);
 			setError(error instanceof Error ? error.message : t('processingFailed'));
