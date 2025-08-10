@@ -128,7 +128,11 @@ Extract structured data from this bill/receipt image:
 
 4. Extract subtotal (before adjustments) and grand total (final amount)
 
-5. Identify currency code (THB, USD, etc.)
+5. Identify ISO 4217 currency code (THB, USD, etc.)
+    - Make sure it's uppercase, e.g., THB, USD, EUR, etc.
+	- Make sure it's the ISO 4217 currency code
+	- If it's not in ISO 4217, use XXX as the currency code
+	- Sometimes a bill might use BAHT, it must be converted to THB
 
 6. Extract date and time if visible.
     - Make sure the date format is YYYY-MM-DD. Convert to this format if it's not in this format.
@@ -174,7 +178,7 @@ export const processBillv1 = onCall(
 				);
 			}
 
-			console.log(`[processBillv1] Processing image of type: ${mimeType}`);
+			console.log(`[processBillv1] [debugMe] Processing image of type: ${mimeType}`);
 
 			const genAI = createGenAI();
 
@@ -185,7 +189,7 @@ export const processBillv1 = onCall(
 				},
 			};
 
-			console.debug('[processBillv1] image data: ', imageData);
+			console.debug('[processBillv1] [debugMe]image data: ', imageData);
 			console.log('[processBillv1] Calling Gemini API for bill extraction...');
 
 			const result = await genAI.models.generateContent({
@@ -201,9 +205,9 @@ export const processBillv1 = onCall(
 			console.log('Successfully extracted bill data:', extractedData);
 
 			if (!extractedData.restaurant || !extractedData.items || !extractedData.grandTotal) {
-				console.error('[processBillv1] Cannot extract data: ', imageData);
-				console.error('[processBillv1] Get the following results: ', result);
-				console.error('[processBillv1] Extracted data: ', extractedData);
+				console.error('[processBillv1] [debugMe] Cannot extract data: ', imageData);
+				console.error('[processBillv1] [debugMe] Get the following results: ', result);
+				console.error('[processBillv1] [debugMe] Extracted data: ', extractedData);
 				throw new HttpsError('internal', 'Extracted data missing required fields');
 			}
 
@@ -219,7 +223,7 @@ export const processBillv1 = onCall(
 					? error.message.replace(/AIza[a-zA-Z0-9_-]{35}/g, '[API_KEY_REDACTED]')
 					: 'Unknown error';
 
-			console.error('Error processing bill:', sanitizedError);
+			console.error('[processBillv1] [debugMe] Error processing bill:', sanitizedError);
 
 			if (error instanceof HttpsError) {
 				throw error;
