@@ -35,7 +35,7 @@ export const processBillImage = async (imageFile: File): Promise<ProcessBillResp
 		const processBillFunction = httpsCallable<
 			{ imageData: string; mimeType: string },
 			FirebaseFunctionResponse
-		>(functions, 'processBill');
+		>(functions, 'processBillv2');
 
 		const result = await processBillFunction({
 			imageData: base64WithoutPrefix,

@@ -140,14 +140,17 @@ IMPORTANT:
  * Process bill images using Google Gemini API
  * Extracts structured data from receipt images
  */
-export const processBill = onCall(
+export const processBillv2 = onCall(
 	{
 		cors: [
 			'http://localhost:5173',
+			'http://127.0.0.1:5173',
+			/^https:\/\/.*\.thammarith\.dev$/,
 			'https://thammarith.dev',
 			'https://thammarith.github.io',
-			process.env.VITE_FIREBASE_AUTH_DOMAIN || '',
-		],
+			/^https:\/\/.*\.web\.app$/,
+			/^https:\/\/.*\.firebaseapp\.com$/,
+		].filter(Boolean),
 		memory: '1GiB',
 		timeoutSeconds: 300,
 	},
