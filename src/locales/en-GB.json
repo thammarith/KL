@@ -25,7 +25,7 @@
 	"deletePerson": "Delete Person",
 	"deletePersonConfirm": "Are you sure you want to delete {{name}}? This action cannot be undone.",
 	"scanReceipt": "Scan Receipt",
-	"invalidFileType": "Please select an image file",
+	"invalidFileType": "Please select JPEG, PNG, WebP, HEIC, or HEIF image file",
 	"fileTooLarge": "File size must be less than 10MB",
 	"processing": "Processing...",
 	"viewReceipt": "View Receipt",
@@ -33,5 +33,11 @@
 	"processingFailed": "Failed to process receipt. Please try again.",
 	"goBack": "Go Back",
 	"tryAgain": "Try Again",
-	"processingReceiptDescription": "Please wait while we process your receipt..."
+	"processingReceiptDescription": "Please wait while we process your receipt...",
+	"processingReceipt": "Processing Receipt",
+	"receiptProcessing": "Receipt Processing",
+	"analyzingReceipt": "Analyzing receipt with AI...",
+	"retry": "Retry",
+	"fileName": "File Name",
+	"fileSize": "File Size"
 }

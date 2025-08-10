@@ -1,5 +1,11 @@
 # Bill Scanner Implementation Plan
 
+## User's instruction
+
+- DO NOT USE @google/generative-ai because it's deprecated
+- MAKE SURE TO SEARCH & CHECK THE DOCUMENTS BEFORE IMPLEMENTING EVERY TIME
+- USE context7 OR SEARCH FOR DOCUMENTS EVERY TIME
+
 ## Overview
 
 This document outlines the implementation plan for adding bill scanning functionality to the KL app. Users will be able to capture or upload photos of bills, which will be processed using Google Gemini API to automatically create structured bill data.
@@ -289,6 +295,7 @@ Functions successfully deployed and tested:
 #### 2.1 Firebase Function Enhancement
 
 **Current Status:**
+
 - ✅ Basic `processBill` function implemented
 - ✅ CORS configuration and authentication setup
 - ✅ Function deployment and testing completed
@@ -303,6 +310,7 @@ Functions successfully deployed and tested:
 #### 2.2 Frontend Processing Integration
 
 **Current Status:**
+
 - ✅ `billProcessingService.ts` service interface created
 - ✅ Processing route (`/processing`) structure implemented
 - ✅ Image-to-base64 conversion utilities ready
@@ -318,7 +326,7 @@ Functions successfully deployed and tested:
 
 **Implementation Tasks:**
 
-- [ ] Install Google Generative AI SDK in functions: `pnpm add @google/generative-ai`
+- [ ] Install Google Generative AI SDK in functions: `pnpm add @google/genai`
 - [ ] Update `processBill` function to accept image data and call Gemini API
 - [ ] Implement structured data extraction using the bill schema
 - [ ] Add comprehensive error handling and retry logic

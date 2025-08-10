@@ -1,23 +1,26 @@
 import { useState, useEffect } from 'react';
 import { createFileRoute, useNavigate } from '@tanstack/react-router';
 
-// import { Alert, AlertDescription } from '@/components/ui/alert';
-
+import { Alert, AlertDescription } from '@/components/ui/alert';
+import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-// import { useBillContext } from '@/contexts/BillContext';
 import { useFile } from '@/contexts/FileContext';
-// import { compressImageForStorage } from '@/utils/imageUtils';
-// import { processBillImage, type ProcessedBillData } from '@/services/billProcessingService';
-// import { nanoid } from 'nanoid';
-// import type { Bill } from '@/interfaces/Bill';
+import { compressImageForStorage } from '@/utils/imageUtils';
+import { processBillImage } from '@/services/billProcessingService';
+import { generateUniqueId } from '@/utils/nanoId';
+import type { Bill } from '@/interfaces/Bill';
+import { useTranslation } from 'react-i18next';
+import type { ProcessedBillData } from '@/mappers/billMapper';
 
 const Processing = () => {
 	const navigate = useNavigate();
+	const { t } = useTranslation();
 	// const { upsertBill } = useBillContext();
 	const { currentFile } = useFile();
+	const [billData, setBillData] = useState<Bill | null>(null);
 
-	// const [error, setError] = useState<string | null>(null);
-	// const [isProcessing, setIsProcessing] = useState(false);
+	const [error, setError] = useState<string | null>(null);
+	const [isProcessing, setIsProcessing] = useState(false);
 	const [imageUrl, setImageUrl] = useState<string | null>(null);
 
 	useEffect(() => {
@@ -29,76 +32,83 @@ const Processing = () => {
 		const url = URL.createObjectURL(currentFile);
 		setImageUrl(url);
 
+		// Start processing automatically
+		processImage(currentFile);
+
 		return () => {
 			URL.revokeObjectURL(url);
 		};
 	}, [currentFile]);
 
-	// TODO: Uncomment when ready to process
-	// const processImage = async (file: File) => {
-	// 	if (isProcessing) return;
+	const processImage = async (file: File) => {
+		if (isProcessing) return;
 
-	// 	try {
-	// 		setIsProcessing(true);
+		try {
+			setIsProcessing(true);
+			setError(null);
 
-	// 		// Process image
-	// 		const result = await processBillImage(file);
+			// Process image
+			const result = await processBillImage(file);
 
-	// 		if (!result.success) {
-	// 			throw new Error(result.error || 'Processing failed');
-	// 		}
+			if (!result.success) {
+				throw new Error(result.error || 'Processing failed');
+			}
 
-	// 		if (!result.data) {
-	// 			throw new Error('No data received from processing');
-	// 		}
+			if (!result.data) {
+				throw new Error('No data received from processing');
+			}
 
-	// 		// Compress image for storage
-	// 		const compressedImageBlob = await compressImageForStorage(file);
+			// Compress image for storage
+			const compressedImageBlob = await compressImageForStorage(file);
 
-	// 		const billData: ProcessedBillData = result.data;
+			const billData: ProcessedBillData = result.data;
 
-	// 		// Create bill
-	// 		const newBill: Bill = {
-	// 			id: nanoid(),
-	// 			name: billData.merchantName,
-	// 			date: billData.date,
-	// 			time: billData.time,
-	// 			currency: { original: billData.currency },
-	// 			items: billData.items.map((item) => ({
-	// 				id: nanoid(),
-	// 				name: item.name,
-	// 				amount: item.amount,
-	// 				selectedPeople: [],
-	// 			})),
-	// 			adjustments: billData.adjustments.map((adj) => ({
-	// 				id: nanoid(),
-	// 				name: adj.name,
-	// 				amount: adj.amount,
-	// 				ref: nanoid(),
-	// 			})),
-	// 			totals: billData.totals,
-	// 			receiptImage: compressedImageBlob,
-	// 		};
+			// Create bill
+			const newBill: Bill = {
+				id: generateUniqueId(),
+				name: billData.merchantName,
+				date: billData.date,
+				time: billData.time,
+				currency: { original: billData.currency },
+				items: billData.items.map((item) => ({
+					id: generateUniqueId(),
+					name: item.name,
+					amount: item.amount,
+					selectedPeople: [],
+				})),
+				adjustments: billData.adjustments.map((adj) => ({
+					id: generateUniqueId(),
+					name: adj.name,
+					amount: adj.amount,
+					ref: generateUniqueId(),
+				})),
+				totals: billData.totals,
+				receiptImage: compressedImageBlob,
+			};
 
-	// 		await upsertBill(newBill);
+			console.log('newBill', newBill);
 
-	// 		// Clear file from context and navigate to the bill page
-	// 		setCurrentFile(null);
-	// 		navigate({ to: '/bill', search: { id: newBill.id } });
-	// 	} catch (error) {
-	// 		console.error('Scan receipt error:', error);
-	// 		setError(error instanceof Error ? error.message : t('processingFailed'));
-	// 	} finally {
-	// 		setIsProcessing(false);
-	// 	}
-	// };
+			setBillData(newBill);
 
-	// const handleRetry = () => {
-	// 	if (currentFile) {
-	// 		setError(null);
-	// 		processImage(currentFile);
-	// 	}
-	// };
+			// await upsertBill(newBill);
+
+			// Clear file from context and navigate to the bill page
+			// setCurrentFile(null);
+			// navigate({ to: '/bill', search: { id: newBill.id } });
+		} catch (error) {
+			console.error('Scan receipt error:', error);
+			setError(error instanceof Error ? error.message : t('processingFailed'));
+		} finally {
+			setIsProcessing(false);
+		}
+	};
+
+	const handleRetry = () => {
+		if (currentFile) {
+			setError(null);
+			processImage(currentFile);
+		}
+	};
 
 	if (!currentFile) {
 		return null;
@@ -109,35 +119,58 @@ const Processing = () => {
 			<Card className="w-full max-w-md">
 				<CardContent className="p-6">
 					<div className="space-y-4">
-						<h2 className="text-center text-lg font-semibold">File Context Test</h2>
-
-						{currentFile && (
-							<div className="space-y-2 text-sm">
-								<p>
-									<strong>Name:</strong> {currentFile.name}
-								</p>
-								<p>
-									<strong>Size:</strong>{' '}
-									{(currentFile.size / 1024 / 1024).toFixed(2)} MB
-								</p>
-								<p>
-									<strong>Type:</strong> {currentFile.type}
-								</p>
-								<p>
-									<strong>Last Modified:</strong>{' '}
-									{new Date(currentFile.lastModified).toLocaleString()}
-								</p>
-							</div>
-						)}
+						<h2 className="text-center text-lg font-semibold">
+							{isProcessing ? t('processingReceipt') : t('receiptProcessing')}
+						</h2>
 
 						{imageUrl && (
 							<div className="space-y-2">
-								<p className="text-sm font-medium">Uploaded Image:</p>
 								<img
 									src={imageUrl}
 									alt="Uploaded receipt"
 									className="w-full rounded-lg border"
 								/>
+							</div>
+						)}
+
+						{isProcessing && (
+							<div className="space-y-2 text-center">
+								<div className="border-primary mx-auto h-8 w-8 animate-spin rounded-full border-4 border-t-transparent"></div>
+								<p className="text-muted-foreground text-sm">
+									{t('analyzingReceipt')}
+								</p>
+							</div>
+						)}
+
+						{error && (
+							<Alert variant="destructive">
+								<AlertDescription>{error}</AlertDescription>
+							</Alert>
+						)}
+
+						{error && (
+							<Button
+								onClick={handleRetry}
+								className="w-full"
+								disabled={isProcessing}
+							>
+								{t('retry')}
+							</Button>
+						)}
+
+						{currentFile && !isProcessing && !error && (
+							<div className="text-muted-foreground space-y-2 text-sm">
+								<p>
+									<strong>{t('fileName')}:</strong> {currentFile.name}
+								</p>
+								<p>
+									<strong>{t('fileSize')}:</strong>{' '}
+									{(currentFile.size / 1024 / 1024).toFixed(2)} MB
+								</p>
+
+								<strong>Bill content:</strong>
+								<pre>{JSON.stringify(billData, null, 2)}</pre>
+
 							</div>
 						)}
 					</div>
@@ -150,3 +183,4 @@ const Processing = () => {
 export const Route = createFileRoute('/processing')({
 	component: Processing,
 });
+

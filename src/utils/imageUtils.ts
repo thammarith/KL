@@ -38,31 +38,31 @@ export const compressImageForStorage = (file: File): Promise<Blob> => {
 		};
 
 		img.onerror = () => {
-			reject(new Error('Image format not supported. Please use camera or select JPEG/PNG.'));
+			reject(
+				new Error(
+					'Image format not supported. Please use JPEG, PNG, WebP, HEIC, or HEIF format.'
+				)
+			);
 		};
 
 		img.src = URL.createObjectURL(file);
 	});
 };
 
-export const capturePhoto = (): Promise<File> => {
+export const fileToBase64 = (file: File): Promise<string> => {
 	return new Promise((resolve, reject) => {
-		const input = document.createElement('input');
-		input.type = 'file';
-		input.accept = 'image/*';
-		input.capture = 'environment';
+		const reader = new FileReader();
 
-		input.onchange = (e) => {
-			const file = (e.target as HTMLInputElement).files?.[0];
-
-			if (!file) {
-				reject(new Error('No file selected'));
+		reader.onload = () => {
+			if (!reader.result) {
+				reject(new Error('Failed to read file'));
 				return;
 			}
 
-			resolve(file);
+			resolve(reader.result as string);
 		};
 
-		input.click();
+		reader.onerror = reject;
+		reader.readAsDataURL(file);
 	});
 };

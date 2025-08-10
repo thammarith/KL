@@ -5,6 +5,8 @@ import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
 import { useFile } from '@/contexts/FileContext';
 
+const allowedTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/heic', 'image/heif'];
+
 const ScanReceiptButton = () => {
 	const { t } = useTranslation();
 	const navigate = useNavigate();
@@ -21,7 +23,7 @@ const ScanReceiptButton = () => {
 		const file = e.target.files?.[0];
 		if (!file) return;
 
-		if (!file.type.startsWith('image/')) {
+		if (!allowedTypes.includes(file.type)) {
 			setError(t('invalidFileType'));
 			return;
 		}
@@ -46,7 +48,7 @@ const ScanReceiptButton = () => {
 				<input
 					ref={fileInputRef}
 					type="file"
-					accept="image/*"
+					accept={allowedTypes.join(',')}
 					onChange={handleFileSelect}
 					className="hidden"
 				/>

@@ -25,7 +25,7 @@
 	"deletePerson": "ลบบุคคล",
 	"deletePersonConfirm": "คุณแน่ใจหรือไม่ว่าต้องการลบ {{name}}? การกระทำนี้ไม่สามารถย้อนกลับได้",
 	"scanReceipt": "สแกนใบเสร็จ",
-	"invalidFileType": "กรุณาเลือกไฟล์รูปภาพ",
+	"invalidFileType": "กรุณาเลือกไฟล์รูปภาพ JPEG, PNG, WebP, HEIC หรือ HEIF",
 	"fileTooLarge": "ขนาดไฟล์ต้องน้อยกว่า 10MB",
 	"processing": "กำลังประมวลผล...",
 	"viewReceipt": "ดูใบเสร็จ",
@@ -33,5 +33,11 @@
 	"processingFailed": "ไม่สามารถประมวลผลใบเสร็จได้ กรุณาลองใหม่อีกครั้ง",
 	"goBack": "ย้อนกลับ",
 	"tryAgain": "ลองใหม่",
-	"processingReceiptDescription": "กรุณารอสักครู่ขณะที่เราประมวลผลใบเสร็จของคุณ..."
+	"processingReceiptDescription": "กรุณารอสักครู่ขณะที่เราประมวลผลใบเสร็จของคุณ...",
+	"processingReceipt": "กำลังประมวลผลใบเสร็จ",
+	"receiptProcessing": "การประมวลผลใบเสร็จ",
+	"analyzingReceipt": "กำลังวิเคราะห์ใบเสร็จด้วย AI...",
+	"retry": "ลองใหม่",
+	"fileName": "ชื่อไฟล์",
+	"fileSize": "ขนาดไฟล์"
 }
