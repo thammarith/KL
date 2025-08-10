@@ -142,7 +142,12 @@ IMPORTANT:
  */
 export const processBill = onCall(
 	{
-		cors: true,
+		cors: [
+			'http://localhost:5173',
+			'https://thammarith.dev',
+			'https://thammarith.github.io',
+			process.env.VITE_FIREBASE_AUTH_DOMAIN || '',
+		],
 		memory: '1GiB',
 		timeoutSeconds: 300,
 	},
