@@ -170,7 +170,6 @@ const Processing = () => {
 
 								<strong>Bill content:</strong>
 								<pre>{JSON.stringify(billData, null, 2)}</pre>
-
 							</div>
 						)}
 					</div>
@@ -183,4 +182,3 @@ const Processing = () => {
 export const Route = createFileRoute('/processing')({
 	component: Processing,
 });
-
