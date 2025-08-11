@@ -46,8 +46,21 @@ const ParticipantsSelector: FC<ParticipantsSelectorProps> = ({
 		}
 	};
 
+	const clearAll = () => {
+		onSelectionChange([]);
+	};
+
+	const selectAll = () => {
+		onSelectionChange([...allPeople]);
+	};
+
 	const toggleAll = () => {
-		onSelectionChange(selectedPeople.length === 0 ? [...allPeople] : []);
+		if (selectedPeople.length === 0) {
+			selectAll();
+			setIsOpen(false);
+		} else {
+			clearAll();
+		}
 	};
 
 	return (
