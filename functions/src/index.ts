@@ -143,8 +143,12 @@ IMPORTANT:
 - MAKE SURE TO FORMAT THE OUTPUT CORRECTLY AS JSON FORMAT
 - For restaurant names: Use TRANSLITERATION (how it sounds), not translation
 - For menu items and adjustments: Use TRANSLATION (what it means)
-- Always format as: 'Original Text (English)' for items that are not in English. Do not repetitive text for the same item.
-- Verify spelling of the items and adjustments. Make sure your output is as accurate as possible`;
+- Always format as: 'Original Text (English)' for items that are not in English.
+	- Do not repetitive text for the same item.
+	- Do not translate the item name if it's already in English, so no “Tax (Tax)”
+- Verify spelling of the items and adjustments. Make sure your output is as accurate as possible
+- If a discount belongs to an item (not already included), e.g., BOGO, 2 for 1, etc.,make sure to create it as an item NOT in adjustments.
+`;
 
 /**
  * Process bill images using Google Gemini API

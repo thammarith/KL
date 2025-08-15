@@ -1,7 +1,7 @@
 {
 	"name": "harnzy",
 	"private": true,
-	"version": "1.0.440249",
+	"version": "1.0.355612",
 	"type": "module",
 	"scripts": {
 		"dev": "vite",
@@ -84,5 +84,5 @@
 	"engines": {
 		"node": "22"
 	},
-	"buildDate": "2025-08-15T09:17:20.249Z"
+	"buildDate": "2025-08-15T09:32:35.612Z"
 }

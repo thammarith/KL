@@ -13,3 +13,4 @@ Names: squid split / octo split / splitopus
 - [ ] Don't see toas
 - [ ] Set up auth, rate limit, guarded path
 - [ ] Input, output guardrail
+- [ ] Set up evaluations
