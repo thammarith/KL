@@ -3,7 +3,7 @@ import type { DBSchema, IDBPDatabase } from 'idb';
 import type { Bill } from '@/interfaces/Bill';
 import type { Person } from '@/interfaces/Person';
 
-interface KLDB extends DBSchema {
+interface HarnzyDB extends DBSchema {
 	bills: {
 		key: string;
 		value: Bill;
@@ -16,14 +16,14 @@ interface KLDB extends DBSchema {
 	};
 }
 
-const DB_NAME = 'kl-bill-manager';
+const DB_NAME = 'harnzy-bill-manager';
 const DB_VERSION = 2; // Added receiptImage field to Bill interface
 
-let dbPromise: Promise<IDBPDatabase<KLDB>> | null = null;
+let dbPromise: Promise<IDBPDatabase<HarnzyDB>> | null = null;
 
-export async function getDB(): Promise<IDBPDatabase<KLDB>> {
+export async function getDB(): Promise<IDBPDatabase<HarnzyDB>> {
 	if (!dbPromise) {
-		dbPromise = openDB<KLDB>(DB_NAME, DB_VERSION, {
+		dbPromise = openDB<HarnzyDB>(DB_NAME, DB_VERSION, {
 			upgrade(db) {
 				const storeOptions = { keyPath: 'id' as const };
 

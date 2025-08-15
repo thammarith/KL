@@ -13,7 +13,7 @@ Users can now capture or upload bill photos, which are automatically processed u
 
 ## Overview
 
-This document outlines the implementation plan for adding bill scanning functionality to the KL app. Users will be able to capture or upload photos of bills, which will be processed using Google Gemini API to automatically create structured bill data.
+This document outlines the implementation plan for adding bill scanning functionality to the harnzy app. Users will be able to capture or upload photos of bills, which will be processed using Google Gemini API to automatically create structured bill data.
 
 ## Key Requirements
 

@@ -1,7 +1,7 @@
 {
-	"name": "KL",
+	"name": "harnzy",
 	"private": true,
-	"version": "1.0.86041",
+	"version": "1.0.440249",
 	"type": "module",
 	"scripts": {
 		"dev": "vite",
@@ -84,5 +84,5 @@
 	"engines": {
 		"node": "22"
 	},
-	"buildDate": "2025-08-11T03:48:06.041Z"
+	"buildDate": "2025-08-15T09:17:20.249Z"
 }

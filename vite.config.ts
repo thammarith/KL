@@ -20,8 +20,8 @@ export default defineConfig({
 			includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'masked-icon.svg'],
 			manifestFilename: 'manifest.json',
 			manifest: {
-				name: 'KL PWA App',
-				short_name: 'KL',
+				name: 'harnzy PWA App',
+				short_name: 'harnzy',
 				description: 'A Progressive Web App built with React and Vite',
 				theme_color: '#ffffff',
 				background_color: '#ffffff',

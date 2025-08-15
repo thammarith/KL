@@ -1,4 +1,4 @@
-export const APP_NAME = 'KL';
+export const APP_NAME = 'harnzy';
 
 export const NANO_ID_SIZE = 8;
 
