@@ -147,9 +147,9 @@ export const BillProvider = ({ children, id }: { children: ReactNode; id?: strin
 		(bills: Bill[]) =>
 			[...bills].sort(
 				(a, b) =>
-					(a.date ?? '').localeCompare(b.date ?? '')
-					|| (a.time ?? '').localeCompare(b.time ?? '')
-					|| a.name.original.localeCompare(b.name.original)
+					(b.date ?? '').localeCompare(a.date ?? '')
+					|| (b.time ?? '').localeCompare(a.time ?? '')
+					|| b.name.original.localeCompare(a.name.original)
 			),
 		[]
 	);

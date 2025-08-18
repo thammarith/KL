@@ -33,7 +33,7 @@ export const PeopleProvider = ({ children }: { children: ReactNode }) => {
 
 	const loadPeople = async () => {
 		const storedPeople = (await peopleRepository.get()) as Person[];
-		setPeople(storedPeople);
+		setPeople(storedPeople.sort((a, b) => a.name.localeCompare(b.name)));
 	};
 
 	const syncWithDB = useCallback(async () => {
