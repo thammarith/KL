@@ -115,6 +115,7 @@ Extract structured data from this bill/receipt image:
 
 1. Restaurant name: Include original text followed by phonetic transliteration (NOT translation) in parentheses
    Example: "สุกี้ยากี้ (Suki Yaki)"
+   - If the restaurant name is already in English, do not include the transliteration.
 
 2. Menu items: Include original name followed by English translation in parentheses
    Example: "ข้าวผัด (Fried Rice)"
