@@ -74,15 +74,28 @@ const BillManagementPage = () => {
 		}
 	};
 
-	const onSaveBill = () => {
+	const saveBill = async (billData: BillFormValues) => {
+		try {
+			if (upsertBill) {
+				await upsertBill(billData);
+			}
+			return true;
+		} catch (error) {
+			console.error('Error saving bill:', error);
+			return false;
+		}
+	};
+
+	const onSaveBill = async () => {
+		const formData = form.getValues();
+		await saveBill(formData);
+		// Open summary regardless of save success/failure so user can retry if needed
 		setIsBillSummaryOpen(true);
 	};
 
 	const onSubmit = async (values: BillFormValues) => {
 		console.log('Form submitted:', values);
-		if (upsertBill) {
-			await upsertBill(values);
-		}
+		await saveBill(values);
 	};
 
 	return (
