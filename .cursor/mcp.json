@@ -1,6 +1,6 @@
 {
 	"mcpServers": {
-		"playwright": {
+		"playwright-repo": {
 			"command": "npx",
 			"args": ["@playwright/mcp@latest", "--config", ".config/.playwright.mcp.config.json", "--vision"]
 		}

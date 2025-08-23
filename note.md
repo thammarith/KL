@@ -14,3 +14,4 @@ Names: squid split / octo split / splitopus
 - [ ] Set up auth, rate limit, guarded path
 - [ ] Input, output guardrail
 - [ ] Set up evaluations
+- [ ] Add user's location, date, time to the prompt
